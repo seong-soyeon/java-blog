@@ -19,8 +19,8 @@ public class ArticleDoWriteServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		String url = "jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
-		String user = "sbsst";
-		String password = "sbs123414";
+		String user = "root";
+		String password = "";
 		String driverName = "com.mysql.cj.jdbc.Driver";
 
 		String title = request.getParameter("title");
@@ -35,7 +35,8 @@ public class ArticleDoWriteServlet extends HttpServlet {
 		sql += String.format(", updateDate = NOW()");
 		sql += String.format(", title = '%s'", title);
 		sql += String.format(", body = '%s'", body);
-
+		
+		
 		try {
 			Class.forName(driverName);
 			connection = DriverManager.getConnection(url, user, password);
@@ -50,6 +51,7 @@ public class ArticleDoWriteServlet extends HttpServlet {
 		} finally {
 			if (connection != null) {
 				try {
+					//try로 만들어진 객체는 finally로 닫아줘야함
 					connection.close();
 				} catch (SQLException e) {
 					System.err.printf("[SQL 예외, connection 닫기] : %s\n", e.getMessage());
