@@ -33,15 +33,15 @@
 <body>
     <div class="top-bar visible-on-md-up">
         <div class="con height-100p flex flex-jc-sb">
-            <a href="/java-blog/home/main" class="logo flex flex-ai-c">
+            <a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c">
                 <i class="fab fa-fort-awesome-alt"></i>
             </a>
 
             <nav class="menu-box-1">
                 <ul class="flex height-100p">
-                    <li><a href="${pageContext.request.contextPath}/home/main" class="height-100p flex flex-ai-c">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c">Home</a></li>
                     <li><a href="#" class="height-100p flex flex-ai-c">Articles</a></li>
-                    <li><a href="${pageContext.request.contextPath}/home/aboutMe" class="height-100p flex flex-ai-c">About Me</a></li>
+                    <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="height-100p flex flex-ai-c">About Me</a></li>
                     <li>
                         <a href="#" class="height-100p flex flex-ai-c">SNS</a>
                         <ul>
@@ -62,7 +62,7 @@
             <div></div>
             <div></div>
         </a>
-        <a href="/java-blog/home/main" class="logo flex flex-ai-c absolute-center absolute-middle">
+        <a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c absolute-center absolute-middle">
             <i class="fab fa-fort-awesome-alt"></i>
         </a>
     </div>
@@ -70,9 +70,9 @@
     <div class="mobile-side-bar flex flex-ai-c visible-on-sm-down">
         <nav class="menu-box-1 flex-grow-1">
             <ul>
-                <li><a href="/java-blog/home/main" class="block">Home</a></li>
+                <li><a href="${pageContext.request.contextPath}/s/home/main" class="block">Home</a></li>
                 <li><a href="#" class="block">Articles</a></li>
-                <li><a href="/java-blog/home/aboutMe" class="block">About Me</a></li>
+                <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="block">About Me</a></li>
                 <li>
                     <a href="#" class="block">SNS</a>
                     <ul>

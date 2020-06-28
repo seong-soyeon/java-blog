@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/home/main") /*브라우저에서 실행하기위한 주소 */
+@WebServlet("/s/home/main") /*브라우저에서 실행하기위한 주소 */
 public class HomeMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
