@@ -27,7 +27,12 @@
 <script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
 
-<title>ㅅㅅㅇ</title>
+<link rel="shortcut icon" href="http://kyky1211.dothome.co.kr/img/icon2.ico">
+
+
+
+
+<title>seong blog</title>
 </head>
 
 <body>
@@ -40,7 +45,7 @@
             <nav class="menu-box-1">
                 <ul class="flex height-100p">
                     <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c">Home</a></li>
-                    <li><a href="#" class="height-100p flex flex-ai-c">Articles</a></li>
+                    <li><a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a></li>
                     <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="height-100p flex flex-ai-c">About Me</a></li>
                     <li>
                         <a href="#" class="height-100p flex flex-ai-c">SNS</a>

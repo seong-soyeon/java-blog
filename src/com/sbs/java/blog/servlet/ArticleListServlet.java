@@ -20,9 +20,9 @@ import com.sbs.java.blog.util.DBUtil;
 @WebServlet("/s/article/list")
 public class ArticleListServlet extends HttpServlet {
 	private List<Article> getArticles() {
-		String url = "jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
-		String user = "root";
-		String password = "";
+		String url = "jdbc:mysql://site25.iu.gy:3306/site25?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
+		String user = "site25";
+		String password = "sbs123414";
 		String driverName = "com.mysql.cj.jdbc.Driver";
 
 		String sql = "";
@@ -33,7 +33,7 @@ public class ArticleListServlet extends HttpServlet {
 
 		List<Article> articles = new ArrayList<>();
 
-		Connection conn = null;
+		Connection conn = null; 
 
 		try {
 			Class.forName(driverName);

@@ -344,6 +344,16 @@ label[for] {
     max-width: 1356px;
 }
 
+.table-box>table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table-box>table th, .table-box>table td {
+	border: 1px solid black;
+	padding:10px;
+}
+
 /* 탑바 시작 */
 .top-bar {
     height: 100px;
@@ -526,7 +536,7 @@ label[for] {
 
 /* 모바일 사이드바 끝 */
 
-/*STAR**************************************************************************************/
+/*STAR 시작**************************************************************************************/
 :root {
     --twinkle-duration: 4s;
   }
@@ -535,7 +545,7 @@ label[for] {
     position: relative;
     pointer-events: none;
     width: 100vw;
-    height: 100vh;
+    height: 200px;
     background: -webkit-gradient(linear, left top, left bottom, from(#16161d), color-stop(#1f1f3a), to(#3b2f4a));
     background: linear-gradient(#16161d, #1f1f3a, #3b2f4a);
     overflow: hidden;
@@ -610,3 +620,11 @@ label[for] {
               transform: translateX(-100vmax);
     }
   }
+  /*STAR 끝**************************************************************************************/
+  
+  .title {
+	color: navy;
+	text-align: center;
+}
+
+  
