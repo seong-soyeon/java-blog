@@ -50,7 +50,9 @@
 
 
 <div class="article-detail con table-box">
-	<h1 class="con title">게시물 디테일😀</h1>
+	<div class="title-box">
+		<h1 class="con title">게시물 디테일😀</h1>
+	</div>
 	<table>
 			<colgroup>
 			<col width="20%">
@@ -82,6 +84,7 @@
 		</tbody>
 	</table>
 </div>
+<a href="./list"><-리스트으로 이동</a>
 <script>
 	var editor1__initialValue = $('#origin1').html();
 	var editor1 = new toastui.Editor({

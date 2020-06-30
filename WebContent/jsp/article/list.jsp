@@ -11,15 +11,15 @@
 	text-align: center;
 }
 </style>
-
-<h1 class="con title">게시물 리스트😀</h1>
-
+<div class="title-box">
+	<h1 class="con title">게시물 리스트😀</h1>
+</div>
 <div class="article-list-box-1 con table-box">
 	<table>
 		<colgroup>
 			<col width="150">
-			<col width="200">
-			<col width="200">
+			<col width="220">
+			<col width="220">
 		</colgroup>
 		<thead>
 			<tr>
