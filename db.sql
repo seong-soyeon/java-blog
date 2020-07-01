@@ -47,5 +47,5 @@ regDate = NOW(),
 updateDate = NOW(),
 cateItemId = 6,
 displayStatus = 1,
-`title` = '블로그시작',
-`body` = '블로그 시작합니다.';
+`title` = CONCAT('제목_', RAND()),
+`body` = CONCAT('내용_', RAND());

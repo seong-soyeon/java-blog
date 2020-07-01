@@ -30,13 +30,9 @@ public class ArticleListServlet extends HttpServlet {
 		// 0, 5
 		// 5, 5
 		// 10, 5
-		int itemsInAPage = 5;		
+		int itemsInAPage = 5;		//한 페이지에 나오는 게시물 수
 		int limitFrom = (page - 1) * itemsInAPage;
 		
-		/*for (Article article : articles) {
-			if(article.getId() == null) {
-			}
-		}*/
 		
 		int totalCount = 0;
 		// Math.ceil() 소수점 이하를 올림한다.

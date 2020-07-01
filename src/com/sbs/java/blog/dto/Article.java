@@ -8,10 +8,6 @@ public class Article extends Dto {
 	private String title;
 	private String body;
 
-	public Article() {
-
-	}
-
 	public Article(Map<String, Object> row) {
 		super(row);
 		this.updateDate = (String) row.get("updateDate");
@@ -23,7 +19,7 @@ public class Article extends Dto {
 	@Override
 	public String toString() {
 		return "Article [updateDate=" + updateDate + ", cateItemId=" + cateItemId + ", title=" + title + ", body="
-				+ body + "]";
+				+ body + ", getId()=" + getId() + ", getRegDate()=" + getRegDate() + "]";
 	}
 
 	public String getUpdateDate() {
@@ -32,6 +28,14 @@ public class Article extends Dto {
 
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
+	}
+	
+	public int getCateItemId() {
+		return cateItemId;
+	}
+
+	public void setCateItemId(int cateItemId) {
+		this.cateItemId = cateItemId;
 	}
 
 	public String getTitle() {
@@ -49,13 +53,4 @@ public class Article extends Dto {
 	public void setBody(String body) {
 		this.body = body;
 	}
-
-	public int getCateItemId() {
-		return cateItemId;
-	}
-
-	public void setCateItemId(int cateItemId) {
-		this.cateItemId = cateItemId;
-	}
-
 }

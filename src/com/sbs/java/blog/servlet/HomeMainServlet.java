@@ -1,7 +1,7 @@
 package com.sbs.java.blog.servlet;
 /*
- * http://localhost:8081/java-blog/home/main
- * http://localhost:8081/java-blog/jsp/home/main.jsp
+ * http://localhost:8081/blog/home/main
+ * http://localhost:8081/blog/jsp/home/main.jsp
  */
 
 import java.io.IOException;
