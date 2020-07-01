@@ -76,7 +76,7 @@
         <nav class="menu-box-1 flex-grow-1">
             <ul>
                 <li><a href="${pageContext.request.contextPath}/s/home/main" class="block">Home</a></li>
-                <li><a href="#" class="block">Articles</a></li>
+                <li><a href="${pageContext.request.contextPath}/s/article/list" class="block">Articles</a></li>
                 <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="block">About Me</a></li>
                 <li>
                     <a href="#" class="block">SNS</a>

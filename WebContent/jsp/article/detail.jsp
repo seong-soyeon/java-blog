@@ -64,7 +64,7 @@
 				<td><%=article.getTitle()%></td>
 			</tr>
 			<tr>
-				<th>번호</th>
+				<th>게시물번호</th>
 				<td><%=article.getId()%></td>
 			</tr>
 			<tr>

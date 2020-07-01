@@ -120,6 +120,10 @@ label[for] {
     text-align: right;
 }
 
+.text-align-left {
+    text-align: left;
+}
+
 .line-height-0 {
     line-height: 0;
 }
@@ -374,7 +378,6 @@ label[for] {
 }
 
 .top-bar .menu-box-1>ul>li:hover>a {
-    background-color: #3b2f4a;
     color: gold;
 }
 
@@ -383,7 +386,7 @@ label[for] {
 }
 
 .top-bar .menu-box-1>ul ul {
-    background-color: #3b2f4a;
+    background: linear-gradient(#16161d, #1f1f3a, #3b2f4a);
     color: white;
     display: none;
     position: absolute;
@@ -404,11 +407,12 @@ label[for] {
 .top-bar .menu-box-1>ul ul>li>a {
     font-weight: bold;
     text-align: center;
-    padding: 30px 0;
+    padding: 20px 0;
+    
 }
 
 .top-bar .menu-box-1>ul ul>li:hover>a {
-  background: linear-gradient(#3b2f4a, #1f1f3a, #16161d, #1f1f3a, #3b2f4a);
+	background: linear-gradient(#3b2f4a, #1f1f3a, #16161d, #1f1f3a, #3b2f4a);
     color: white;
 }
 
@@ -532,6 +536,10 @@ label[for] {
 
 .mobile-side-bar > .menu-box-1 ul > li:hover > ul {
   display:block;
+  font-size: 1.2rem;
+}
+.mobile-side-bar > .menu-box-1 > ul > li > ul > li > a {
+  font-size: 1rem;
 }
 
 /* 모바일 사이드바 끝 */
@@ -545,7 +553,7 @@ label[for] {
     position: relative;
     pointer-events: none;
     width: 100vw;
-    height: 200px;
+    height: 250px;
     background: -webkit-gradient(linear, left top, left bottom, from(#16161d), color-stop(#1f1f3a), to(#3b2f4a));
     background: linear-gradient(#16161d, #1f1f3a, #3b2f4a);
     overflow: hidden;

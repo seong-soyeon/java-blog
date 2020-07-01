@@ -16,24 +16,48 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.util.DBUtil;
-
+/*
+/s/article/list?cateItemId=1&page=1
+*/
 @WebServlet("/s/article/list")
 public class ArticleListServlet extends HttpServlet {
-	private List<Article> getArticles() {
+	private List<Article> getArticles(int cateItemId, int page) {
 		String url = "jdbc:mysql://site25.iu.gy:3306/site25?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
 		String user = "site25";
 		String password = "sbs123414";
 		String driverName = "com.mysql.cj.jdbc.Driver";
-
+		
+		// 0, 5
+		// 5, 5
+		// 10, 5
+		int itemsInAPage = 5;		
+		int limitFrom = (page - 1) * itemsInAPage;
+		
+		/*for (Article article : articles) {
+			if(article.getId() == null) {
+			}
+		}*/
+		
+		int totalCount = 0;
+		// Math.ceil() 소수점 이하를 올림한다.
+		int totalPage = (int) Math.ceil((double)totalCount/itemsInAPage);
+		
 		String sql = "";
 
+		List<Article> articles = new ArrayList<>();
+	
 		sql += String.format("SELECT * ");
 		sql += String.format("FROM article ");
+		sql += String.format("WHERE displayStatus = 1 ");
+		
+		if ( cateItemId != 0 ) {
+			sql += String.format("AND cateItemId = %d ", cateItemId);
+		}
+		
 		sql += String.format("ORDER BY id DESC ");
-
-		List<Article> articles = new ArrayList<>();
-
-		Connection conn = null; 
+		sql += String.format("LIMIT %d, %d ", limitFrom, itemsInAPage);
+	
+		Connection conn = null;
 
 		try {
 			Class.forName(driverName);
@@ -68,8 +92,25 @@ public class ArticleListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html; charset=UTF-8");
+		
+		int cateItemId;
+		int page;
+		
+		if (  req.getParameter("cateItemId") == null ) {
+			cateItemId = 0;
+		}
+		else {
+			cateItemId = Integer.parseInt(req.getParameter("cateItemId"));
+		}
+		
+		if (  req.getParameter("page") == null ) {
+			page = 1;
+		}
+		else {
+			page = Integer.parseInt(req.getParameter("page"));
+		}
 
-		List<Article> articles = getArticles();
+		List<Article> articles = getArticles(cateItemId, page);
 
 		req.setAttribute("articles", articles);
 		req.getRequestDispatcher("/jsp/article/list.jsp").forward(req, resp);

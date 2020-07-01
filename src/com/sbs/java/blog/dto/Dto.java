@@ -5,7 +5,26 @@ import java.util.Map;
 public class Dto {
 	private int id;
 	private String regDate;
+	/*
+	private int totalPage;
+	private int totalCount;
 	
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+	*/
 	public Dto() {
 		
 	}

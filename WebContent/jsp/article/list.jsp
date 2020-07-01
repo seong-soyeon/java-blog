@@ -17,13 +17,15 @@
 <div class="article-list-box-1 con table-box">
 	<table>
 		<colgroup>
-			<col width="150">
+			<col width="100">
+			<col width="100">
 			<col width="220">
 			<col width="220">
 		</colgroup>
 		<thead>
 			<tr>
 				<th>게시물번호</th>
+				<th>카테고리</th>
 				<th>등록날짜</th>
 				<th>수정날짜</th>
 				<th>제목</th>
@@ -35,6 +37,7 @@
 			%>
 			<tr>
 				<td><%=article.getId()%></td>
+				<td><%=article.getCateItemId()%></td>
 				<td><%=article.getRegDate()%></td>
 				<td><%=article.getUpdateDate()%></td>
 				<td class="text-align-left"><a href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
