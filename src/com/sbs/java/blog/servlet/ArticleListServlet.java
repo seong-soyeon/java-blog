@@ -19,7 +19,7 @@ import com.sbs.java.blog.util.DBUtil;
 /*
 /s/article/list?cateItemId=1&page=1
 */
-@WebServlet("/s/article/list")
+//@WebServlet("/s/article/list")
 public class ArticleListServlet extends HttpServlet {
 	private List<Article> getArticles(int cateItemId, int page) {
 		String url = "jdbc:mysql://site25.iu.gy:3306/site25?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
@@ -33,11 +33,11 @@ public class ArticleListServlet extends HttpServlet {
 		int itemsInAPage = 5;		//한 페이지에 나오는 게시물 수
 		int limitFrom = (page - 1) * itemsInAPage;
 		
-		
+		/*
 		int totalCount = 0;
 		// Math.ceil() 소수점 이하를 올림한다.
-		int totalPage = (int) Math.ceil((double)totalCount/itemsInAPage);
-		
+		int totalPage = (int)Math.ceil((double)totalCount/itemsInAPage);
+		*/
 		String sql = "";
 
 		List<Article> articles = new ArrayList<>();

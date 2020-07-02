@@ -5,13 +5,14 @@ package com.sbs.java.blog.servlet;
  */
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/s/home/main") /*브라우저에서 실행하기위한 주소 */
+//@WebServlet("/s/home/main") /*브라우저에서 실행하기위한 주소 */
 public class HomeMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

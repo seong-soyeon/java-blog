@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.util.DBUtil;
 
-@WebServlet("/s/article/detail")
+//@WebServlet("/s/article/detail")
 public class ArticleDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

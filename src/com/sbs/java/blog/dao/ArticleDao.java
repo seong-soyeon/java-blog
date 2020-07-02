@@ -29,15 +29,27 @@ public class ArticleDao {
 		}
 		sql += String.format("ORDER BY id DESC ");
 		sql += String.format("LIMIT %d, %d ", limitFrom, itemsInAPage);
-		
+
 		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, sql);
-		List<Article> articles = new ArrayList<>(); 
-		
+		List<Article> articles = new ArrayList<>();
+
 		for (Map<String, Object> row : rows) {
 			articles.add(new Article(row));
 		}
-		
+
 		return articles;
+	}
+
+	public Article getForPrintDetailArticle(int id) {
+		String sql = "";
+
+		sql += String.format("SELECT * ");
+		sql += String.format("FROM article ");
+		sql += String.format("WHERE id = %d ", id);
+
+		Map<String, Object> row = DBUtil.selectRow(dbConn, sql);
+
+		return new Article(row);
 	}
 
 }

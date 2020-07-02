@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.java.blog.controller.ArticleController;
 import com.sbs.java.blog.controller.Controller;
+import com.sbs.java.blog.controller.HomeController;
 import com.sbs.java.blog.controller.MemberController;
-import com.sbs.java.blog.dto.Article;
 // /s/article/list 가 만약 없다!!이런 갈 곳 없는 애들 여기서 가져옴  >> 리퀘스트
 //리퀘스트 : (주소창에 적는 - 예:doWrite?title=aa) 요청에 관련된 모든정보 들어있음
 @WebServlet("/s/*")
@@ -45,7 +45,6 @@ public class DispatcherServlet extends HttpServlet {
 			// DB 접속 성공
 			dbConn = DriverManager.getConnection(url, user, password);
 
-
 			//http://localhost:8080/blog/s/article/listlist 중
 			//contextPath : /blog
 			//requestURI : /blog/s/article/listlist
@@ -62,8 +61,12 @@ public class DispatcherServlet extends HttpServlet {
 			Controller controller = null;
 			
 			switch ( controllerName ) {
+			case "home":
+				controller = new HomeController();
+				break;
 			case "article":
 				controller = new ArticleController(dbConn);
+				break;
 			case "member":
 				controller = new MemberController();
 				break;
@@ -98,9 +101,10 @@ public class DispatcherServlet extends HttpServlet {
 				}
 			}
 		}
+		//finally에서 DB연결 close하기전에 try에서 할일 다 하기
 	}
+	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
-
 }

@@ -20,14 +20,33 @@ public class ArticleController extends Controller {
 		switch (actionMethodName) {
 		case "list":
 			return doActionList(req, resp);
+		case "detail":
+			return doActionDetail(req, resp);
+		case "doWrite":
+			return doActionDoWrite(req, resp);
+		}
+		return "";
+	}
+
+	private String doActionDoWrite(HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+		return "article/write";
+	}
+
+	private String doActionDetail(HttpServletRequest req, HttpServletResponse resp) {
+		int id = 0;
+		if ( req.getParameter("id") != null ) {
+			id = Integer.parseInt(req.getParameter("id"));
 		}
 		
-		return "";
+		Article article = articleService.getForPrintDetailArticle(id);
+		req.setAttribute("article", article);
+		
+		return "article/detail";
 	}
 
 	private String doActionList(HttpServletRequest req, HttpServletResponse resp) {
 		int cateItemId = 0;
-		// cateItemId이 null이 아닐때만
 		if (req.getParameter("cateItemId") != null) {
 			cateItemId = Integer.parseInt(req.getParameter("cateItemId"));
 		}
@@ -36,11 +55,9 @@ public class ArticleController extends Controller {
 		if (req.getParameter("page") != null) {
 			page = Integer.parseInt(req.getParameter("page"));
 		}
-		
+
 		List<Article> articles = articleService.getForPrintListArticles(page, cateItemId);
-		//jsp한테 줄 데이터 이름과 데이터 (req는 jsp도 공유함)
 		req.setAttribute("articles", articles);
-		
 		return "article/list";
 	}
 }
