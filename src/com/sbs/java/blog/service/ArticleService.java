@@ -14,7 +14,6 @@ public class ArticleService {
 		articleDao = new ArticleDao(dbConn);
 	}
 
-
 	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId) {
 		return articleDao.getForPrintListArticles(page, itemsInAPage, cateItemId);
 	}
@@ -26,7 +25,6 @@ public class ArticleService {
 	public void doWriteArticle(int cateItemId, String title, String body) {
 		articleDao.doWriteArticle(cateItemId, title, body);
 	}
-
 
 	public int getForPrintListArticlesCount(int cateItemId) {
 		return articleDao.getForPrintListArticlesCount(cateItemId);

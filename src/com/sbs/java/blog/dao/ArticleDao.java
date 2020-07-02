@@ -18,7 +18,6 @@ public class ArticleDao {
 	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId) {
 		String sql = "";
 
-		
 		int limitFrom = (page - 1) * itemsInAPage;
 
 		sql += String.format("SELECT * ");
