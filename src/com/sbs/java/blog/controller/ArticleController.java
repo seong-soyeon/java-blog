@@ -29,8 +29,14 @@ public class ArticleController extends Controller {
 	}
 
 	private String doActionDoWrite(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		return "article/write";
+		// displayStatus는 Dao에서 1로 임의로 지정
+		int cateItemId = Integer.parseInt(req.getParameter("cateItemId"));
+		String title = req.getParameter("title");
+		String body = req.getParameter("body");
+		
+		articleService.doWriteArticle(cateItemId, title, body);
+		
+		return "article/doWrite";
 	}
 
 	private String doActionDetail(HttpServletRequest req, HttpServletResponse resp) {
@@ -55,9 +61,26 @@ public class ArticleController extends Controller {
 		if (req.getParameter("page") != null) {
 			page = Integer.parseInt(req.getParameter("page"));
 		}
+		
+		int itemsInAPage = 10;
+		int totalCount = articleService.getForPrintListArticlesCount(cateItemId);
+		int totalPage = (int) Math.ceil((double)totalCount/itemsInAPage);
+		
+		req.setAttribute("totalCount", totalCount);
+		req.setAttribute("totalPage", totalPage);
+		req.setAttribute("page", page);
 
-		List<Article> articles = articleService.getForPrintListArticles(page, cateItemId);
+		List<Article> articles = articleService.getForPrintListArticles(page, itemsInAPage, cateItemId);
 		req.setAttribute("articles", articles);
 		return "article/list";
 	}
 }
+/*
+ 		int itemsInAPage = 5;		//한 페이지에 나오는 게시물 수
+		int limitFrom = (page - 1) * itemsInAPage;
+		
+		
+		int totalCount = 0;
+		// Math.ceil() 소수점 이하를 올림한다.
+		int totalPage = (int) Math.ceil((double)totalCount/itemsInAPage);
+ */

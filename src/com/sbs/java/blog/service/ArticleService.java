@@ -15,12 +15,20 @@ public class ArticleService {
 	}
 
 
-
-	public List<Article> getForPrintListArticles(int page, int cateItemId) {
-		return articleDao.getForPrintListArticles(page, cateItemId);
+	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId) {
+		return articleDao.getForPrintListArticles(page, itemsInAPage, cateItemId);
 	}
 
 	public Article getForPrintDetailArticle(int id) {
 		return articleDao.getForPrintDetailArticle(id);
+	}
+
+	public void doWriteArticle(int cateItemId, String title, String body) {
+		articleDao.doWriteArticle(cateItemId, title, body);
+	}
+
+
+	public int getForPrintListArticlesCount(int cateItemId) {
+		return articleDao.getForPrintListArticlesCount(cateItemId);
 	}
 }

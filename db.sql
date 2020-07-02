@@ -45,6 +45,26 @@ FROM article;
 INSERT INTO article SET 
 regDate = NOW(), 
 updateDate = NOW(),
+cateItemId = 1,
+displayStatus = 1,
+`title` = '제목',
+`body` = '내용';
+
+SELECT *
+FROM article
+WHERE displayStatus = 1 AND cateItemId = 1
+ORDER BY id DESC LIMIT 0,5
+
+# where 조건에 맞는 총 개수 출력
+SELECT COUNT(*)
+FROM article
+WHERE displayStatus = 1 AND cateItemId = 1
+ORDER BY id DESC LIMIT 0,5
+
+# 글생성
+INSERT INTO article SET 
+regDate = NOW(), 
+updateDate = NOW(),
 cateItemId = 6,
 displayStatus = 1,
 `title` = CONCAT('제목_', RAND()),

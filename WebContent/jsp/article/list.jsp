@@ -5,6 +5,7 @@
 <%@ include file="/jsp/part/head.jspf"%>
 <%
 	List<Article> articles = (List<Article>) request.getAttribute("articles");
+	int totalPage = (int)request.getAttribute("totalPage");
 %>
 <style>
 .article-list-box-1 td {
