@@ -4,5 +4,6 @@
 <div class="con title-box">
 
 	<h1 class="title">성소연입니다😀</h1>
+	
 </div>
 <%@ include file="/jsp/part/foot.jspf" %>

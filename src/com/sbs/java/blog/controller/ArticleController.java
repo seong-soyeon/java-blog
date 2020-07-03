@@ -59,7 +59,7 @@ public class ArticleController extends Controller {
 
 	private String doActionList(HttpServletRequest req, HttpServletResponse resp) {
 		int cateItemId = 0;
-		if (req.getParameter("cateItemId") != null) {
+		if (req.getParameter("cateItemId") != null && req.getParameter("cateItemId") != "") {
 			cateItemId = Integer.parseInt(req.getParameter("cateItemId"));
 		}
 
