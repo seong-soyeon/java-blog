@@ -39,18 +39,6 @@ public class ArticleDao {
 		return articles;
 	}
 
-	public Article getForPrintDetailArticle(int id) {
-		String sql = "";
-
-		sql += String.format("SELECT * ");
-		sql += String.format("FROM article ");
-		sql += String.format("WHERE id = %d ", id);
-
-		Map<String, Object> row = DBUtil.selectRow(dbConn, sql);
-
-		return new Article(row);
-	}
-
 	public void doWriteArticle(int cateItemId, String title, String body) {
 		String sql = "";
 		sql += String.format("INSERT INTO article ");
@@ -76,6 +64,18 @@ public class ArticleDao {
 
 		int count = DBUtil.selectRowIntValue(dbConn, sql);
 		return count;
+	}
+
+	public Article getForPrintArticle(int id) {
+		String sql = "";
+//extra 추가로 받음
+		sql += String.format("SELECT *, '성소연' AS extra__writer ");
+		sql += String.format("FROM article ");
+		sql += String.format("WHERE 1 ");
+		sql += String.format("AND id = %d ", id);
+		sql += String.format("AND displayStatus = 1 ");
+
+		return new Article(DBUtil.selectRow(dbConn, sql));
 	}
 
 }

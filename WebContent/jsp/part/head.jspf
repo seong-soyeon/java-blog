@@ -73,6 +73,7 @@
     </div>
 
     <div class="mobile-side-bar flex flex-ai-c visible-on-sm-down">
+        
         <nav class="menu-box-1 flex-grow-1">
             <ul>
                 <li><a href="${pageContext.request.contextPath}/s/home/main" class="block">Home</a></li>

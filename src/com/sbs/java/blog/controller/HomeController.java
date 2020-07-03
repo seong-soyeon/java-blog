@@ -9,9 +9,9 @@ public class HomeController extends Controller {
 	public String doAction(String actionMethodName, HttpServletRequest req, HttpServletResponse resp) {
 		switch (actionMethodName) {
 		case "main":
-			return "home/main";
+			return "home/main.jsp";
 		case "aboutMe":
-			return "home/aboutMe";
+			return "home/aboutMe.jsp";
 		}
 		return "";
 	}

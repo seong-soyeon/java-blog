@@ -535,7 +535,6 @@ label[for] {
 
 .mobile-side-bar > .menu-box-1 > ul ul {
   display:none;
-  background: linear-gradient(#16161d, #1f1f3a, #3b2f4a);
 }
 
 .mobile-side-bar > .menu-box-1 ul > li:hover > ul {

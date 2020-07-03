@@ -68,6 +68,10 @@
 				<td><%=article.getId()%></td>
 			</tr>
 			<tr>
+				<th>작성자</th>
+				<td><%=article.getExtra().get("writer")%></td>
+			</tr>
+			<tr>
 				<th>작성날짜</th>
 				<td><%=article.getRegDate()%></td>
 			</tr>

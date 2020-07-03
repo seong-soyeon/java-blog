@@ -15,6 +15,7 @@ import com.sbs.java.blog.controller.ArticleController;
 import com.sbs.java.blog.controller.Controller;
 import com.sbs.java.blog.controller.HomeController;
 import com.sbs.java.blog.controller.MemberController;
+import com.sbs.java.blog.util.Util;
 // /s/article/list 가 만약 없다!!이런 갈 곳 없는 애들 여기서 가져옴  >> 리퀘스트
 //리퀘스트 : (주소창에 적는 - 예:doWrite?title=aa) 요청에 관련된 모든정보 들어있음
 @WebServlet("/s/*")
@@ -73,31 +74,30 @@ public class DispatcherServlet extends HttpServlet {
 			}
 			
 			if (controller != null) {
-				String viewPath = controller.doAction(actionMethodName, req, resp);
-				if (viewPath.equals("")) {
+				String actionResult = controller.doAction(actionMethodName, req, resp);
+				if (actionResult.equals("")) {
 					resp.getWriter().append("ERROR, CODE 1");
+				} else if (actionResult.endsWith(".jsp")) {
+					String viewPath = "/jsp/" + actionResult;
+					req.getRequestDispatcher(viewPath).forward(req, resp);
+				} else if (actionResult.startsWith("plain:")) {
+					resp.getWriter().append(actionResult.substring(6));
+				} else {
+					
 				}
-				viewPath = "/jsp/" + viewPath + ".jsp";
-				req.getRequestDispatcher(viewPath).forward(req, resp);
 			} else {
 				resp.getWriter().append("존재하지 않는 페이지 입니다.");
 			}
-			
 		} catch (SQLException e) {
-			System.err.printf("[기타Exception 예외, %s]\n", e.getMessage());
-			resp.getWriter().append("DB연결 실패");
-			return;
+			Util.printEx("SQL 예외(커넥션 열기)", resp, e);
 		} catch (Exception e) {
-			System.err.printf("[SQLException 예외, %s]\n", e.getMessage());
-			resp.getWriter().append("기타 실패");
-			return;
+			Util.printEx("기타 예외", resp, e);
 		} finally {
-			if ( dbConn != null) {
+			if (dbConn != null) {
 				try {
 					dbConn.close();
 				} catch (SQLException e) {
-					System.err.printf("[SQLException 예외, %s]\n", e.getMessage());
-					resp.getWriter().append("DB연결 닫기 실패");
+					Util.printEx("SQL 예외(커넥션 닫기)", resp, e);
 				}
 			}
 		}
