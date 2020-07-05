@@ -7,6 +7,7 @@
 	List<Article> articles = (List<Article>) request.getAttribute("articles");
 	int totalPage = (int) request.getAttribute("totalPage");
 	int paramPage = (int) request.getAttribute("page");
+	String cateItemName = (String)request.getAttribute("cateItemName");
 %>
 <style>
 .article-list-box-1 td {
@@ -27,21 +28,22 @@
     justify-content: center;
 }//나중에 지우기
 
-
-
-
 <!-- 카테고리 -->
-.cateItem {
-	position: absolute;
-	width: 238px;
-	height: 359px;
-	left: 1020px;
-	top: 314px;
-	
-	background-color: red;
-	border: 1px solid #000000;
-	box-sizing: border-box;
-	border-radius: 30px;
+.cateItem > ul {
+    text-align: right;
+}
+.cateItem>ul>li> {
+	flex-direction: row;
+}
+.cateItem>ul>li>a {
+	padding: 0 10px;
+	color: #787878;
+}
+.cateItem>ul>li:hover>a {
+	color: black;
+}
+.cateItem>ul>li.current>a {
+	color: puple;
 }
 
 </style>
@@ -49,13 +51,42 @@
 
 
 <div class="title-box">
-	<h1 class="con title"><a href="https://www.figma.com/file/Zew7csjRiiauCbrN4hiH1K/Untitled?node-id=0%3A1" class="block">게시물 리스트😀</a></h1>
+	<h1 class="con title">Article List😀</h1>
 </div>
 
-<div class="article-list-box-1 con table-box">
-	<div class="con">
-		총 게시물 수 : ${totalCount}
+<div class="con">
+	<div class="cateItem">
+		<ul>
+			<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"># IT/자바</a></li>
+			<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"># IT/HTML_CSS_JS</a></li>
+			<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1"># IT/상식</a></li>
+			<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1"># IT/그외상식</a></li>
+			<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=5&page=1"># 공부계획</a></li>
+			<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=6&page=1"># 일상</a></li>
+		</ul>
 	</div>
+	
+	<div class="con search-box flex flex-jc-c">
+
+		<form action="${pageContext.request.contextPath}/s/article/list">
+			<input type="hidden" name="page" value="1" /> <input type="hidden"
+				name="cateItemId" value="${param.cateItemId}" /> <input
+				type="hidden" name="searchKeywordType" value="title" /> <input
+				type="text" name="searchKeyword" value="${param.searchKeyword}" />
+			<button type="submit">검색</button>
+		</form>
+	</div>
+	
+</div>
+
+
+<div class="article-list-box-1 con table-box">
+
+	<h1 class="con">
+		<%=cateItemName%>
+	</h1>
+
+	<div class="con">총 게시물 수 : ${totalCount}</div>
 	<table>
 		<colgroup>
 			<col width="100">
@@ -90,95 +121,14 @@
 	</table>
 </div>
 
-<div class="cateItem con">
-	<h4>카테고리</h4>
-	<ul>
-		<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"># IT/자바</a></li>
-		<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"># IT/HTML_CSS_JS</a></li>
-		<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1"># IT/상식</a></li>
-		<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1"># IT/그외상식</a></li>
-		<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=5&page=1"># 공부계획</a></li>
-		<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=6&page=1"># 일상</a></li>
-	</ul>
-</div>
-
-
-<!-- 
-/* Rectangle 9 */
-
-position: absolute;
-width: 238px;
-height: 359px;
-left: 1020px;
-top: 314px;
-
-background: rgba(255, 255, 255, 0.4);
-border: 1px solid #000000;
-box-sizing: border-box;
-border-radius: 30px;
-
-
-/* # IT/자바 # IT/HTML_CSS_JS # IT/상식 # IT/그외상식 # 공부계획 # 일상 */
-
-position: absolute;
-width: 202px;
-height: 245px;
-left: 1040px;
-top: 399px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 22px;
-line-height: 26px;
-
-color: #000000;
-
-
-
-/* 카테고리 */
-
-position: absolute;
-width: 104px;
-height: 33px;
-left: 1046px;
-top: 345px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 28px;
-line-height: 33px;
-/* identical to box height */
-
-color: #000000;
-
-
-
-/* Line 1 */
-
-position: absolute;
-width: 219px;
-height: 0px;
-left: 1029px;
-top: 381px;
-
-border: 1px solid #000000;
-transform: rotate(0.28deg);
-
- -->
-
-
-
-
-
 <div class="con page-box">
 	<ul class="flex flex-jc-c">
 		<%
 			for (int i = 1; i <= totalPage; i++) {
 		%>
 		<!-- 삼항연산자 i == paramPage 가 참이면 "current"  거짓이면 ""  -->
-		<li class="<%=i == paramPage ? "current" : ""%>"><a href="?cateItemId=${param.cateItemId}&page=<%=i%>" class="block"><%=i%></a></li>
+		<li class="<%=i == paramPage ? "current" : ""%>"><a
+			href="?cateItemId=${param.cateItemId}&searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=<%=i%>" class="block"><%=i%></a></li>
 		<%
 			}
 		%>

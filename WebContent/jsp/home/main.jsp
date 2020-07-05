@@ -5,4 +5,5 @@
 	<h1 class="title">메인😀</h1>
 	
 </div>
+
 <%@ include file="/jsp/part/foot.jspf" %>

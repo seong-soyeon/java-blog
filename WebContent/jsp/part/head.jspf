@@ -1,5 +1,11 @@
+<%@ page import="java.util.List"%>
+<%@ page import="com.sbs.java.blog.dto.CateItem"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	List<CateItem> cateItems = (List<CateItem>) request.getAttribute("cateItems");
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -45,7 +51,17 @@
             <nav class="menu-box-1">
                 <ul class="flex height-100p">
                     <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c">Home</a></li>
-                    <li><a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a></li>
+                    <li>
+                    	<a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a>
+                    	<ul>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"># IT/자바</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"># IT/HTML_CSS_JS</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1"># IT/상식</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1"># IT/그외상식</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=5&page=1"># 공부계획</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=6&page=1"># 일상</a></li>
+						</ul>	
+                    </li>
                     <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="height-100p flex flex-ai-c">About Me</a></li>
                     <li>
                         <a href="#" class="height-100p flex flex-ai-c">SNS</a>
@@ -77,7 +93,17 @@
         <nav class="menu-box-1 flex-grow-1">
             <ul>
                 <li><a href="${pageContext.request.contextPath}/s/home/main" class="block">Home</a></li>
-                <li><a href="${pageContext.request.contextPath}/s/article/list" class="block">Articles</a></li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a>
+                    <ul>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"># IT/자바</a></li>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"># IT/HTML_CSS_JS</a></li>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1"># IT/상식</a></li>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1"># IT/그외상식</a></li>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=5&page=1"># 공부계획</a></li>
+						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=6&page=1"># 일상</a></li>
+					</ul>	
+                </li>
                 <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="block">About Me</a></li>
                 <li>
                     <a href="#" class="block">SNS</a>
