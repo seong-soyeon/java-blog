@@ -52,6 +52,17 @@
 .navy {
 	color: navy;
 }
+.1{
+	position: relative;
+}
+.2{
+	position: absolute;
+	left:0;
+}
+.3{
+	position: absolute;
+	right:0;
+}
 </style>
 
 
@@ -98,7 +109,13 @@
 		</tbody>
 	</table>
 </div>
-<a href="./list"><-리스트으로 이동</a>
+
+<div class="con 1">
+	<a class="con 2 flex-jc-s" href="./list">전체목록</a>
+	<a class="con 3 flex-jc-e" href="#">수정하기</a>
+	<a class="con 3 flex-jc-e" href="#">삭제하기</a>
+</div>
+
 <script>
 	var editor1__initialValue = $('#origin1').html();
 	var editor1 = new toastui.Editor({

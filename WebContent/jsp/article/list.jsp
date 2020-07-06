@@ -94,10 +94,10 @@
 		<div class="search-box flex flex-jc-e">
 
 			<form action="${pageContext.request.contextPath}/s/article/list">
-				<input type="hidden" name="page" value="1" /> <input type="hidden"
-					name="cateItemId" value="${param.cateItemId}" /> <input
-					type="hidden" name="searchKeywordType" value="title" /> <input
-					type="text" name="searchKeyword" value="${param.searchKeyword}" />
+				<input type="hidden" name="page" value="1" /> 
+				<input type="hidden" name="cateItemId" value="${param.cateItemId}" /> 
+				<input type="hidden" name="searchKeywordType" value="title" /> 
+				<input type="text" name="searchKeyword" value="${param.searchKeyword}" />
 				<button type="submit">검색</button>
 			</form>
 		</div>
@@ -108,8 +108,7 @@
 		<colgroup>
 			<col width="100">
 			<col width="100">
-			<col width="220">
-			<col width="220">
+			<col width="200">
 		</colgroup>
 		<thead class="navy border-navy">
 			<tr>
@@ -135,7 +134,9 @@
 		</tbody>
 	</table>
 </div>
-
+<button type="submit" onclict="location.href='#'">글쓰기</button>
+<button type="submit" onclict="location.href='${pageContext.request.contextPath}/s/home/aboutMe'">글쓰기</button>
+<a class="con flex-jc-e" href="#">글쓰기</a>
 <div class="con page-box">
 	<ul class="flex flex-jc-c">
 		<%
