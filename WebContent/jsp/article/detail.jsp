@@ -45,38 +45,48 @@
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
-
-
+<style>
+.border-navy {
+    border: 5px solid navy;
+}
+.navy {
+	color: navy;
+}
+</style>
 
 
 <div class="article-detail con table-box">
 	<div class="title-box">
 		<h1 class="con title">게시물 디테일😀</h1>
 	</div>
-	<table>
+	<table class="border-navy">
 			<colgroup>
 			<col width="20%">
 			<col width="80%">
 		</colgroup>
 		<tbody>
 			<tr>
-				<th>제목</th>
+				<th class="navy">제목</th>
 				<td><%=article.getTitle()%></td>
 			</tr>
 			<tr>
-				<th>게시물번호</th>
+				<th class="navy">게시물번호</th>
 				<td><%=article.getId()%></td>
 			</tr>
 			<tr>
-				<th>작성자</th>
+				<th class="navy">카테고리</th>
+				<td><%=article.getCateItemId()%></td>
+			</tr>
+			<tr>
+				<th class="navy">작성자</th>
 				<td><%=article.getExtra().get("writer")%></td>
 			</tr>
 			<tr>
-				<th>작성날짜</th>
+				<th class="navy">작성날짜</th>
 				<td><%=article.getRegDate()%></td>
 			</tr>
 			<tr>
-				<th>수정날짜</th>
+				<th class="navy">수정날짜</th>
 				<td><%=article.getUpdateDate()%></td>
 			</tr>
 			<tr>

@@ -13,6 +13,10 @@
 .article-list-box-1 td {
 	text-align: center;
 }
+.page-box {
+	margin-top: 10px;
+	padding-bottom: 50px;
+}
 .page-box>ul>li>a {
 	padding: 0 10px;
 	text-decoration: underline;
@@ -36,26 +40,35 @@
 	flex-direction: row;
 }
 .cateItem>ul>li>a {
-	padding: 0 10px;
+	padding: 20 10px;
 	color: #787878;
+	letter-spacing: 4px;
 }
 .cateItem>ul>li:hover>a {
 	color: black;
 }
-.cateItem>ul>li.current>a {
-	color: puple;
+.search {
+	padding-bottom: 10px;
 }
-
+.border-navy {
+    border: 5px solid navy;
+}
+.navy {
+	color: navy;
+}
+.h2 {
+	color: #16161d;
+}
 </style>
 
 
 
 <div class="title-box">
-	<h1 class="con title">Article List😀</h1>
+	<h1 class="con title"><a href="${pageContext.request.contextPath}/s/article/list">Article List😀</a></h1>
 </div>
 
 <div class="con">
-	<div class="cateItem">
+	<div class="cateItem text-align-center">
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"># IT/자바</a></li>
 			<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"># IT/HTML_CSS_JS</a></li>
@@ -66,40 +79,43 @@
 		</ul>
 	</div>
 	
-	<div class="con search-box flex flex-jc-c">
-
-		<form action="${pageContext.request.contextPath}/s/article/list">
-			<input type="hidden" name="page" value="1" /> <input type="hidden"
-				name="cateItemId" value="${param.cateItemId}" /> <input
-				type="hidden" name="searchKeywordType" value="title" /> <input
-				type="text" name="searchKeyword" value="${param.searchKeyword}" />
-			<button type="submit">검색</button>
-		</form>
-	</div>
-	
+		
 </div>
 
 
 <div class="article-list-box-1 con table-box">
 
-	<h1 class="con">
-		<%=cateItemName%>
-	</h1>
+	<h2 class="con cateItem-current">
+		# <%=cateItemName%>
+	</h2>
+	
+	<div class="search flex flex-jc-sb">
+		<div>총 게시물 수 : ${totalCount}</div>
+		<div class="search-box flex flex-jc-e">
 
-	<div class="con">총 게시물 수 : ${totalCount}</div>
-	<table>
+			<form action="${pageContext.request.contextPath}/s/article/list">
+				<input type="hidden" name="page" value="1" /> <input type="hidden"
+					name="cateItemId" value="${param.cateItemId}" /> <input
+					type="hidden" name="searchKeywordType" value="title" /> <input
+					type="text" name="searchKeyword" value="${param.searchKeyword}" />
+				<button type="submit">검색</button>
+			</form>
+		</div>
+		
+	</div>
+	
+	<table class="border-navy">
 		<colgroup>
 			<col width="100">
 			<col width="100">
 			<col width="220">
 			<col width="220">
 		</colgroup>
-		<thead>
+		<thead class="navy border-navy">
 			<tr>
 				<th>게시물번호</th>
 				<th>카테고리</th>
-				<th>등록날짜</th>
-				<th>수정날짜</th>
+				<th>작성날짜</th>
 				<th>제목</th>
 			</tr>
 		</thead>
@@ -111,7 +127,6 @@
 				<td><%=article.getId()%></td>
 				<td><%=article.getCateItemId()%></td>
 				<td><%=article.getRegDate()%></td>
-				<td><%=article.getUpdateDate()%></td>
 				<td class="text-align-left"><a href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
 			</tr>
 			<%

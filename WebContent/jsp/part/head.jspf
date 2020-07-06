@@ -36,8 +36,6 @@
 <link rel="shortcut icon" href="http://kyky1211.dothome.co.kr/img/icon2.ico">
 
 
-
-
 <title>seong blog</title>
 </head>
 
@@ -94,7 +92,7 @@
             <ul>
                 <li><a href="${pageContext.request.contextPath}/s/home/main" class="block">Home</a></li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a>
+                    <a href="${pageContext.request.contextPath}/s/article/list" class="block">Articles</a>
                     <ul>
 						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"># IT/자바</a></li>
 						<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"># IT/HTML_CSS_JS</a></li>

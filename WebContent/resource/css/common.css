@@ -255,7 +255,7 @@ label[for] {
 }
 
 .border-blue {
-    border: 10px solid blue;
+    border: 2px solid blue;
 }
 
 .border-gold {
@@ -379,7 +379,7 @@ label[for] {
 .top-bar .menu-box-1>ul>li>a {
     font-weight: bold;
     font-size: 1.4rem;
-    padding: 0 30px;
+    padding: 0 35px;
 }
 
 .top-bar .menu-box-1>ul>li:hover>a {
