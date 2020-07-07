@@ -9,6 +9,7 @@
 <%
 	List<Article> articles = (List<Article>) request.getAttribute("articles");
 %>
+
 <!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
@@ -52,17 +53,23 @@
 .navy {
 	color: navy;
 }
-.1{
-	position: relative;
-}
-.2{
+.detail-modify {
 	position: absolute;
-	left:0;
+	right:80px;
 }
-.3{
+.detail_a {
+	padding-top:30px;
+	text-align:center;
+}
+.detail_b {
 	position: absolute;
-	right:0;
+	padding-right:100px;
 }
+.detail_c {
+	position: absolute;
+	padding-left:100px;
+}
+
 </style>
 
 
@@ -100,9 +107,19 @@
 				<th class="navy">수정날짜</th>
 				<td><%=article.getUpdateDate()%></td>
 			</tr>
-			<tr>
-				<td colspan="2"><div id="origin1" style="display: none;"><%=article.getBody()%></div>
-					<div id="viewer1"></div></td>
+			<tr>	
+				<td colspan="2"><script type="text/x-template" id="origin1" style="display:none;"><%=article.getBody()%></script>
+				<div id="viewer1"></div></td>
+				<script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
+				<script>
+					var editor1__initialValue = $('#origin1').html();
+					var editor1 = new toastui.Editor({
+					  el: document.querySelector("#viewer1"),
+					  viewer:true,
+					  initialValue: editor1__initialValue,
+					  plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, replPlugin, codepenPlugin]
+					});
+				</script>
 			</tr>
 			
 			
@@ -110,21 +127,25 @@
 	</table>
 </div>
 
-<div class="con 1">
-	<a class="con 2 flex-jc-s" href="./list">전체목록</a>
-	<a class="con 3 flex-jc-e" href="#">수정하기</a>
-	<a class="con 3 flex-jc-e" href="#">삭제하기</a>
+<div class="con relative">
+	<a class="absolute-left" href="./list">전체목록</a>
+	
+	<a class="detail-modify" href="#">수정하기</a>
+	<a class="absolute-right" href="#">삭제하기</a>
 </div>
 
-<script>
-	var editor1__initialValue = $('#origin1').html();
-	var editor1 = new toastui.Editor({
-		el : document.querySelector('#viewer1'),
-		height : '600px',
-		initialValue : editor1__initialValue,
-		viewer : true,
-		plugins : [ toastui.Editor.plugin.codeSyntaxHighlight ]
-	});
-</script>
+
+<div class="con detail_a ">
+	<a class="detail_b" href="#"> < 이전글</a>
+	
+	<a class="detail_c" href="#">다음글 > </a>
+</div>
+
+
+
+
+
+
+
 
 <%@ include file="/jsp/part/foot.jspf"%> 

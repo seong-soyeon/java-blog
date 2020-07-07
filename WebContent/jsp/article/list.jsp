@@ -64,7 +64,7 @@
 
 
 <div class="title-box">
-	<h1 class="con title"><a href="${pageContext.request.contextPath}/s/article/list">Article List😀</a></h1>
+	<h1 class="con title"><a href="${pageContext.request.contextPath}/s/article/list">⭐Article List</a></h1>
 </div>
 
 <div class="con">
@@ -134,9 +134,16 @@
 		</tbody>
 	</table>
 </div>
-<button type="submit" onclict="location.href='#'">글쓰기</button>
-<button type="submit" onclict="location.href='${pageContext.request.contextPath}/s/home/aboutMe'">글쓰기</button>
-<a class="con flex-jc-e" href="#">글쓰기</a>
+
+
+<div class="con">
+	<input type="button" value="글쓰기" onClick="location.href='${pageContext.request.contextPath}/s/home/doWrite'">
+	<button type="submit" onclict="location.href='${pageContext.request.contextPath}/s/home/aboutMe'">글쓰기</button>
+	<button type="button" onclict="location.href='${pageContext.request.contextPath}/s/home/aboutMe' ">글쓰기</button>
+	<a class="con flex-jc-e" href="${pageContext.request.contextPath}/s/home/aboutMe">글쓰기</a>
+</div>
+
+
 <div class="con page-box">
 	<ul class="flex flex-jc-c">
 		<%
