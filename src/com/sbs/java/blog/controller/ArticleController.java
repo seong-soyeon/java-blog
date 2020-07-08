@@ -30,19 +30,27 @@ public class ArticleController extends Controller {
 			return doActionDetail(req, resp);
 		case "doWrite":
 			return doActionDoWrite(req, resp);
+		case "write":
+			return doActionWrite(req, resp);
 		}
 		return "";
 	}
 
+	private String doActionWrite(HttpServletRequest req, HttpServletResponse resp) {
+		return "article/write.jsp";
+	}
+
 	private String doActionDoWrite(HttpServletRequest req, HttpServletResponse resp) {
 		// displayStatus는 Dao에서 1로 임의로 지정
-		int cateItemId = Integer.parseInt(req.getParameter("cateItemId"));
 		String title = req.getParameter("title");
 		String body = req.getParameter("body");
-		
-		articleService.doWriteArticle(cateItemId, title, body);
-		
-		return "article/doWrite.jsp";
+		int cateItemId = Util.getInt(req, "cateItemId");
+
+		int id = articleService.write(cateItemId, title, body);
+
+		//꼭 자바스크립트 명령어인 location.replace로 이동하기 (히스토리를 남기지 않는다?)
+		//>뒤로가기 눌렀을때 다시 같은자리로와서 글 또 생성될 수 있다.
+		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다.'); location.replace('list'); </script>";
 	}
 
 	private String doActionDetail(HttpServletRequest req, HttpServletResponse resp) {

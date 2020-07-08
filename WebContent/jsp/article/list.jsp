@@ -60,7 +60,7 @@
 	color: #16161d;
 }
 .doWrite-button {
-	padding-top: 10 10px;
+	padding-top: 10px;
 }
 </style>
 
@@ -135,7 +135,7 @@
 		</tbody>
 	</table>
 	<div class="doWrite-button text-align-right">
-		<button type="button" onclick="location.href='${pageContext.request.contextPath}/s/home/aboutMe' ">글쓰기</button>
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/s/article/write' ">글쓰기</button>
 	</div>
 </div>
 

@@ -14,6 +14,8 @@ import com.sbs.java.blog.app.App;
 @WebServlet("/s/*")
 public class DispatcherServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//request 에서 입력받은 데이터 UTF 인코딩(들어오는데이터 한글처리)
+		req.setCharacterEncoding("UTF-8");
 		new App(req, resp).start();
 	}
 	
