@@ -359,12 +359,13 @@ label[for] {
 /*토스트 UI 에디터 끝*/
 
 /* 커스텀 */
+/*799px이하일때만 실행된다*//*if문이라고 생각하면 됨*/
 @media (max-width:799px) {
     .visible-on-md-up {
         display: none !important;
     }
 }
-/*visible-on-sm-downs는 800px이하일때 display: none*/
+/*800px이상일때만 실행된다*/
 @media (min-width:800px) {
     .visible-on-sm-down {
         display: none !important;
@@ -525,8 +526,8 @@ label[for] {
   left:0;
   right:0;
   bottom:0;
-  visibility: hidden;
-  opacity: 0;
+  visibility: hidden;  /*클릭안되도록*/
+  opacity: 0;   /*불투명도 0 == 투명해짐*/
   transition: visibility 0.5s, opacity 0.5s;
 }
 

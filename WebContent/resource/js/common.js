@@ -1,10 +1,14 @@
 console.clear();
 
-
+//메서드 정의 20p는 실행
 function MobileSideBar__init() {
+	//$(~~)을 클릭하면 function 함수가 실행
     $('.mobile-top-bar .btn-toggle-mobile-side-bar').click(function () {
+        //var은 변수 만드는 것  %는 변수명
         var $this = $(this);
-
+	
+		//내가(this) active 클래스를 가지고 있다면 remove해라
+		//내가(this) active 클래스가 없다면 add해라
         if ($this.hasClass('active')) {
             $this.removeClass('active');
             $('.mobile-side-bar').removeClass('active');
@@ -15,7 +19,9 @@ function MobileSideBar__init() {
     });
 }
 
+//사이트 열리자마자 열려있길 원하는것 설정
 $(function () {
+	//메서드 실행
     MobileSideBar__init();
 });
 
