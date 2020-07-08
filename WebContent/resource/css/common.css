@@ -343,6 +343,12 @@ label[for] {
   padding-top:56.25%;
 }
 
+.ratio-1-1::after {
+  content:"";
+  display:block;
+  padding-top:100%;
+}
+
 .abs-full {
   position:absolute;
   top:0;

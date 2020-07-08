@@ -59,6 +59,9 @@
 .h2 {
 	color: #16161d;
 }
+.doWrite-button {
+	padding-top: 10 10px;
+}
 </style>
 
 
@@ -78,7 +81,6 @@
 			<li><a href="${pageContext.request.contextPath}/s/article/list?cateItemId=6&page=1"># 일상</a></li>
 		</ul>
 	</div>
-	
 		
 </div>
 
@@ -92,7 +94,6 @@
 	<div class="search flex flex-jc-sb">
 		<div>총 게시물 수 : ${totalCount}</div>
 		<div class="search-box flex flex-jc-e">
-
 			<form action="${pageContext.request.contextPath}/s/article/list">
 				<input type="hidden" name="page" value="1" /> 
 				<input type="hidden" name="cateItemId" value="${param.cateItemId}" /> 
@@ -133,16 +134,10 @@
 			%>
 		</tbody>
 	</table>
+	<div class="doWrite-button text-align-right">
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/s/home/aboutMe' ">글쓰기</button>
+	</div>
 </div>
-
-
-<div class="con">
-	<input type="button" value="글쓰기" onClick="location.href='${pageContext.request.contextPath}/s/home/doWrite'">
-	<button type="submit" onclict="location.href='${pageContext.request.contextPath}/s/home/aboutMe'">글쓰기</button>
-	<button type="button" onclict="location.href='${pageContext.request.contextPath}/s/home/aboutMe' ">글쓰기</button>
-	<a class="con flex-jc-e" href="${pageContext.request.contextPath}/s/home/aboutMe">글쓰기</a>
-</div>
-
 
 <div class="con page-box">
 	<ul class="flex flex-jc-c">

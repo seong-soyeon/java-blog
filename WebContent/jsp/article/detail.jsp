@@ -5,11 +5,8 @@
 <%@ include file="/jsp/part/head.jspf"%>
 <%
 	Article article = (Article) request.getAttribute("article");
+	String cateItemName = (String)request.getAttribute("cateItemName");
 %>
-<%
-	List<Article> articles = (List<Article>) request.getAttribute("articles");
-%>
-
 <!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
@@ -93,7 +90,7 @@
 			</tr>
 			<tr>
 				<th class="navy">카테고리</th>
-				<td><%=article.getCateItemId()%></td>
+				<td><%=article.getCateItemId()%>-<%=cateItemName%></td>
 			</tr>
 			<tr>
 				<th class="navy">작성자</th>
@@ -112,7 +109,7 @@
 				<div id="viewer1"></div></td>
 				<script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 				<script>
-					var editor1__initialValue = $('#origin1').html();
+					var editor1__initialValue = $('#origin1').html().trim();
 					var editor1 = new toastui.Editor({
 					  el: document.querySelector("#viewer1"),
 					  viewer:true,
@@ -125,20 +122,18 @@
 			
 		</tbody>
 	</table>
-</div>
-
-<div class="con relative">
-	<a class="absolute-left" href="./list">전체목록</a>
+	<div class="con relative">
+		<a class="absolute-left" href="./list">전체목록</a>
+		
+		<a class="detail-modify" href="#">수정하기</a>
+		<a class="absolute-right" href="#">삭제하기</a>
+	</div>
 	
-	<a class="detail-modify" href="#">수정하기</a>
-	<a class="absolute-right" href="#">삭제하기</a>
-</div>
-
-
-<div class="con detail_a ">
-	<a class="detail_b" href="#"> < 이전글</a>
-	
-	<a class="detail_c" href="#">다음글 > </a>
+	<div class="con detail_a ">
+		<a class="detail_b" href="#"> < 이전글</a>
+		
+		<a class="detail_c" href="#">다음글 > </a>
+	</div>
 </div>
 
 
