@@ -28,10 +28,10 @@ public class ArticleController extends Controller {
 			return doActionList(req, resp);
 		case "detail":
 			return doActionDetail(req, resp);
-		case "doWrite":
-			return doActionDoWrite(req, resp);
 		case "write":
 			return doActionWrite(req, resp);
+		case "doWrite":
+			return doActionDoWrite(req, resp);
 		}
 		return "";
 	}
@@ -48,8 +48,9 @@ public class ArticleController extends Controller {
 
 		int id = articleService.write(cateItemId, title, body);
 
-		//꼭 자바스크립트 명령어인 location.replace로 이동하기 (히스토리를 남기지 않는다?)
-		//>뒤로가기 눌렀을때 다시 같은자리로와서 글 또 생성될 수 있다.
+		//꼭 자바스크립트 명령어인 location.replace로 이동하기 (기존페이지를 새로운 페이지로 변경시킨다)(location.href과 다름)
+		//주소히스토리를 남기지 않는다 >> 이전페이지로 접근이 필요없는경우 보안상 좋다
+		//히스토리가 남을경우 뒤로가기 눌렀을때 다시 같은자리로와서 글 또 생성될 수 있다.
 		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다.'); location.replace('list'); </script>";
 	}
 

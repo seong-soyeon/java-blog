@@ -12,9 +12,6 @@
 .form1 .form-row {
 	align-items: center;
 	display: flex;
-}
-
-.form1 .form-row {
 	margin-top: 10px;
 }
 
@@ -96,6 +93,9 @@
 				<textarea name="body" placeholder="내용을 입력해주세요."></textarea>
 			</div>
 		</div>
+		
+		
+		
 		<div class="write-button text-align-right">
 			<input type="submit" value="작성" /> 
 			<!-- <a href="list">취소</a> -->

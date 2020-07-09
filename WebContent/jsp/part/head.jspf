@@ -45,7 +45,7 @@
             <a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c">
                 <i class="fab fa-fort-awesome-alt"></i>
             </a>
-
+			
             <nav class="menu-box-1">
                 <ul class="flex height-100p">
                     <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c">Home</a></li>
@@ -71,6 +71,8 @@
                             <li><a class="block" href="#">GITHUB</a></li>
                         </ul>
                     </li>
+                    <li><a href="${pageContext.request.contextPath}/s/member/join" class="height-100p flex flex-ai-c">join</a></li>
+                    <li><a href="${pageContext.request.contextPath}/s/member/login" class="height-100p flex flex-ai-c">login</a></li>
                 </ul>
             </nav>
         </div>
@@ -114,6 +116,8 @@
                         <li><a class="block" href="#">GITHUB</a></li>
                     </ul>
                 </li>
+                <li><a href="${pageContext.request.contextPath}/s/member/join" class="block">join</a></li>
+                <li><a href="${pageContext.request.contextPath}/s/member/login" class="height-100p flex flex-ai-c">login</a></li>
             </ul>
         </nav>
     </div>

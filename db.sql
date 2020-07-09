@@ -15,10 +15,12 @@ CREATE TABLE cateItem (
 );
 
 # 카테고리 아이템 추가
-INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/자바';
+INSERT INTO cateItem 
+SET regDate = NOW(), 
+    `name` = 'IT/자바';
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/HTML_CSS_JS';
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/상식';
-INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/그외상식';
+INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/그외';
 INSERT INTO cateItem SET regDate = NOW(), `name` = '공부계획';
 INSERT INTO cateItem SET regDate = NOW(), `name` = '일상';
 
@@ -38,34 +40,48 @@ CREATE TABLE article (
     `body` TEXT NOT NULL
 );
 
+ALTER TABLE article MODIFY COLUMN `body` LONGTEXT NOT NULL;
+SHOW COLUMNS FROM `article` LIKE `body`;
+SELECT COLUMN_TYPE FROM information_schema.COLUMNS WHERE TABLE_NAME=`article` AND COLUMN_NAME=`body`;
+SHOW TABLES;
+DESC cateItem;
+
 SELECT *
 FROM article;
 
-# 글생성
-INSERT INTO article SET 
-regDate = NOW(), 
-updateDate = NOW(),
-cateItemId = 1,
-displayStatus = 1,
-`title` = '제목',
-`body` = '내용';
-
+#원하는 조건의 아티클 출력
 SELECT *
 FROM article
-WHERE displayStatus = 1 AND cateItemId = 1
+WHERE displayStatus = 1 AND cateItemId = 2
 ORDER BY id DESC LIMIT 0,5
 
 # where 조건에 맞는 총 개수 출력
 SELECT COUNT(*)
 FROM article
-WHERE displayStatus = 1 AND cateItemId = 1
+WHERE displayStatus = 1 AND cateItemId = 2
 ORDER BY id DESC LIMIT 0,5
 
 # 글생성
 INSERT INTO article SET 
 regDate = NOW(), 
 updateDate = NOW(),
-cateItemId = 6,
+cateItemId = 2,
 displayStatus = 1,
 `title` = CONCAT('제목_', RAND()),
 `body` = CONCAT('내용_', RAND());
+
+# 멤버 테이블 생성
+DROP TABLE IF EXISTS `member`;
+
+CREATE TABLE `member` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    loginId CHAR(100) NOT NULL UNIQUE,
+    `name` CHAR(100) NOT NULL,
+    `nickname` CHAR(100) NOT NULL UNIQUE,
+    `loginPw` CHAR(150) NOT NULL,
+    `loginPwConfirm` CHAR(150) NOT NULL
+);
+
+SELECT *
+FROM `member`;
