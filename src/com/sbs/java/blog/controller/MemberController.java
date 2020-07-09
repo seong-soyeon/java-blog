@@ -11,6 +11,10 @@ public class MemberController extends Controller {
 			HttpServletResponse resp) {
 		super(dbConn, actionMethodName, req, resp);
 	}
+	// 게시물 컨트롤러의 모든 액션이 실행되기 전에 실행됨
+	public void beforeAction() {
+		super.beforeAction();
+	}
 
 	@Override
 	public String doAction() {
@@ -45,9 +49,8 @@ public class MemberController extends Controller {
 		String name = req.getParameter("name");
 		String nickname = req.getParameter("nickname");
 		String loginPw = req.getParameter("loginPw");
-		String loginPwConfirm = req.getParameter("loginPwConfirm");
 		
-		memberService.doJoin(loginId, name, nickname, loginPw, loginPwConfirm);
+		memberService.doJoin(loginId, name, nickname, loginPw);
 		
 	
 		return "html:<script> alert('짝짝짝" + loginId + "님 회원가입에 성공하였습니다.'); location.replace('.././home/main'); </script>";

@@ -87,7 +87,7 @@
 		<div class="form-row">
 			<div class="label">PW 확인</div>
 			<div class="input">
-				<input name="loginPw" type="password" placeholder="PW를 입력해주세요." />
+				<input name="loginPwConfirm  " type="password" placeholder="PW확인을 입력해주세요." />
 			</div>
 		</div>
 		

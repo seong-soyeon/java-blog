@@ -79,8 +79,7 @@ CREATE TABLE `member` (
     loginId CHAR(100) NOT NULL UNIQUE,
     `name` CHAR(100) NOT NULL,
     `nickname` CHAR(100) NOT NULL UNIQUE,
-    `loginPw` CHAR(150) NOT NULL,
-    `loginPwConfirm` CHAR(150) NOT NULL
+    `loginPw` CHAR(150) NOT NULL
 );
 
 SELECT *

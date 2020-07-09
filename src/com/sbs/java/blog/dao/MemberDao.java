@@ -13,7 +13,7 @@ public class MemberDao extends Dao {
 	}
 
 
-	public int doJoin(String loginId, String name, String nickname, String loginPw, String loginPwConfirm) {
+	public int doJoin(String loginId, String name, String nickname, String loginPw) {
 		String sql = "";
 		
 		sql += String.format("INSERT INTO member ");
@@ -22,7 +22,6 @@ public class MemberDao extends Dao {
 		sql += String.format(", name = %s", name);
 		sql += String.format(", nickname = %s", nickname);
 		sql += String.format(", loginPw = '%s'", loginPw);
-		sql += String.format(", loginPwConfirm = '%s'", loginPwConfirm);
 		
 		return DBUtil.insert(dbConn, sql);
 	}

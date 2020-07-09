@@ -31,6 +31,7 @@ public abstract class Controller {
 	public void beforeAction() {
 		// 액션 전 실행
 		// 이 메서드는 모든 컨트롤러의 모든 액션이 실행되기 전에 실행된다.
+		// 모든곳에서 사용해야 할 것을 여기 넣어두면 좋음. (ex,모든곳에서 cateItems를 호출 가능)
 		List<CateItem> cateItems = articleService.getForPrintCateItems();
 		
 		req.setAttribute("cateItems", cateItems);

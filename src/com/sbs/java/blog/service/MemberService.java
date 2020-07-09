@@ -12,8 +12,8 @@ public class MemberService extends Service {
 		memberDao = new MemberDao(dbConn);
 	}
 	
-	public int doJoin(String loginId, String name, String nickname, String loginPw, String loginPwConfirm) {
-		return memberDao.doJoin(loginId, name, nickname, loginPw, loginPwConfirm);
+	public int doJoin(String loginId, String name, String nickname, String loginPw) {
+		return memberDao.doJoin(loginId, name, nickname, loginPw);
 	}
 
 }
