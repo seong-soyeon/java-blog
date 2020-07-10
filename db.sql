@@ -70,7 +70,7 @@ displayStatus = 1,
 `title` = CONCAT('제목_', RAND()),
 `body` = CONCAT('내용_', RAND());
 
-# 멤버 테이블 생성
+# 멤버 테이블 생성/암호화된 긴 pw를 저장해야 하므로 loginPw 공간 크게 만들어 놓기
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
@@ -79,7 +79,7 @@ CREATE TABLE `member` (
     loginId CHAR(100) NOT NULL UNIQUE,
     `name` CHAR(100) NOT NULL,
     `nickname` CHAR(100) NOT NULL UNIQUE,
-    `loginPw` CHAR(150) NOT NULL
+    `loginPw` CHAR(255) NOT NULL
 );
 
 SELECT *

@@ -65,6 +65,7 @@ public class ArticleController extends Controller {
 
 		int id = Util.getInt(req, "id");
 		
+		articleService.increaseHit(id);
 		Article article = articleService.getForPrintArticle(id);
 		req.setAttribute("article", article);
 		
@@ -86,7 +87,7 @@ public class ArticleController extends Controller {
 		
 		String cateItemName = "전체";
 		
-		if ( cateItemId != 0 ) {
+		if (cateItemId != 0) {
 			CateItem cateItem = articleService.getCateItem(cateItemId);
 			cateItemName = cateItem.getName();
 		}

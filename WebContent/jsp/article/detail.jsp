@@ -74,6 +74,8 @@
 	<div class="title-box">
 		<h1 class="con title">게시물 디테일😀</h1>
 	</div>
+	
+	<h3 class="con hit">조회수 : <%=article.getHit()%></h3>
 	<table class="border-navy">
 			<colgroup>
 			<col width="20%">

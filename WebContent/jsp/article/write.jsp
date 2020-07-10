@@ -56,6 +56,11 @@
     padding:0 20px;
 }
 </style>
+<script>
+
+</script>
+
+
 
 <div class="title-box">
 	<h1 class="con title">⭐Article Write</h1>

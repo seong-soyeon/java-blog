@@ -18,11 +18,6 @@ public class ArticleService extends Service {
 	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId, String searchKeywordType, String searchKeyword) {
 		return articleDao.getForPrintListArticles(page, itemsInAPage, cateItemId, searchKeywordType, searchKeyword);
 	}
-
-	public void doWriteArticle(int cateItemId, String title, String body) {
-		articleDao.doWriteArticle(cateItemId, title, body);
-	}
-
 	
 	public int getForPrintListArticlesCount(int cateItemId, String searchKeywordType, String searchKeyword) {
 		return articleDao.getForPrintListArticlesCount(cateItemId, searchKeywordType, searchKeyword);
@@ -41,5 +36,9 @@ public class ArticleService extends Service {
 
 	public int write(int cateItemId, String title, String body) {
 		return articleDao.write(cateItemId, title, body);
+	}
+
+	public void increaseHit(int id) {
+		articleDao.increaseHit(id);
 	}
 }
