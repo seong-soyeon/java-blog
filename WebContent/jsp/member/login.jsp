@@ -49,11 +49,11 @@
 }
 </style>
 <script>
-var joinFormSubmitted = false;
+var loginFormSubmitted = false;
 <!-- 제출 두번되지 않도록 맨윗줄에서 false해놓는다. 다입력했다면 마지막 코드에 도달해서 true로 바꿈 -->
 <!-- true라면 아래 함수 실행 해서 중복제출 막음-->
-function submitJoinForm(form) {
-  if ( joinFormSubmitted ) {
+function submitLoginForm(form) {
+  if ( loginFormSubmitted ) {
     alert('처리 중입니다.');
     return;
   }
@@ -81,6 +81,12 @@ function submitJoinForm(form) {
     
     return;
   }
+  if ( form.loginPw.value.indexOf(' ') != -1 ) {
+	alert('비밀번호를 영문소문자와 숫자의 조합으로 입력해주세요.')
+    form.loginPw.focus();
+	    
+    return;
+  }
 
   <!-- 비밀번호 보안을 위해, 해시 함수 중 sha256사용 -->
   <!-- loginPw를 암호화 하여 loginPwReal에 넣고 loginPw는 보안을 위해 빈칸처리 -->
@@ -89,7 +95,7 @@ function submitJoinForm(form) {
   
   <!-- 여기까지 왔따면 다 입력됬다는거. 쩌~아래 form에 onsubmit에서 return false 해놓았기 때문에 강제로 제출-->
   form.submit();
-  joinFormSubmitted = true;
+  loginFormSubmitted = true;
 }
 </script>
 <div class="title-box">
@@ -99,7 +105,7 @@ function submitJoinForm(form) {
 
 <div class="write-form-box margin-0-auto border-navy">
 	<!-- 로그인 폼은 POST로 하라고 하심 (멱등성이 보장이 안되는 일은 POST-ex.회원가입,게시물등록) -->
-	<form action="doLogin" method="POST" class="join-form form1" onsubmit="submitJoinForm(this); return false;"><!-- 빈칸ㄴㄴ -->
+	<form action="doLogin" method="POST" class="join-form form1" onsubmit="submitLoginForm(this); return false;"><!-- 빈칸ㄴㄴ -->
 	<!-- js에서 보안작업 하기위해 hidden으로 몰래 loginPwReal 만들어 놈 -->
 	<input type="hidden" name="loginPwReal" />
 		<div class="form-row">

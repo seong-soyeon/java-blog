@@ -128,11 +128,11 @@
 		<a class="absolute-left" href="./list">전체목록</a>
 		
 		<a class="detail-modify" href="#">수정하기</a>
-		<a class="absolute-right" href="#">삭제하기</a>
+		<a class="absolute-right" href="delete?id=${param.id}">삭제하기</a>
 	</div>
 	
 	<div class="con detail_a ">
-		<a class="detail_b" href="#"> < 이전글</a>
+		<a class="detail_b" href=""> < 이전글</a>
 		
 		<a class="detail_c" href="#">다음글 > </a>
 	</div>

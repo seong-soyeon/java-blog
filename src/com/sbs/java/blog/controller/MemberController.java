@@ -50,7 +50,7 @@ public class MemberController extends Controller {
 		String nickname = req.getParameter("nickname");
 		String loginPw = req.getParameter("loginPw");
 		
-		memberService.doJoin(loginId, name, nickname, loginPw);
+		int id = memberService.doJoin(loginId, name, nickname, loginPw);
 		
 	
 		return "html:<script> alert('짝짝짝" + loginId + "님 회원가입에 성공하였습니다.'); location.replace('.././home/main'); </script>";

@@ -32,8 +32,33 @@ public class ArticleController extends Controller {
 			return doActionWrite(req, resp);
 		case "doWrite":
 			return doActionDoWrite(req, resp);
+		case "delete":
+			return doActionDelete(req, resp);
+		case "modify":
+			return doActionModify(req, resp);
 		}
 		return "";
+	}
+
+	private String doActionModify(HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String doActionDelete(HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+		if (Util.empty(req, "id")) {
+			return "html:id를 입력해주세요.";
+		}
+
+		if (Util.isNum(req, "id") == false) {
+			return "html:id를 정수로 입력해주세요.";
+		}
+		int id = Util.getInt(req, "id");
+		
+		int deleteId = articleService.delete(id);
+		
+		return "html:<script> alert('" + id + "번 게시물이 삭제되었습니다.'); location.replace('list'); </script>";
 	}
 
 	private String doActionWrite(HttpServletRequest req, HttpServletResponse resp) {

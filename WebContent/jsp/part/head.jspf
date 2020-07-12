@@ -65,6 +65,7 @@
                     <li>
                         <a href="#" class="height-100p flex flex-ai-c">SNS</a>
                         <ul>
+                        	//target="_blank" = 새창에 띄움
                             <li><a class="block" href="https://to2.kr/bfx" target="_blank">T STORY</a></li>
                             <li><a class="block" href="https://to2.kr/bhn" target="_blank">YOUTUBE</a></li>
                             <li><a class="block" href="https://codesandbox.io/u/seong-soyeon" target="_blank">CODEPEN</a></li>

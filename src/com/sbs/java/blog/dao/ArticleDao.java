@@ -18,7 +18,7 @@ public class ArticleDao extends Dao {
 	}
 	
 	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId, String searchKeywordType,
-			String searchKeyword) {
+		String searchKeyword) {
 		SecSql secSql = new SecSql();
 
 		int limitFrom = (page - 1) * itemsInAPage;
@@ -162,5 +162,14 @@ public class ArticleDao extends Dao {
 		sql.append("WHERE id = ?", id);
 
 		return DBUtil.update(dbConn, sql);
+	}
+
+	public int articleDelete(int id) {
+		SecSql secSql = new SecSql();
+		
+		secSql.append("DELETE FROM article ");
+		secSql.append("WHERE id = ? ", id);
+
+		return DBUtil.update(dbConn, secSql);
 	}
 }

@@ -41,4 +41,8 @@ public class ArticleService extends Service {
 	public void increaseHit(int id) {
 		articleDao.increaseHit(id);
 	}
+
+	public int delete(int id) {
+		return articleDao.articleDelete(id);
+	}
 }

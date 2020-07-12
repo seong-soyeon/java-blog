@@ -204,6 +204,7 @@ public class DBUtil {
 		return id;
 	}
 
+	//지우기
 	public static int update(Connection dbConn, SecSql sql) {
 		int affectedRows = 0;
 
