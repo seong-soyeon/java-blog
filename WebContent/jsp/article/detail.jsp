@@ -124,20 +124,40 @@
 			
 		</tbody>
 	</table>
-	<div class="con relative">
-		<a class="absolute-left" href="./list">전체목록</a>
-		<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=<%=article.getId()%>">수정하기</a> -->
+	<div class="btn-box">
+		<div class="con relative">
+			<a class="absolute-left" href="./list">전체목록</a>
+			<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=<%=article.getId()%>">수정하기</a> -->
+			<!-- <a class="detail-modify" href="modify?id=<%=article.getId()%>">수정하기</a> -->
+			<!-- <a class="absolute-right" href="delete?id=${param.id}">삭제하기</a> -->
+					
+			<a class="detail-modify" href="modify?id=${param.id}">수정하기</a>
+			<a class="absolute-right" href="delete?id=${param.id}">삭제하기</a>
+		</div>
 		
-		
-		<a class="detail-modify" href="modify?id=${param.id}">수정하기</a>
-		<a class="absolute-right" href="delete?id=${param.id}">삭제하기</a>
+		<div class="con detail_a ">
+			<a class="detail_b" href=""> < 이전글</a>
+			
+			<a class="detail_c" href="#">다음글 > </a>
+		</div>
 	</div>
 	
-	<div class="con detail_a ">
-		<a class="detail_b" href=""> < 이전글</a>
-		
-		<a class="detail_c" href="#">다음글 > </a>
+	//form으로 바꾸기
+	<div class="">
+	//가로줄 (한줄 or 2줄)
+	//댓글 총 갯수
+	//네모박스 회색 #ccc
+	//댓글작성버튼
+	//for문으로 댓글 나열
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
 </div>
 
 

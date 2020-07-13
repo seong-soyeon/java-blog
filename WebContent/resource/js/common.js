@@ -191,3 +191,8 @@ function getUrlParams(url) {
   return params;
 }
 // lib 끝
+
+
+function getForEditorBody(selector) {
+	return $(selector).html().trim().replace(/<!--REPLACE:SCRIPT-->/gi, "script");
+} 

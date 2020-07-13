@@ -31,9 +31,11 @@ public class App {
 		String driverName = "com.mysql.cj.jdbc.Driver";
 
 		try {
+			//드라이버(바로 윗줄)를 등록하는 행위
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
 			System.err.printf("[ClassNotFoundException 예외, %s]\n", e.getMessage());
+			//웹화면에 표출 syso는 콘솔창에 표출
 			resp.getWriter().append("DB 드라이버 클래스 로딩 실패");
 			return;
 		}
@@ -75,8 +77,9 @@ public class App {
 					Util.printEx("SQL 예외(커넥션 닫기)", resp, e);
 				}
 			}
-		}//finally에서 DB연결 close하기전에 try에서 할일 다 하기
-		
+		}
+		//연결한건 다 꺼줘야 함. try에서 연결했다면 finally에서 꺼줘야 함 
+		//finally에서 DB연결 close하기전에 try에서 할일 다 하기		
 	}
 	
 	private void route(Connection dbConn, HttpServletRequest req, HttpServletResponse resp)

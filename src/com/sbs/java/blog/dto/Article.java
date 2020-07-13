@@ -24,6 +24,9 @@ public class Article extends Dto {
 				+ body + ", hit=" + hit + ", dto=" + super.toString() + "]";
 	}
 	
+	public String getBodyForXTemplate() {
+		return body.replaceAll("(?i)script", "<!--REPLACE:SCRIPT-->");
+	}
 
 	public int getHit() {
 		return hit;
