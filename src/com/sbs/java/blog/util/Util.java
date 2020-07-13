@@ -53,7 +53,7 @@ public class Util {
 	}
 
 	public static int getInt(HttpServletRequest req, String paramName) {
-		return Integer.parseInt(req.getParameter(paramName));
+		return Integer.parseInt(req.getParameter(paramName).trim());
 	}
 
 	public static void printEx(String errName, HttpServletResponse resp, Exception e) {

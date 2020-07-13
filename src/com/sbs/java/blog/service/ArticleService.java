@@ -42,7 +42,11 @@ public class ArticleService extends Service {
 		articleDao.increaseHit(id);
 	}
 
-	public int delete(int id) {
-		return articleDao.articleDelete(id);
+	public int doActionDelete(int id) {
+		return articleDao.doActionDelete(id);
+	}
+
+	public void doActionDoModify(int id, int cateItemId, String title, String body) {
+		articleDao.doActionDoModify(id, cateItemId, title, body);
 	}
 }

@@ -126,8 +126,10 @@
 	</table>
 	<div class="con relative">
 		<a class="absolute-left" href="./list">전체목록</a>
+		<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=<%=article.getId()%>">수정하기</a> -->
 		
-		<a class="detail-modify" href="#">수정하기</a>
+		
+		<a class="detail-modify" href="modify?id=${param.id}">수정하기</a>
 		<a class="absolute-right" href="delete?id=${param.id}">삭제하기</a>
 	</div>
 	

@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.sbs.java.blog.dto.Article"%>
 <%@ include file="/jsp/part/head.jspf"%>
-
+<%
+	Article article = (Article) request.getAttribute("article");
+	String cateItemName = (String)request.getAttribute("cateItemName");
+%>
 <style>
 /* lib */
 .form1 {
@@ -43,7 +47,7 @@
 		display: block;
 	}
 }
-.write-button{
+.modify-button{
 	padding: 10px;
 }
 
@@ -85,12 +89,13 @@ function submitWriteForm(form) {
 
 
 <div class="title-box">
-	<h1 class="con title">⭐Article Write</h1>
+	<h1 class="con title">⭐Article Modify</h1>
 </div>
 
 
 <div class="write-form-box con border-navy">
-	<form action="doWrite" method="POST" class="write-form form1" onsubmit="submitWriteForm(this); return false">
+	<form action="doModify" method="POST" name="update" class="write-form form1" onsubmit="submitWriteForm(this); return false;">
+		<input type="hidden" name="id" value="${param.id}"/>
 		<div class="form-row">
 			<div class="label">카테고리</div>
 			<div class="input">
@@ -121,12 +126,11 @@ function submitWriteForm(form) {
 			</div>
 		</div>
 		
-		
-		
-		<div class="write-button text-align-right">
-			<input type="submit" value="작성" /> 
+		<div class="modify-button text-align-right">
+			<input type="submit" value="수정" /> 
 			<!-- <a href="list">취소</a> -->
 		</div>
+
 	</form>
 </div>
 

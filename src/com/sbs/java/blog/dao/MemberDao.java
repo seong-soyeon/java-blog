@@ -19,7 +19,7 @@ public class MemberDao extends Dao {
 		
 		secSql.append("INSERT INTO `member`");
 		secSql.append("SET regDate = NOW()");
-		secSql.append(", loginId = '%s'", loginId);//SET loginId = '${loginId}', loginPw = '${loginPw}'
+		secSql.append(", loginId = ?", loginId);//SET loginId = '${loginId}', loginPw = '${loginPw}'
 		secSql.append(", name = ?", name);
 		secSql.append(", nickname = ?", nickname);
 		secSql.append(", loginPw = ?", loginPw);

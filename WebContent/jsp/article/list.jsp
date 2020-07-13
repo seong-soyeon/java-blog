@@ -127,7 +127,7 @@
 				<td><%=article.getId()%></td>
 				<td><%=article.getCateItemId()%></td>
 				<td><%=article.getRegDate()%></td>
-				<td class="text-align-left"><a href="./detail?id=<%=article.getId()%>"><%=article.getTitle()%></a></td>
+				<td class="text-align-left"><a href="./detail?id=<%=article.getId()%>&cateItemId=<%=article.getCateItemId()%>-<%=cateItemName%>"><%=article.getTitle()%></a></td>
 			</tr>
 			<%
 				}

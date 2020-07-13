@@ -36,30 +36,42 @@ public class ArticleController extends Controller {
 			return doActionDelete(req, resp);
 		case "modify":
 			return doActionModify(req, resp);
+		case "doModify":
+			return doActionDoModify(req, resp);
 		}
 		return "";
 	}
 
-	private String doActionModify(HttpServletRequest req, HttpServletResponse resp) {
+	private String doActionDoModify(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private String doActionDelete(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		if (Util.empty(req, "id")) {
-			return "html:id를 입력해주세요.";
-		}
-
-		if (Util.isNum(req, "id") == false) {
-			return "html:id를 정수로 입력해주세요.";
-		}
+		String title = req.getParameter("title");
+		String body = req.getParameter("body");
+		int cateItemId = Util.getInt(req, "cateItemId");
+		System.out.println("lololol");
 		int id = Util.getInt(req, "id");
+		System.out.println("oooooo");
+		/*
+		int id = 0;
+		if (!Util.empty(req, "id") && Util.isNum(req, "id")) {
+			id = Util.getInt(req, "id");
+		}
+
+		int cateItemId = 0;
+		if (!Util.empty(req, "cateItemId") && Util.isNum(req, "cateItemId")) {
+			cateItemId = Util.getInt(req, "cateItemId");
+		}
 		
-		int deleteId = articleService.delete(id);
+		int displayStatus = Util.getInt(req, "displayStatus");
+		*/
+		articleService.doActionDoModify(id, cateItemId, title, body);
 		
-		return "html:<script> alert('" + id + "번 게시물이 삭제되었습니다.'); location.replace('list'); </script>";
+		return "html:<script> alert('" + id + "번 게시물이 수정되었습니다.'); location.replace('list'); </script>";
 	}
+
+	private String doActionModify(HttpServletRequest req, HttpServletResponse resp) {	
+		return "article/modify.jsp";
+	}
+
 
 	private String doActionWrite(HttpServletRequest req, HttpServletResponse resp) {
 		return "article/write.jsp";
@@ -79,6 +91,21 @@ public class ArticleController extends Controller {
 		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다.'); location.replace('list'); </script>";
 	}
 
+	private String doActionDelete(HttpServletRequest req, HttpServletResponse resp) {
+		if (Util.empty(req, "id")) {
+			return "html:id를 입력해주세요.";
+		}
+
+		if (Util.isNum(req, "id") == false) {
+			return "html:id를 정수로 입력해주세요.";
+		}
+		int id = Util.getInt(req, "id");
+		
+		int deleteId = articleService.doActionDelete(id);
+		
+		return "html:<script> alert('" + id + "번 게시물이 삭제되었습니다.'); location.replace('list'); </script>";
+	}
+	
 	private String doActionDetail(HttpServletRequest req, HttpServletResponse resp) {
 		if (Util.empty(req, "id")) {
 			return "html:id를 입력해주세요.";
@@ -90,6 +117,23 @@ public class ArticleController extends Controller {
 
 		int id = Util.getInt(req, "id");
 		
+		
+		//cateItemName가져오기
+		int cateItemId = 0;
+
+		if (!Util.empty(req, "cateItemId") && Util.isNum(req, "cateItemId")) {
+			cateItemId = Util.getInt(req, "cateItemId");
+		}
+		
+		String cateItemName = "전체";
+		
+		if (cateItemId != 0) {
+			CateItem cateItem = articleService.getCateItem(cateItemId);
+			cateItemName = cateItem.getName();
+		}
+		req.setAttribute("cateItemName", cateItemName);
+		//cateItemName가져오기 끝
+				
 		articleService.increaseHit(id);
 		Article article = articleService.getForPrintArticle(id);
 		req.setAttribute("article", article);
