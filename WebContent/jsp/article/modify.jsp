@@ -4,7 +4,7 @@
 <%@ include file="/jsp/part/head.jspf"%>
 <%
 	Article article = (Article) request.getAttribute("article");
-	String cateItemName = (String)request.getAttribute("cateItemName");
+	String cateItemName = (String) request.getAttribute("cateItemName");
 %>
 
 
@@ -87,55 +87,29 @@
 		display: block;
 	}
 }
-.modify-button{
+
+.modify-button {
 	padding: 10px;
 }
-
 /* cus */
 .write-form-box {
 	margin-top: 30px;
 }
+
 .border-navy {
-    border: 5px solid navy;
-    padding:0 20px;
+	border: 5px solid navy;
+	padding: 0 20px;
 }
 </style>
-<script>
-var writeFormSubmitted = false;
-function submitWriteForm(form) {
-	if ( writeFormSubmitted ) {
-	    alert('처리 중입니다.');
-	    return;
-	}
-
-	form.title.value = form.title.value.trim();
-	  if ( form.title.value.length == 0 ) {
-	    alert('제목을 입력해주세요.');
-	    form.title.focus();
-	    return;
-	}
-	form.body.value = form.body.value.trim();
-	  if ( form.body.value.length == 0 ) {
-	    alert('내용을 입력해주세요.');
-	    form.body.focus();
-	    return;
-	}
-
-	form.submit();
-	writeFormSubmitted = true;
-}
-</script>
-
-
 
 <div class="title-box">
 	<h1 class="con title">⭐Article Modify</h1>
 </div>
 
-
 <div class="write-form-box con border-navy">
-	<form action="doModify" method="POST" name="update" class="write-form form1" onsubmit="submitWriteForm(this); return false;">
-		<input type="hidden" name="id" value="${param.id}"/>
+	<form action="doModify" method="POST" name="update"	class="write-form form1" onsubmit="submitWriteForm(this); return false;">
+		<input type="hidden" name="id" value="<%=article.getId()%>" />
+		<input type="hidden" name="body" />
 		<div class="form-row">
 			<div class="label">카테고리</div>
 			<div class="input">
@@ -147,41 +121,71 @@ function submitWriteForm(form) {
 					<%
 						}
 					%>
-
 				</select>
 			</div>
 		</div>
+	
 		<div class="form-row">
 			<div class="label">제목</div>
 			<div class="input">
 				<!-- name="" : URL에서 getparameter로 받아오는 내용이므로 꼭 정하기-->
-				<input name="title" type="text" placeholder="제목을 입력해주세요." />
+				<input name="title" type="text" value="<%=article.getTitle()%>"/>
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="label">내용</div>
 			<div class="input">
-				<input type="hidden" name="body">
+				<script type="text/x-template" id="origin1" ><%=article.getBodyForXTemplate()%></script>
 				<div id="editor1"></div>
 			</div>
 		</div>
-		
-		<div class="modify-button text-align-right">
-			<input type="submit" value="수정" /> 
-			<!-- <a href="list">취소</a> -->
-		</div>
 
+		<div class="modify-button text-align-right">
+			<input type="submit" value="수정" />
+			<a href="list">취소</a>
+		</div>
 	</form>
 </div>
+
 <script>
+	var writeFormSubmitted = false;
+	function submitWriteForm(form) {
+		if (writeFormSubmitted) {
+			alert('처리 중입니다.');
+			return;
+		}
+		form.title.value = form.title.value.trim();
+		if (form.title.value.length == 0) {
+			alert('제목을 입력해주세요.');
+			form.title.focus();
+			return;
+		}
+
+		//editor 입력
+		var body = editor1.getMarkdown().trim();
+		
+		if (body.length == 0) {
+			alert('내용을 입력해주세요.');
+			editor1.focus();
+			return;
+		}
+
+		form.body.value = body;
+
+		form.submit();
+		writeFormSubmitted = true;
+	}
+
 	var editor1 = new toastui.Editor({
 		el : document.querySelector("#editor1"),
 		height : "600px",
 		initialEditType : "markdown",
+		initialValue : getForEditorBody('#origin1'),
 		previewStyle : "vertical",
-		initialValue : "# 내용을 입력해 주세요.",
+		//initialValue : "# 내용을 입력해 주세요.",
 		plugins : [ toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin,
 				replPlugin, codepenPlugin ]
 	});
+
 </script>
 <%@ include file="/jsp/part/foot.jspf"%>

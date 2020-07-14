@@ -23,7 +23,7 @@ public class Article extends Dto {
 		return "Article [updateDate=" + updateDate + ", cateItemId=" + cateItemId + ", title=" + title + ", body="
 				+ body + ", hit=" + hit + ", dto=" + super.toString() + "]";
 	}
-	
+	//script오류막기위해 replace
 	public String getBodyForXTemplate() {
 		return body.replaceAll("(?i)script", "<!--REPLACE:SCRIPT-->");
 	}

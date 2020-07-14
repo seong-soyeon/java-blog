@@ -166,8 +166,10 @@
 
 
 		<div class="write-button text-align-right">
-			<input type="submit" value="작성" />
-			<!-- <a href="list">취소</a> -->
+			<div class="input">
+				<input type="submit" value="작성" />
+				<a class="list-btn" href="list">취소</a>
+			</div>
 		</div>
 	</form>
 </div>

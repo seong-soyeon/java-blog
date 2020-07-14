@@ -115,9 +115,14 @@
 					var editor1 = new toastui.Editor({
 					  el: document.querySelector("#viewer1"),
 					  viewer:true,
+					  initialValue : getForEditorBody('#origin1'),
 					  initialValue: editor1__initialValue,
 					  plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, replPlugin, codepenPlugin]
 					});
+
+					function getForEditorBody(selector) {
+						return $(selector).html().trim().replace(/<!--REPLACE:SCRIPT-->/gi,	"script");
+					}
 				</script>
 			</tr>
 			
@@ -131,8 +136,8 @@
 			<!-- <a class="detail-modify" href="modify?id=<%=article.getId()%>">수정하기</a> -->
 			<!-- <a class="absolute-right" href="delete?id=${param.id}">삭제하기</a> -->
 					
-			<a class="detail-modify" href="modify?id=${param.id}">수정하기</a>
-			<a class="absolute-right" href="delete?id=${param.id}">삭제하기</a>
+			<a class="detail-modify" href="modify?id=<%=article.getId()%>">수정하기</a>
+			<a class="absolute-right" href="delete?id=<%=article.getId()%>">삭제하기</a>
 		</div>
 		
 		<div class="con detail_a ">

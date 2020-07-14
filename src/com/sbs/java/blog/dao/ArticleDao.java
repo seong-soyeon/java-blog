@@ -173,7 +173,7 @@ public class ArticleDao extends Dao {
 		return DBUtil.update(dbConn, secSql);
 	}
 
-	public void doActionDoModify(int id, int cateItemId, String title, String body) {
+	public int doActionDoModify(int id, int cateItemId, String title, String body) {
 		SecSql secSql = new SecSql();
 
 		secSql.append("UPDATE article");
@@ -184,6 +184,6 @@ public class ArticleDao extends Dao {
 		secSql.append(", body = ?", body);
 		secSql.append("WHERE id = ?", id);
 		
-		DBUtil.update(dbConn, secSql);
+		return DBUtil.update(dbConn, secSql);
 	}
 }
