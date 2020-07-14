@@ -27,7 +27,7 @@ INSERT INTO cateItem SET regDate = NOW(), `name` = '일상';
 SELECT *
 FROM cateItem;
 
-# 아티클 테이블 생성
+# 아티클 테이블 생성(memberId추가하기)
 DROP TABLE IF EXISTS article;
 
 CREATE TABLE article (
@@ -40,14 +40,26 @@ CREATE TABLE article (
     `body` TEXT NOT NULL
 );
 
+CREATE TABLE articleReply (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    articleId INT(10) UNSIGNED NOT NULL,
+    `body` TEXT NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL
+);
+
+# 조회수 칼럼 추가
+ALTER TABLE `article` ADD COLUMN `hit` INT(10) UNSIGNED NOT NULL AFTER `body`; 
+
 ALTER TABLE article MODIFY COLUMN `body` LONGTEXT NOT NULL;
 SHOW COLUMNS FROM `article` LIKE `body`;
 SELECT COLUMN_TYPE FROM information_schema.COLUMNS WHERE TABLE_NAME=`article` AND COLUMN_NAME=`body`;
 SHOW TABLES;
-DESC cateItem;
+DESC `article`;
 
 SELECT *
-FROM article;
+FROM article
 
 #원하는 조건의 아티클 출력
 SELECT *
@@ -76,10 +88,12 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
-    loginId CHAR(100) NOT NULL UNIQUE,
+    updateDate DATETIME NOT NULL,
+    `loginId` CHAR(100) NOT NULL UNIQUE,
+    `loginPw` CHAR(255) NOT NULL,
     `name` CHAR(100) NOT NULL,
     `nickname` CHAR(100) NOT NULL UNIQUE,
-    `loginPw` CHAR(255) NOT NULL
+    `email` CHAR(200) NOT NULL
 );
 
 SELECT *
