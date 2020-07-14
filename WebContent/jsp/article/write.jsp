@@ -110,12 +110,16 @@
 			form.title.focus();
 			return;
 		}
-		form.body.value = form.body.value.trim();
-		if (form.body.value.length == 0) {
+		
+		var body = editor1.getMarkdown().trim();
+		
+		if (body.length == 0) {
 			alert('내용을 입력해주세요.');
-			form.body.focus();
+			editor1.focus();
 			return;
 		}
+
+		form.body.value = body;
 
 		form.submit();
 		writeFormSubmitted = true;
