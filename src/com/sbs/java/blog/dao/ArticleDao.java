@@ -35,30 +35,11 @@ public class ArticleDao extends Dao {
 		secSql.append("ORDER BY id DESC");
 		secSql.append("LIMIT ?, ? ", limitFrom, itemsInAPage);
 
+		//Map이 테이블에 들어가는 아티클 하나 라고 보면 됨 //selectRows로 map에 넣어줌
 		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, secSql);
+		//담을 변수를 만듬
 		List<Article> articles = new ArrayList<>();
-		
-		/*
-		String sql = "";
-
-		int limitFrom = (page - 1) * itemsInAPage;
-
-		sql += String.format("SELECT * ");
-		sql += String.format("FROM article ");
-		sql += String.format("WHERE displayStatus = 1 ");
-		if (cateItemId != 0) {
-			sql += String.format("AND cateItemId = %d ", cateItemId);
-		}
-		if (searchKeywordType.equals("title") && searchKeyword.length() > 0) {
-			sql += String.format("AND title LIKE CONCAT('%%', '%s', '%%')", searchKeyword);
-		}
-		sql += String.format("ORDER BY id DESC ");
-		sql += String.format("LIMIT %d, %d ", limitFrom, itemsInAPage);
-
-		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, sql);
-		List<Article> articles = new ArrayList<>();
-		*/
-
+		//map으로 구성 된 리스트를 받아서 아티클 객체로 만듬
 		for (Map<String, Object> row : rows) {
 			articles.add(new Article(row));
 		}

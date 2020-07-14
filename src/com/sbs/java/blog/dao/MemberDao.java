@@ -25,18 +25,28 @@ public class MemberDao extends Dao {
 		secSql.append(", loginPw = ?", loginPw);
 		
 		return DBUtil.insert(dbConn, secSql);
-		/*
-		String sql = "";
-		
-		sql += String.format("INSERT INTO member ");
-		sql += String.format("SET regDate = NOW() ");
-		sql += String.format(", loginId = '%s' ", loginId);//SET loginId = '${loginId}', loginPw = '${loginPw}'
-		sql += String.format(", name = '%s' ", name);
-		sql += String.format(", nickname = '%s' ", nickname);
-		sql += String.format(", loginPw = '%s' ", loginPw);
-		
+	}
+
+
+	public boolean isJoinableLoginId(String loginId) {
+		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
+		sql.append("FROM `member`");
+		sql.append("WHERE loginId = ?", loginId);
+		//0 이여야 join 가능
+		return DBUtil.selectRowIntValue(dbConn, sql) == 0;
+	}
+
+
+	public int join(String loginId, String loginPw, String name, String nickname, String email) {
+		SecSql sql = SecSql.from("INSERT INTO member");
+		sql.append("SET regDate = NOW()");
+		sql.append(", updateDate = NOW()");
+		sql.append(", loginId = ?", loginId);
+		sql.append(", loginPw = ?", loginPw);
+		sql.append(", name = ?", name);
+		sql.append(", nickname = ?", nickname);
+		sql.append(", email = ?", email);
 		return DBUtil.insert(dbConn, sql);
-		*/
 	}
 
 	

@@ -78,6 +78,7 @@ function submitJoinForm(form) {
     return;
   }
 
+ 
   form.name.value = form.name.value.trim();
   if ( form.name.value.length == 0 ) {
     alert('이름을 입력해주세요.');
@@ -90,6 +91,14 @@ function submitJoinForm(form) {
   if ( form.nickname.value.length == 0 ) {
     alert('닉네임을 입력해주세요.');
     form.nickname.focus();
+    
+    return;
+  }
+
+  form.email.value = form.email.value.trim();
+  if ( form.email.value.length == 0 ) {
+    alert('이메일을 입력해주세요.');
+    form.email.focus();
     
     return;
   }
@@ -114,6 +123,12 @@ function submitJoinForm(form) {
     
     return;
   }
+	if (form.loginPw.value != form.loginPwConfirm.value) {
+		alert('로그인 비번확인이 일치하지 않습니다.');
+		form.loginPwConfirm.focus();
+		return;
+	}
+
 
   <!-- 비밀번호 보안을 위해, 해시 함수 중 sha256사용 -->
   <!-- loginPw를 암호화 하여 loginPwReal에 넣고 loginPw는 보안을 위해 빈칸처리 -->
@@ -155,6 +170,12 @@ function submitJoinForm(form) {
 			</div>
 		</div>
 		<div class="form-row">
+			<div class="label">email</div>
+			<div class="input">
+				<input name="email" type="email" placeholder="이메일를 입력해주세요." />
+			</div>
+		</div>
+		<div class="form-row">
 			<div class="label">PW</div>
 			<div class="input">
 				<input name="loginPw" type="password" placeholder="PW를 입력해주세요." />
@@ -170,7 +191,7 @@ function submitJoinForm(form) {
 		
 		
 		<div class="join-button text-align-center">
-			<input type="submit" value="join" /> 
+			<input type="submit" value="join" /> <a href="../home/main">취소</a>
 		</div>
 	</form>
 </div>

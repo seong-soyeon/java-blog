@@ -27,6 +27,11 @@ public class Dto {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "Dto [id=" + id + ", regDate=" + regDate + ", extra=" + extra + "]";
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -49,10 +54,5 @@ public class Dto {
 
 	public void setExtra(Map<String, Object> extra) {
 		this.extra = extra;
-	}
-
-	@Override
-	public String toString() {
-		return "Dto [id=" + id + ", regDate=" + regDate + ", extra=" + extra + "]";
 	}
 }

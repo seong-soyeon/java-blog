@@ -27,11 +27,11 @@ public class App {
 	}
 	
 	private void loadDbDriver() throws IOException {
-		// DB 커넥터 로딩 시작
+		// DB 커넥터 로딩 시작 //택시운전사 //WebContent/WEB-INF/lib/mysql-connector-java-8.0.20.jar안에 있음.
 		String driverName = "com.mysql.cj.jdbc.Driver";
 
 		try {
-			//드라이버(바로 윗줄)를 등록하는 행위
+			//드라이버(바로 윗줄)를 등록하는 행위 //드라이버매니저
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
 			System.err.printf("[ClassNotFoundException 예외, %s]\n", e.getMessage());
@@ -122,6 +122,7 @@ public class App {
 				resp.getWriter().append("액션의 결과가 없습니다.");
 			} else if (actionResult.endsWith(".jsp")) {
 				String viewPath = "/jsp/" + actionResult;
+				//jsp한테 req랑 resp를 넘김
 				req.getRequestDispatcher(viewPath).forward(req, resp);
 			} else if (actionResult.startsWith("html:")) {
 				resp.getWriter().append(actionResult.substring(5));

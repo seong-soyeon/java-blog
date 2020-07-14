@@ -222,8 +222,12 @@ function getUrlParams(url) {
 }
 // lib 끝
 
+//영상 본다음 중복 지우기
 function getForEditorBody(selector) {
 	return $(selector).html().trim().replace(/<!--REPLACE:SCRIPT-->/gi, "script");
+}
+function getBodyFromXTemplate(selector) {
+	return $(selector).html().trim().replace(/<!--REPLACE:script-->/gi, 'script');
 }
 
 var editor1__initialValue = $('#origin1').html();

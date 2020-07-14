@@ -48,12 +48,25 @@ public class MemberController extends Controller {
 		String loginId = req.getParameter("loginId");
 		String name = req.getParameter("name");
 		String nickname = req.getParameter("nickname");
+		String email = req.getParameter("email");
 		String loginPw = req.getParameter("loginPw");
 		
-		int id = memberService.doJoin(loginId, name, nickname, loginPw);
+		
+		//닉네임도 똑같이 해주기
+		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
+
+		if ( isJoinableLoginId == false ) {
+			return String.format("html:<script> alert('%s(은)는 이미 사용중인 아이디 입니다.'); history.back(); </script>", loginId);
+		}
+
+		memberService.join(loginId, loginPw, name, nickname, email);
+
+		return String.format("html:<script> alert('%s님 환영합니다.'); location.replace('../home/main'); </script>", name);
+		
+		//int id = memberService.doJoin(loginId, name, nickname, loginPw);
 		
 	
-		return "html:<script> alert('짝짝짝" + loginId + "님 회원가입에 성공하였습니다.'); location.replace('.././home/main'); </script>";
+		//return "html:<script> alert('짝짝짝" + loginId + "님 회원가입에 성공하였습니다.'); location.replace('.././home/main'); </script>";
 	}
 
 	private String doActionJoin(HttpServletRequest req, HttpServletResponse resp) {

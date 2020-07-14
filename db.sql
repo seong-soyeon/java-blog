@@ -93,8 +93,20 @@ CREATE TABLE `member` (
     `loginPw` CHAR(255) NOT NULL,
     `name` CHAR(100) NOT NULL,
     `nickname` CHAR(100) NOT NULL UNIQUE,
-    `email` CHAR(200) NOT NULL
+    `email` CHAR(200) NOT NULL,
+    `level` INT(1) UNSIGNED DEFAULT 0 NOT NULL
 );
+
+# 마스터 회원 생성
+INSERT INTO `member` SET
+regDate = NOW(),
+updateDate = NOW(),
+`loginId` = 'admin',
+`loginPw` = 'admin',
+`name` = 'admin',
+`nickname` = 'admin',
+`email` = 'admin@admin.com',
+`level` = 10; 
 
 SELECT *
 FROM `member`;

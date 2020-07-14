@@ -107,11 +107,11 @@
 				<td><%=article.getUpdateDate()%></td>
 			</tr>
 			<tr>	
-				<td colspan="2"><script type="text/x-template" id="origin1" style="display:none;"><%=article.getBody()%></script>
+				<td colspan="2"><script type="text/x-template" id="origin1" style="display:none;"><%=article.getBodyForXTemplate()%></script>
 				<div id="viewer1"></div></td>
 				<script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 				<script>
-					var editor1__initialValue = $('#origin1').html().trim();
+					var editor1__initialValue = getBodyFromXTemplate('#origin1');
 					var editor1 = new toastui.Editor({
 					  el: document.querySelector("#viewer1"),
 					  viewer:true,

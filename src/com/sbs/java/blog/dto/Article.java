@@ -9,6 +9,11 @@ public class Article extends Dto {
 	private String title;
 	private String body;
 
+	public Article() {
+	}
+	// 생성자
+	// Map이 테이블에 들어가는 아티클 하나 라고 보면 됨
+	// 각각 형변환 해주기(Object로 되어있으니까)
 	public Article(Map<String, Object> row) {
 		super(row);
 		this.updateDate = (String) row.get("updateDate");
@@ -25,7 +30,7 @@ public class Article extends Dto {
 	}
 	//script오류막기위해 replace
 	public String getBodyForXTemplate() {
-		return body.replaceAll("(?i)script", "<!--REPLACE:SCRIPT-->");
+		return body.replaceAll("(?i)script", "<!--REPLACE:script-->");
 	}
 
 	public int getHit() {

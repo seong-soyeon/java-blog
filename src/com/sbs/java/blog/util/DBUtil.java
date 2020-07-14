@@ -34,6 +34,7 @@ public class DBUtil {
 		try {
 			stmt = sql.getPreparedStatement(dbConn);
 			rs = stmt.executeQuery();
+			// 
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnSize = metaData.getColumnCount();
 
@@ -58,7 +59,6 @@ public class DBUtil {
 				
 				rows.add(row);
 			}
-			
 		} catch (SQLException e) {
 			throw new SQLErrorException("SQL 예외, SQL : " + sql, e);
 		} finally {
