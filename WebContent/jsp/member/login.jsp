@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 <style>
 /* lib */
@@ -45,7 +46,7 @@
 	margin-top: 30px;
 	max-width: 500px;
 	border: 5px solid navy;
-    padding:0 20px;
+	padding: 20px;
 }
 </style>
 <script>
@@ -105,9 +106,11 @@ function submitLoginForm(form) {
 
 <div class="write-form-box margin-0-auto border-navy">
 	<!-- 로그인 폼은 POST로 하라고 하심 (멱등성이 보장이 안되는 일은 POST-ex.회원가입,게시물등록) -->
-	<form action="doLogin" method="POST" class="join-form form1" onsubmit="submitLoginForm(this); return false;"><!-- 빈칸ㄴㄴ -->
-	<!-- js에서 보안작업 하기위해 hidden으로 몰래 loginPwReal 만들어 놈 -->
-	<input type="hidden" name="loginPwReal" />
+	<form action="doLogin" method="POST" class="join-form form1"
+		onsubmit="submitLoginForm(this); return false;">
+		<!-- 빈칸ㄴㄴ -->
+		<!-- js에서 보안작업 하기위해 hidden으로 몰래 loginPwReal 만들어 놈 -->
+		<input type="hidden" name="loginPwReal" />
 		<div class="form-row">
 			<div class="label">Id</div>
 			<div class="input">
@@ -122,10 +125,16 @@ function submitLoginForm(form) {
 			</div>
 		</div>
 		
-		
-		<div class="login-button text-align-center">
-			<!-- 버튼 이미지 원하면 input type="image" -->
-			<input type="submit" value="login" /> 
+		<div class="form-row">
+			<div class="input btn-size">
+				<!-- 버튼 이미지 원하면 input type="image" -->
+				<input type="submit" value="로그인" />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="input btn-size">
+				<input type="button" value="회원가입" onclick="location.href='join'" />
+			</div>
 		</div>
 	</form>
 </div>

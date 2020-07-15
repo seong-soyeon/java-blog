@@ -46,27 +46,35 @@ public class MemberController extends Controller {
 
 	private String doActionDoJoin(HttpServletRequest req, HttpServletResponse resp) {
 		String loginId = req.getParameter("loginId");
+		String loginPw = req.getParameter("loginPwReal");
 		String name = req.getParameter("name");
 		String nickname = req.getParameter("nickname");
 		String email = req.getParameter("email");
-		String loginPw = req.getParameter("loginPw");
 		
-		
-		//닉네임도 똑같이 해주기
+		//아이디 중복체크
 		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
 
 		if ( isJoinableLoginId == false ) {
 			return String.format("html:<script> alert('%s(은)는 이미 사용중인 아이디 입니다.'); history.back(); </script>", loginId);
 		}
+		
+		//닉네임 중복체크
+		boolean isJoinableNickname = memberService.isJoinableNickname(nickname);
+		
+		if ( isJoinableNickname == false ) {
+			return String.format("html:<script> alert('%s(은)는 이미 사용중인 닉네임 입니다.'); history.back(); </script>", nickname);
+		}
+		
+		//이메일 중복체크
+		boolean isJoinableEmail = memberService.isJoinableEmail(email);
+		
+		if ( isJoinableEmail == false ) {
+			return String.format("html:<script> alert('%s(은)는 이미 사용중인 이메일 입니다.'); history.back(); </script>", email);
+		}
 
 		memberService.join(loginId, loginPw, name, nickname, email);
 
-		return String.format("html:<script> alert('%s님 환영합니다.'); location.replace('../home/main'); </script>", name);
-		
-		//int id = memberService.doJoin(loginId, name, nickname, loginPw);
-		
-	
-		//return "html:<script> alert('짝짝짝" + loginId + "님 회원가입에 성공하였습니다.'); location.replace('.././home/main'); </script>";
+		return String.format("html:<script> alert('짝짝짝 %s님 환영합니다.'); location.replace('login'); </script>", name);	
 	}
 
 	private String doActionJoin(HttpServletRequest req, HttpServletResponse resp) {

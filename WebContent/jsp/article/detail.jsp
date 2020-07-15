@@ -52,7 +52,7 @@
 }
 .detail-modify {
 	position: absolute;
-	right:80px;
+	right:120px;
 }
 .detail_a {
 	padding-top:30px;
@@ -65,6 +65,34 @@
 .detail_c {
 	position: absolute;
 	padding-left:100px;
+}
+.all-label {
+	margin:10px;
+	width: 100px;
+	height: 27px;
+	text-align: center;
+	background-color: #dbdbdb;
+	color: navy;
+	border-radius: 0.5em;
+}
+
+.reply-box {
+	border-top: 5px solid #dbdbdb;
+	margin-top: 50px;
+}
+.form1 .form-row {
+	align-items: center;
+	display: flex;
+	margin-top: 20px;
+}
+
+.form1 .form-row>.label {
+	width: 130px;
+	text-align: center;
+}
+
+.form1 .form-row>.input {
+	flex-grow: 1;
 }
 
 </style>
@@ -131,45 +159,39 @@
 	</table>
 	<div class="btn-box">
 		<div class="con relative">
-			<a class="absolute-left" href="./list">전체목록</a>
+			<a class="absolute-left all-label" href="./list">전체목록</a>
 			<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=<%=article.getId()%>">수정하기</a> -->
 			<!-- <a class="detail-modify" href="modify?id=<%=article.getId()%>">수정하기</a> -->
 			<!-- <a class="absolute-right" href="delete?id=${param.id}">삭제하기</a> -->
 					
-			<a class="detail-modify" href="modify?id=<%=article.getId()%>">수정하기</a>
-			<a class="absolute-right" href="delete?id=<%=article.getId()%>">삭제하기</a>
+			<a class="detail-modify all-label" href="modify?id=<%=article.getId()%>">수정하기</a>
+			<a class="absolute-right all-label" href="delete?id=<%=article.getId()%>">삭제하기</a>
 		</div>
 		
-		<div class="con detail_a ">
-			<a class="detail_b" href=""> < 이전글</a>
+		<div class="con detail_a relative">
+			<a class="detail_b" href="#"> < 이전글</a>
 			
 			<a class="detail_c" href="#">다음글 > </a>
 		</div>
 	</div>
 	
-	//form으로 바꾸기
-	<div class="">
-	//가로줄 (한줄 or 2줄)
-	//댓글 총 갯수
-	//네모박스 회색 #ccc
-	//댓글작성버튼
-	//for문으로 댓글 나열
+	
+	<div class="reply-box form1">
+		<!-- form으로 바꾸기 / 댓글 총 갯수 / 네모박스 회색 #ccc / for문으로 댓글 나열 -->
+		<div class="form-row">
+			<div class="label">댓글</div>
+			<div class="input">
+				<input name="article-reply" type="text" placeholder="댓글을 입력해주세요." />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="input">
+				<input type="submit" value="작성" />
+			</div>
+		</div>
+	
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
 </div>
-
-
-
-
-
-
 
 
 <%@ include file="/jsp/part/foot.jspf"%> 

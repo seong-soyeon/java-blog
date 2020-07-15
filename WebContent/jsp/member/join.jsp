@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 <style>
 /* lib */
@@ -49,9 +50,10 @@
 	margin-top: 30px;
 	max-width: 500px;
 	border: 5px solid navy;
-    padding:0 20px;
+	padding: 0 20px;
 }
 </style>
+
 
 <script>
 var joinFormSubmitted = false;
@@ -123,25 +125,29 @@ function submitJoinForm(form) {
     
     return;
   }
-	if (form.loginPw.value != form.loginPwConfirm.value) {
-		alert('로그인 비번확인이 일치하지 않습니다.');
-		form.loginPwConfirm.focus();
-		return;
-	}
-
-
+  if (form.loginPw.value != form.loginPwConfirm.value) {
+	alert('비밀번호와 비밀번호확인이 일치하지 않습니다.');
+	form.loginPwConfirm.focus();
+	return;
+  }
+  if (form.loginPw.value == form.loginId.value) {
+	alert('아이디와 비밀번호가 중복되지 않도록 해주세요.');
+	form.loginPw.focus();
+	return;
+  }
+  
   <!-- 비밀번호 보안을 위해, 해시 함수 중 sha256사용 -->
   <!-- loginPw를 암호화 하여 loginPwReal에 넣고 loginPw는 보안을 위해 빈칸처리 -->
   form.loginPwReal.value = sha256(form.loginPw.value);
   form.loginPw.value = '';
+  form.loginPwConfirm.value = '';
   
-  <!-- 여기까지 왔따면 다 입력됬다는거. 쩌~아래 form에 onsubmit에서 return false 해놓았기 때문에 강제로 제출-->
+  <!-- 여기까지 왔따면 다 입력됬다는거. form속성 onsubmit에서 return false 해놓았기 때문에 강제로 제출하기-->
   form.submit();
   joinFormSubmitted = true;
 } 
 
 </script>
-
 
 
 <div class="title-box">
@@ -150,7 +156,9 @@ function submitJoinForm(form) {
 
 
 <div class="write-form-box margin-0-auto border-navy">
-	<form action="doJoin" method="POST" class="join-form form1" onsubmit="submitJoinForm(this); return false">
+	<form action="doJoin" method="POST" class="join-form form1"
+		onsubmit="submitJoinForm(this); return false">
+		<input type="hidden" name="loginPwReal" />
 		<div class="form-row">
 			<div class="label">Id</div>
 			<div class="input">
@@ -184,12 +192,13 @@ function submitJoinForm(form) {
 		<div class="form-row">
 			<div class="label">PW 확인</div>
 			<div class="input">
-				<input name="loginPwConfirm  " type="password" placeholder="PW확인을 입력해주세요." />
+				<input name="loginPwConfirm  " type="password"
+					placeholder="PW확인을 입력해주세요." />
 			</div>
 		</div>
-		
-		
-		
+
+
+
 		<div class="join-button text-align-center">
 			<input type="submit" value="join" /> <a href="../home/main">취소</a>
 		</div>

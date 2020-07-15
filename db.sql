@@ -49,8 +49,9 @@ CREATE TABLE articleReply (
     memberId INT(10) UNSIGNED NOT NULL
 );
 
-# 조회수 칼럼 추가
+# 조회수,memberId 칼럼 추가
 ALTER TABLE `article` ADD COLUMN `hit` INT(10) UNSIGNED NOT NULL AFTER `body`; 
+ALTER TABLE `article` ADD COLUMN `memberId` INT(10) UNSIGNED NOT NULL AFTER `hit`; 
 
 ALTER TABLE article MODIFY COLUMN `body` LONGTEXT NOT NULL;
 SHOW COLUMNS FROM `article` LIKE `body`;
@@ -106,7 +107,7 @@ updateDate = NOW(),
 `name` = 'admin',
 `nickname` = 'admin',
 `email` = 'admin@admin.com',
-`level` = 10; 
+`level` = 10;
 
 SELECT *
 FROM `member`;

@@ -134,7 +134,7 @@
 			%>
 		</tbody>
 	</table>
-	<div class="doWrite-button text-align-right">
+	<div class="doWrite-button text-align-right ">
 		<button type="button" onclick="location.href='${pageContext.request.contextPath}/s/article/write' ">글쓰기</button>
 	</div>
 </div>

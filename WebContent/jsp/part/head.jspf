@@ -72,7 +72,6 @@
                             <li><a class="block" href="#">GITHUB</a></li>
                         </ul>
                     </li>
-                    <li><a href="${pageContext.request.contextPath}/s/member/join" class="height-100p flex flex-ai-c">join</a></li>
                     <li><a href="${pageContext.request.contextPath}/s/member/login" class="height-100p flex flex-ai-c">login</a></li>
                 </ul>
             </nav>
@@ -117,8 +116,7 @@
                         <li><a class="block" href="#">GITHUB</a></li>
                     </ul>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/s/member/join" class="block">join</a></li>
-                <li><a href="${pageContext.request.contextPath}/s/member/login" class="height-100p flex flex-ai-c">login</a></li>
+                <li><a href="${pageContext.request.contextPath}/s/member/login" class="block">login</a></li>
             </ul>
         </nav>
     </div>

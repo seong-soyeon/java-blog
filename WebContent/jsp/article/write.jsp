@@ -172,7 +172,7 @@
 		<div class="write-button text-align-right">
 			<div class="input">
 				<input type="submit" value="작성" />
-				<a class="list-btn" href="list">취소</a>
+				<input type="button" onclick="location.href='list'" value="취소"/>
 			</div>
 		</div>
 	</form>
