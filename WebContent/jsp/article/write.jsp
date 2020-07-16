@@ -124,7 +124,6 @@
 		form.submit();
 		writeFormSubmitted = true;
 	}
-
 </script>
 
 

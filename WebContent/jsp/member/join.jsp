@@ -42,11 +42,11 @@
 }
 
 .join-button {
-	padding: 15px;
+	padding: 10px;
 }
 
 /* cus */
-.write-form-box {
+.join-form-box {
 	margin-top: 30px;
 	max-width: 500px;
 	border: 5px solid navy;
@@ -80,7 +80,6 @@ function submitJoinForm(form) {
     return;
   }
 
- 
   form.name.value = form.name.value.trim();
   if ( form.name.value.length == 0 ) {
     alert('이름을 입력해주세요.');
@@ -136,13 +135,14 @@ function submitJoinForm(form) {
 	return;
   }
   
+  
   <!-- 비밀번호 보안을 위해, 해시 함수 중 sha256사용 -->
   <!-- loginPw를 암호화 하여 loginPwReal에 넣고 loginPw는 보안을 위해 빈칸처리 -->
-  form.loginPwReal.value = sha256(form.loginPw.value);
-  form.loginPw.value = '';
-  form.loginPwConfirm.value = '';
+ 	form.loginPwReal.value = sha256(form.loginPw.value);
+	form.loginPw.value = '';
+	form.loginPwConfirm.value = '';
   
-  <!-- 여기까지 왔따면 다 입력됬다는거. form속성 onsubmit에서 return false 해놓았기 때문에 강제로 제출하기-->
+  <!-- 여기까지 왔따면 다 입력됬다는거. form속성인 onsubmit에서 return false 해놓았기 때문에 강제로 제출하기-->
   form.submit();
   joinFormSubmitted = true;
 } 
@@ -155,7 +155,7 @@ function submitJoinForm(form) {
 </div>
 
 
-<div class="write-form-box margin-0-auto border-navy">
+<div class="join-form-box margin-0-auto border-navy">
 	<form action="doJoin" method="POST" class="join-form form1"
 		onsubmit="submitJoinForm(this); return false">
 		<input type="hidden" name="loginPwReal" />
@@ -192,7 +192,7 @@ function submitJoinForm(form) {
 		<div class="form-row">
 			<div class="label">PW 확인</div>
 			<div class="input">
-				<input name="loginPwConfirm  " type="password"
+				<input name="loginPwConfirm" type="password"
 					placeholder="PW확인을 입력해주세요." />
 			</div>
 		</div>
@@ -200,7 +200,10 @@ function submitJoinForm(form) {
 
 
 		<div class="join-button text-align-center">
-			<input type="submit" value="join" /> <a href="../home/main">취소</a>
+			<div class="input">
+				<input type="submit" value="가입" />
+				<input type="button" onclick="location.href='../home/main'" value="취소"/>
+			</div>
 		</div>
 	</form>
 </div>

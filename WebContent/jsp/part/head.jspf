@@ -1,9 +1,13 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.sbs.java.blog.dto.CateItem"%>
+<%@ page import="com.sbs.java.blog.dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	List<CateItem> cateItems = (List<CateItem>) request.getAttribute("cateItems");
+	int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+	Member loginedMember = (Member) request.getAttribute("loginedMember");
+	boolean isLogined = (boolean) request.getAttribute("isLogined");
 %>
 
 <!DOCTYPE html>
@@ -37,6 +41,29 @@
 
 
 <title>seong blog</title>
+<!-- 편의를 위해 자바스크립트에도 회원정보넣기 -->
+<script>
+	var loginedMemberId = parseInt("${loginedMemberId}");
+	var isLogined = "${isLogined}" == "true";
+	var loginedMember = null;
+</script>
+<%
+	if (isLogined) {
+%>
+<script>
+	loginedMember = {};
+	loginedMember["id"] = parseInt("${loginedMember.id}");
+	loginedMember["regDate"] = "${loginedMember.regDate}";
+	loginedMember["loginId"] = "${loginedMember.loginId}";
+	loginedMember["name"] = "${loginedMember.name}";
+	loginedMember["nickname"] = "${loginedMember.nickname}";
+	loginedMember["email"] = "${loginedMember.email}";
+</script>
+<%
+	}
+%>
+
+
 </head>
 
 <body>
@@ -69,10 +96,14 @@
                             <li><a class="block" href="https://to2.kr/bfx" target="_blank">T STORY</a></li>
                             <li><a class="block" href="https://to2.kr/bhn" target="_blank">YOUTUBE</a></li>
                             <li><a class="block" href="https://codesandbox.io/u/seong-soyeon" target="_blank">CODEPEN</a></li>
-                            <li><a class="block" href="#">GITHUB</a></li>
+                            <li><a class="block" href="https://github.com/seong-soyeon">GITHUB</a></li>
                         </ul>
                     </li>
-                    <li><a href="${pageContext.request.contextPath}/s/member/login" class="height-100p flex flex-ai-c">login</a></li>
+                    <% if ( isLogined ) { %>
+                    <li><a href="${pageContext.request.contextPath}/s/member/doLogout" class="height-100p flex flex-ai-c">Logout</a></li>
+                    <% } else { %>
+                    <li><a href="${pageContext.request.contextPath}/s/member/login" class="height-100p flex flex-ai-c">Login</a></li>
+                    <% } %>
                 </ul>
             </nav>
         </div>
@@ -113,10 +144,14 @@
                         <li><a class="block" href="https://to2.kr/bfx">T STORY</a></li>
                         <li><a class="block" href="https://to2.kr/bhn">YOUTUBE</a></li>
                         <li><a class="block" href="https://to2.kr/bnn">CODEPEN</a></li>
-                        <li><a class="block" href="#">GITHUB</a></li>
+                        <li><a class="block" href="https://github.com/seong-soyeon">GITHUB</a></li>
                     </ul>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/s/member/login" class="block">login</a></li>
+                <% if ( isLogined ) { %>
+                <li><a href="${pageContext.request.contextPath}/s/member/doLogout" class="block">Logout</a></li>
+                <% } else { %>
+                <li><a href="${pageContext.request.contextPath}/s/member/login" class="block">Login</a></li>
+                <% } %>
             </ul>
         </nav>
     </div>

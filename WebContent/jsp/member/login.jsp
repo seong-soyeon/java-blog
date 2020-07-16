@@ -42,7 +42,7 @@
 }
 
 /* cus */
-.write-form-box {
+.login-form-box {
 	margin-top: 30px;
 	max-width: 500px;
 	border: 5px solid navy;
@@ -104,7 +104,7 @@ function submitLoginForm(form) {
 </div>
 
 
-<div class="write-form-box margin-0-auto border-navy">
+<div class="login-form-box margin-0-auto border-navy">
 	<!-- 로그인 폼은 POST로 하라고 하심 (멱등성이 보장이 안되는 일은 POST-ex.회원가입,게시물등록) -->
 	<form action="doLogin" method="POST" class="join-form form1"
 		onsubmit="submitLoginForm(this); return false;">
