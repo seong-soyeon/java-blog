@@ -76,6 +76,11 @@
 	border-radius: 0.5em;
 }
 
+.form1 {
+	display: block;
+	width: 100%;
+}
+
 .form1 .form-row {
 	align-items: center;
 	display: flex;
@@ -84,14 +89,17 @@
 
 .form1 .form-row>.label {
 	width: 130px;
-	text-align: center;
+	ddfsfstext-align: center;
 }
 
 .form1 .form-row>.input {
 	flex-grow: 1;
 }
-.form1 .form-row>.input {
-	width: 300px;
+.form1 .form-row>.input>input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px;
 }
 
 .reply-form-box {
@@ -182,20 +190,21 @@
 	
 	
 	<div class="reply-form-box form1 flex">
+		<form action="doReply" method="POST" class="form1 flex">
 		<!-- form으로 바꾸기 / 댓글 총 갯수 / 네모박스 회색 #ccc / for문으로 댓글 나열 -->
-		<div class="form-row">
-			<div class="label">댓글</div>
-			<div class="input">
-				<input name="article-reply" type="text" placeholder="댓글을 입력해주세요." />
+			<div class="form-row">
+				<div class="label">댓글</div>
+				<div class="input">
+					<input name="article-reply" type="text" placeholder="댓글을 입력해주세요." />
+				</div>
 			</div>
-		</div>
-		
-		<div class="form-row reply-button text-align-right">
-			<div class="input">
-				<input type="submit" value="작성" />
+			
+			<div class="form-row reply-button text-align-right">
+				<div class="input">
+					<input type="submit" value="작성" />
+				</div>
 			</div>
-		</div>
-	
+		</form>
 	</div>
 </div>
 

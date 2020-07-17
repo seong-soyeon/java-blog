@@ -38,9 +38,12 @@ public class ArticleController extends Controller {
 			return doActionModify();
 		case "doModify":
 			return doActionDoModify();
+		case "doRefly":
+			return doActionDoRefly();
 		}
 		return "";
 	}
+
 
 	private String doActionDoModify() {
 		/* 
@@ -126,6 +129,13 @@ public class ArticleController extends Controller {
 		//주소히스토리를 남기지 않는다 >> 이전페이지로 접근이 필요없는경우 보안상 좋다
 		//히스토리가 남을경우 뒤로가기 눌렀을때 다시 같은자리로와서 글 또 생성될 수 있다.
 		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다.'); location.replace('list'); </script>";
+	}
+
+	private String doActionDoRefly() {
+		// TODO Auto-generated method stub
+		String body = req.getParameter("body");
+		
+		return null;
 	}
 
 	private String doActionDelete() {
