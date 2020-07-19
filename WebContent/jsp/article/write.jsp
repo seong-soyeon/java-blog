@@ -4,13 +4,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
+<!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 (//하이라이트를 켜는 것) -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
 
-<!-- 하이라이트 라이브러리, 언어 -->
+<!-- 하이라이트 라이브러리, 언어 (cdnjs.com>highlight.js에서 필요한 언어 찾아서 더 추가 가능) -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/css.min.js"></script>
 <script
@@ -32,7 +32,7 @@
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
-<!-- 토스트 UI 에디터, 신택스 하이라이트 플러그인 추가 -->
+<!-- 토스트 UI 에디터, 신택스 하이라이트 플러그인 추가 (//하이라이트 받아서 적용하려면 필요) -->
 <script
 	src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
 
@@ -183,7 +183,7 @@
 		el : document.querySelector("#editor1"),
 		height : "600px",
 		initialEditType : "markdown",
-		previewStyle : "vertical",
+		previewStyle : "vertical",		//프리뷰모드가 옅에 보이도록(markdown모드 일때만 가능)
 		initialValue : "# 내용을 입력해 주세요.",
 		plugins : [ toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin,
 				replPlugin, codepenPlugin ]

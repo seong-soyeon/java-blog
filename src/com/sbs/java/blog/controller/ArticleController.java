@@ -40,10 +40,31 @@ public class ArticleController extends Controller {
 			return doActionDoModify();
 		case "doRefly":
 			return doActionDoRefly();
+		case "replyModify": 
+			return doActionReplyModify();
+		case "doReplyModify": 
+			return doActionDoReplyModify();
+		case "doReplyDelete":
+			return doActionDoReplyDelete();
 		}
 		return "";
 	}
 
+
+	private String doActionDoReplyDelete() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String doActionDoReplyModify() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String doActionReplyModify() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	private String doActionDoModify() {
 		/* 
@@ -123,7 +144,9 @@ public class ArticleController extends Controller {
 		String body = req.getParameter("body");
 		int cateItemId = Util.getInt(req, "cateItemId");
 
-		int id = articleService.write(cateItemId, title, body);
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		
+		int id = articleService.write(cateItemId, title, body, loginedMemberId);
 
 		//꼭 자바스크립트 명령어인 location.replace로 이동하기 (기존페이지를 새로운 페이지로 변경시킨다)(location.href과 다름)
 		//주소히스토리를 남기지 않는다 >> 이전페이지로 접근이 필요없는경우 보안상 좋다
@@ -132,10 +155,19 @@ public class ArticleController extends Controller {
 	}
 
 	private String doActionDoRefly() {
-		// TODO Auto-generated method stub
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		System.out.println(loginedMemberId);
 		String body = req.getParameter("body");
 		
-		return null;
+		int articleId = 0;
+		if (!Util.empty(req, "articleId") && Util.isNum(req, "articleId")) { 
+			articleId = Util.getInt(req, "articleId");
+		}
+		
+		int ReplyId = articleService.getReply(body, articleId, loginedMemberId); 
+		
+		return  "html:<script> alert('댓글이 작성되었습니다.'); location.replace('detail?id=" + articleId
+				+ "'); </script>";
 	}
 
 	private String doActionDelete() {
@@ -235,6 +267,10 @@ public class ArticleController extends Controller {
 		//service에서 받아온 articles를 req에 담음>담은 정보를 App에서 jsp로 넘김 
 		req.setAttribute("articles", articles);
 		return "article/list.jsp";
+	}
+	@Override
+	public String getControllerName() {
+		return "article";
 	}
 }
 /*

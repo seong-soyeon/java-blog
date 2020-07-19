@@ -108,7 +108,7 @@ public class ArticleDao extends Dao {
 		return new CateItem(DBUtil.selectRow(dbConn, secSql));
 	}
 
-	public int write(int cateItemId, String title, String body) {
+	public int write(int cateItemId, String title, String body, int memberId) {
 		// 띄어쓰기 틀리거나 %s를 ? 쳐도 오류안나도록 바꿈
 		SecSql secSql = new SecSql();
 
@@ -120,6 +120,7 @@ public class ArticleDao extends Dao {
 		secSql.append(", title = ?", title);
 		secSql.append(", body = ?", body);
 		secSql.append(", hit = '0'");
+		secSql.append(", memberId = ?", memberId);
 		
 		/*
 		String sql = "";
@@ -166,5 +167,16 @@ public class ArticleDao extends Dao {
 		secSql.append("WHERE id = ?", id);
 		
 		return DBUtil.update(dbConn, secSql);
+	}
+	
+	public int getArticleReply(String body, int articleId, int memberId) {
+		SecSql sql = SecSql.from("INSERT INTO articleReply");
+		sql.append("SET regDate = NOW()");
+		sql.append(", updateDate = NOW()");
+		sql.append(", articleId = ?", articleId);
+		sql.append(", `body` = ?", body);
+		sql.append(", memberId = ?", memberId);
+
+		return DBUtil.insert(dbConn, sql);
 	}
 }

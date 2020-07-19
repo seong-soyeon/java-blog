@@ -27,9 +27,8 @@ INSERT INTO cateItem SET regDate = NOW(), `name` = '일상';
 SELECT *
 FROM cateItem;
 
-# 아티클 테이블 생성(memberId추가하기)
+# 아티클 테이블 생성
 DROP TABLE IF EXISTS article;
-
 CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -37,7 +36,7 @@ CREATE TABLE article (
     cateItemId INT(10) UNSIGNED NOT NULL,
     displayStatus TINYINT(1) UNSIGNED NOT NULL,
     `title` CHAR(200) NOT NULL,
-    `body` TEXT NOT NULL
+    `body` LONGTEXT NOT NULL
 );
 
 CREATE TABLE articleReply (
@@ -51,10 +50,13 @@ CREATE TABLE articleReply (
 
 # 조회수,memberId 칼럼 추가
 ALTER TABLE `article` ADD COLUMN `hit` INT(10) UNSIGNED NOT NULL AFTER `body`; 
-ALTER TABLE `article` ADD COLUMN `memberId` INT(10) UNSIGNED NOT NULL AFTER `hit`; 
+ALTER TABLE `article` ADD COLUMN `memberId` INT(10) UNSIGNED NOT NULL AFTER `cateItemId`; 
 
-ALTER TABLE article MODIFY COLUMN `body` LONGTEXT NOT NULL;
-SHOW COLUMNS FROM `article` LIKE `body`;
+# 기존 게시물의 작성자 번호를 1번으로 정리(통일)
+UPDATE article
+SET memberId = 1
+WHERE memberId = 0;
+
 SELECT COLUMN_TYPE FROM information_schema.COLUMNS WHERE TABLE_NAME=`article` AND COLUMN_NAME=`body`;
 SHOW TABLES;
 DESC `article`;

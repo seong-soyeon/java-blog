@@ -33,5 +33,9 @@ public class HomeController extends Controller {
 	private String doActionMain() {
 		return "home/main.jsp";
 	}
-
+	
+	@Override
+	public String getControllerName() {
+		return "home";
+	}
 }

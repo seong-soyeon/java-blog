@@ -34,8 +34,8 @@ public class ArticleService extends Service {
 		return articleDao.getCateItem(cateItemId);
 	}
 
-	public int write(int cateItemId, String title, String body) {
-		return articleDao.write(cateItemId, title, body);
+	public int write(int cateItemId, String title, String body, int memberId) {
+		return articleDao.write(cateItemId, title, body, memberId);
 	}
 
 	public void increaseHit(int id) {
@@ -49,4 +49,10 @@ public class ArticleService extends Service {
 	public void doActionDoModify(int id, int cateItemId, String title, String body) {
 		articleDao.doActionDoModify(id, cateItemId, title, body);
 	}
+
+	public int getReply(String body, int articleId, int memberId) {
+		// TODO Auto-generated method stub
+		return articleDao.getArticleReply(body, articleId, memberId);
+	}
+	
 }

@@ -105,4 +105,9 @@ public class MemberController extends Controller {
 
 		return String.format("html:<script> alert('로그아웃 되었습니다.'); location.replace('../home/main'); </script>");
 	}*/
+	
+	@Override
+	public String getControllerName() {
+		return "member";
+	}
 }

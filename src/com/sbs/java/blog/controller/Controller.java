@@ -33,6 +33,8 @@ public abstract class Controller {
 		articleService = new ArticleService(dbConn);
 		memberService = new MemberService(dbConn);
 	}
+	
+	public abstract String getControllerName();
 
 	// 액션 전 실행
 	// 이 메서드는 모든 컨트롤러의 모든 액션이 실행되기 전에 실행된다.
@@ -67,9 +69,74 @@ public abstract class Controller {
 
 	public String executeAction() {
 		beforeAction();
+
+		String doGuardRs = doGuard();
+
+		if (doGuardRs != null) {
+			return doGuardRs;
+		}
+		
 		String rs = doAction();
 		afterAction();
 
 		return rs;
+	}
+
+	private String doGuard() {
+		// 현재 로그인 됬는지 확인
+		boolean isLogined = (boolean) req.getAttribute("isLogined");
+
+		// 로그인에 관련된 가드 시작 //로그인 되어야 되는지 확인
+		boolean needToLogin = false;
+
+		String controllerName = getControllerName();
+
+		switch (controllerName) {
+		case "member":
+			switch (actionMethodName) {
+			case "doLogout":
+				needToLogin = true;
+				break;
+			}
+			break;
+		case "article":
+			switch (actionMethodName) {
+			case "write":
+			case "doWrite":
+			case "modify":
+			case "doModify":
+			case "doDelete":
+				needToLogin = true;
+				break;
+			}
+			break;
+		}
+		//로그인이 필요하고 로그인을 안했을 때 
+		if (needToLogin && isLogined == false) {
+			return "html:<script> alert('로그인 후 이용해주세요.'); location.href = '../member/login'; </script>";
+		}
+		// 로그인에 관련된 가드 끝
+
+		// 로그아웃에 관련된 가드 시작
+		// 로아아웃이 되어야만 행 할 수 있는
+		boolean needToLogout = false;
+
+		switch (controllerName) {
+		case "member":
+			switch (actionMethodName) {
+			case "login":
+			case "join":
+				needToLogout = true;
+				break;
+			}
+			break;
+		}
+
+		if (needToLogout && isLogined ) {
+			return "html:<script> alert('로그아웃 후 이용해주세요.'); history.back(); </script>";
+		}
+		// 로그아웃에 관련된 가드 끝
+
+		return null;
 	}
 }
