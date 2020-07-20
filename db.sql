@@ -39,15 +39,6 @@ CREATE TABLE article (
     `body` LONGTEXT NOT NULL
 );
 
-CREATE TABLE articleReply (
-    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL,
-    updateDate DATETIME NOT NULL,
-    articleId INT(10) UNSIGNED NOT NULL,
-    `body` TEXT NOT NULL,
-    memberId INT(10) UNSIGNED NOT NULL
-);
-
 # 조회수,memberId 칼럼 추가
 ALTER TABLE `article` ADD COLUMN `hit` INT(10) UNSIGNED NOT NULL AFTER `body`; 
 ALTER TABLE `article` ADD COLUMN `memberId` INT(10) UNSIGNED NOT NULL AFTER `cateItemId`; 
@@ -63,6 +54,21 @@ DESC `article`;
 
 SELECT *
 FROM article
+
+# 댓글 테이블 생성
+DROP TABLE IF EXISTS articleReply;
+CREATE TABLE articleReply (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    articleId INT(10) UNSIGNED NOT NULL,
+    `body` TEXT NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL
+);
+
+INSERT INTO `articleReply` SET regDate = NOW(), updateDate = NOW(), `body` = 'qq';
+SELECT *
+FROM articleReply
 
 #원하는 조건의 아티클 출력
 SELECT *
@@ -111,5 +117,7 @@ updateDate = NOW(),
 `email` = 'admin@admin.com',
 `level` = 10;
 
-SELECT *
-FROM `member`;
+SELECT * FROM `member`;
+SELECT * FROM article;
+SELECT * FROM articleReply;
+DESC `articleReply`;
