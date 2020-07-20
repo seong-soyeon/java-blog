@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.sbs.java.blog.dto.Article;
+import com.sbs.java.blog.dto.ArticleReply;
 import com.sbs.java.blog.dto.CateItem;
 import com.sbs.java.blog.util.DBUtil;
 import com.sbs.java.blog.util.SecSql;
@@ -17,8 +18,7 @@ public class ArticleDao extends Dao {
 		this.dbConn = dbConn;
 	}
 	
-	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId, String searchKeywordType,
-		String searchKeyword) {
+	public List<Article> getForPrintListArticles(int page, int itemsInAPage, int cateItemId, String searchKeywordType, String searchKeyword) {
 		SecSql secSql = new SecSql();
 
 		int limitFrom = (page - 1) * itemsInAPage;
@@ -178,5 +178,24 @@ public class ArticleDao extends Dao {
 		sql.append(", memberId = ?", memberId);
 
 		return DBUtil.insert(dbConn, sql);
+	}
+
+	public List<ArticleReply> getForPrintListArticleReplies(int id) {
+		// TODO Auto-generated method stub
+		
+		SecSql sql = SecSql.from("SELECT *");
+		sql.append("FROM articleReply AS A");
+		sql.append("INNER JOIN `member` AS M");
+		sql.append("ON A.memberId = M.id");
+		sql.append("WHERE articleId = ?", id);
+		sql.append("ORDER BY A.id DESC");
+
+		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, sql);
+		List<ArticleReply> articleReplies = new ArrayList<>();
+
+		for (Map<String, Object> row : rows) {
+			articleReplies.add(new ArticleReply(row));
+		}
+		return articleReplies;
 	}
 }

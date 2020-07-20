@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sbs.java.blog.dao.ArticleDao;
 import com.sbs.java.blog.dto.Article;
+import com.sbs.java.blog.dto.ArticleReply;
 import com.sbs.java.blog.dto.CateItem;
 
 public class ArticleService extends Service {
@@ -26,6 +27,7 @@ public class ArticleService extends Service {
 	public Article getForPrintArticle(int id) {
 		return articleDao.getForPrintArticle(id);
 	}
+	
 	public List<CateItem> getForPrintCateItems() {
 		return articleDao.getForPrintCateItems();
 	}
@@ -51,8 +53,12 @@ public class ArticleService extends Service {
 	}
 
 	public int getReply(String body, int articleId, int memberId) {
-		// TODO Auto-generated method stub
 		return articleDao.getArticleReply(body, articleId, memberId);
+	}
+
+	public List<ArticleReply> getForPrintListArticleReplies(int id) {
+		// TODO Auto-generated method stub
+		return articleDao.getForPrintListArticleReplies(id);
 	}
 	
 }

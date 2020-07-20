@@ -1,11 +1,13 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.sbs.java.blog.dto.Article"%>
+<%@ page import="com.sbs.java.blog.dto.ArticleReply"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
 <%
 	Article article = (Article) request.getAttribute("article");
 	String cateItemName = (String)request.getAttribute("cateItemName");
+	List<ArticleReply> articleReplies = (List<ArticleReply>) request.getAttribute("articleReplies");
 %>
 <!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <script
@@ -89,7 +91,8 @@
 
 .form1 .form-row>.label {
 	width: 130px;
-	ddfsfstext-align: center;
+	text-align: center;
+	font-size: 1.5rem;
 }
 
 .form1 .form-row>.input {
@@ -102,14 +105,57 @@
 	padding: 10px;
 }
 
-.reply-form-box {
-	border-top: 5px solid #dbdbdb;
-	margin-top: 50px;
-	margin-bottom: 100px;
+
+.reply-button {
+	margin-bottom: 50px;
 }
 
+.reply-button> .reply1{
+	width: 300px;
+}
+
+.replyList> .label{
+	font-size: 1.5rem;
+	margin-bottom: 30px;
+	margin-left: 30px;
+}
+
+.border {
+	border: 1px solid #dfdfdf;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.td-body {
+    padding: 20px !important;
+}
 </style>
 
+<script>
+var replyFormSubmitted = false;
+<!-- 제출 두번되지 않도록 맨윗줄에서 false해놓는다. 다입력했다면 마지막 코드에 도달해서 true로 바꿈 -->
+<!-- true라면 아래 함수 실행 해서 중복제출 막음-->
+function submitReplyForm(form) {
+  if ( replyFormSubmitted ) {
+    alert('처리 중입니다.');
+    return;
+  }
+  <!-- 공백ㄴㄴ > 알림창 뜨도록 -->
+  form.body.value = form.body.value.trim();
+  if ( form.body.value.length == 0 ) {
+    alert('댓글을 입력해주세요.');
+    form.body.focus(); <!-- loginId에서 커서 깜박이도록 -->
+    <!-- 알림창 뜨고 더이상 진행 안되도록 return-->
+    return;
+  
+  <!-- 여기까지 왔따면 다 입력됬다는거. form속성인 onsubmit에서 return false 해놓았기 때문에 강제로 제출하기-->
+  form.submit();
+  replyFormSubmitted = true;
+}
+</script>
 
 <div class="article-detail con table-box">
 	<div class="title-box">
@@ -148,7 +194,7 @@
 				<td><%=article.getUpdateDate()%></td>
 			</tr>
 			<tr>	
-				<td colspan="2"><script type="text/x-template" id="origin1" style="display:none;"><%=article.getBodyForXTemplate()%></script>
+				<td colspan="2" class="td-body"><script type="text/x-template" id="origin1" style="display:none;"><%=article.getBodyForXTemplate()%></script>
 				<div id="viewer1"></div></td>
 				<script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 				<script>
@@ -167,7 +213,59 @@
 				</script>
 			</tr>
 			
-			
+			<tr>
+				<td colspan="2">
+					<div class="reply-form-box form1 flex">
+						<form action="doReply" method="POST" class="form1 flex" onsubmit="submitReplyForm(this); return false;">
+						<!-- form으로 바꾸기 / 댓글 총 갯수 / 네모박스 회색 #ccc / for문으로 댓글 나열 -->
+							<div class="form-row">
+								<div class="label navy">댓글</div>
+								<div class="input">
+									<input type="hidden" name="articleId" value="${param.id}"/>
+									<input name="body" type="text" placeholder="댓글을 입력해주세요." />
+								</div>
+							</div>
+							
+							<div class="form-row reply-button text-align-right">
+								<div class="input">
+									<input type="submit" value="작성" />
+								</div>
+							</div>
+						</form>
+					
+						<div class="replyList">
+							<div class="label navy">댓글리스트</div>
+							<%
+								for (ArticleReply articleReply : articleReplies) {
+							%>  
+							
+							<div class="reply1">
+								<div class="writer-data">
+									<div class="writer1">
+										작성자 :
+										<%=articleReply.getExtra().get("writer")%></div>
+									<div class="regDate1">
+										작성일 :
+										<%=articleReply.getRegDate()%>
+									</div>
+									<input type="hidden" value="${param.id}" />
+								</div>
+								<div class="body"><%=articleReply.getBody()%></div>
+							</div>
+							<div class="button">
+									<input type="button" onclick="location.href='replyModify?id=<%=articleReply.getId()%>'" name="body" value="수정" /> 
+									<button type="submit"
+									onclick="location.href='doReplyDelete?replyId=<%=articleReply.getId()%>&id=${param.id}'">삭제</button>
+							</div>
+							
+							<div class="border"></div>
+							<%
+								}
+							%>
+						</div>
+					</div>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	<div class="btn-box">
@@ -189,23 +287,7 @@
 	</div>
 	
 	
-	<div class="reply-form-box form1 flex">
-		<form action="doReply" method="POST" class="form1 flex">
-		<!-- form으로 바꾸기 / 댓글 총 갯수 / 네모박스 회색 #ccc / for문으로 댓글 나열 -->
-			<div class="form-row">
-				<div class="label">댓글</div>
-				<div class="input">
-					<input name="article-reply" type="text" placeholder="댓글을 입력해주세요." />
-				</div>
-			</div>
-			
-			<div class="form-row reply-button text-align-right">
-				<div class="input">
-					<input type="submit" value="작성" />
-				</div>
-			</div>
-		</form>
-	</div>
+	
 </div>
 
 
