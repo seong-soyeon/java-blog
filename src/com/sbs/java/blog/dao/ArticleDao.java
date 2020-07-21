@@ -146,7 +146,7 @@ public class ArticleDao extends Dao {
 		return DBUtil.update(dbConn, sql);
 	}
 
-	public int doActionDelete(int id) {
+	public int delete(int id) {
 		SecSql secSql = new SecSql();
 		
 		secSql.append("DELETE FROM article ");
@@ -197,5 +197,16 @@ public class ArticleDao extends Dao {
 			articleReplies.add(new ArticleReply(row));
 		}
 		return articleReplies;
+	}
+
+	public int deleteReply(int id) {
+		// TODO Auto-generated method stub
+		SecSql secSql = new SecSql();
+
+		secSql.append("DELETE FROM articleReply");
+		secSql.append("WHERE id = ? ", id);
+		
+		return DBUtil.update(dbConn, secSql);
+		
 	}
 }

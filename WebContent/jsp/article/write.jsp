@@ -166,8 +166,6 @@
 			</div>
 		</div>
 
-
-
 		<div class="write-button text-align-right">
 			<div class="input">
 				<input type="submit" value="작성" />

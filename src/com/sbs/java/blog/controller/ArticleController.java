@@ -50,26 +50,57 @@ public class ArticleController extends Controller {
 		}
 		return "";
 	}
-
-
+	
 	private String doActionDoReplyDelete() {
 		// TODO Auto-generated method stub
-		return null;
+		int replyId = 0;
+		if (!Util.empty(req, "replyId") && Util.isNum(req, "replyId")) {
+			replyId = Util.getInt(req, "replyId");
+		}
+		System.out.println(replyId);
+		
+		articleService.deleteReply(replyId);
+				
+		int id = 0;
+		if (!Util.empty(req, "id") && Util.isNum(req, "id")) {
+			id = Util.getInt(req, "id");
+		}
+		System.out.println(id);
+		return "html:<script> alert('댓글이 삭제되었습니다.'); location.replace('detail?id=" + id + "'); </script>";
+	}
+
+	private String doActionReplyModify() {
+		// TODO 
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		
+		int id = 0;
+		if (!Util.empty(req, "id") && Util.isNum(req, "id")) {
+			id = Util.getInt(req, "id");
+		}
+				
+		//ArticleReply articleReply = articleService.getForPrintArticleReplyModify(id);
+		//req.setAttribute("articleReply", articleReply);
+				
+		return "article/modify.jsp";
 	}
 
 	private String doActionDoReplyModify() {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		int id = 0;
+		if (!Util.empty(req, "id") && Util.isNum(req, "id")) {
+			id = Util.getInt(req, "id");
+		}
 
-	private String doActionReplyModify() {
-		// TODO Auto-generated method stub
-		return null;
+		String body = req.getParameter("body");
+		
+		//articleService.doActionDoModify(id, body);
+		
+		System.out.println("lololol");
+		return "html:<script> alert('" + id + "번 게시물이 수정되었습니다.'); location.replace('list'); </script>";
 	}
 	
 	private String doActionDoReply() {
 		// TODO Auto-generated method stub
-		System.out.println("reply start!!");
 		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
 		String body = req.getParameter("body");
 		
@@ -78,7 +109,6 @@ public class ArticleController extends Controller {
 		if (!Util.empty(req, "articleId") && Util.isNum(req, "articleId")) { 
 			articleId = Util.getInt(req, "articleId");
 		}
-		System.out.println(articleId);
 		
 		int ReplyId = articleService.getReply(body, articleId, loginedMemberId); 
 		
@@ -179,7 +209,7 @@ public class ArticleController extends Controller {
 		}
 		int id = Util.getInt(req, "id");
 		
-		int deleteId = articleService.doActionDelete(id);
+		int deleteId = articleService.delete(id);
 		
 		return "html:<script> alert('" + id + "번 게시물이 삭제되었습니다.'); location.replace('list'); </script>";
 	}

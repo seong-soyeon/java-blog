@@ -44,8 +44,8 @@ public class ArticleService extends Service {
 		articleDao.increaseHit(id);
 	}
 
-	public int doActionDelete(int id) {
-		return articleDao.doActionDelete(id);
+	public int delete(int id) {
+		return articleDao.delete(id);
 	}
 
 	public void doActionDoModify(int id, int cateItemId, String title, String body) {
@@ -60,5 +60,8 @@ public class ArticleService extends Service {
 		// TODO Auto-generated method stub
 		return articleDao.getForPrintListArticleReplies(id);
 	}
-	
+
+	public void deleteReply(int replyId) {
+		articleDao.deleteReply(replyId);
+	}
 }

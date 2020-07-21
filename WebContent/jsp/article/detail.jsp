@@ -45,31 +45,39 @@
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
+<script
+	src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 <style>
 .border-navy {
-    border: 5px solid navy;
+	border: 5px solid navy;
 }
+
 .navy {
 	color: navy;
 }
+
 .detail-modify {
 	position: absolute;
-	right:120px;
+	right: 120px;
 }
+
 .detail_a {
-	padding-top:30px;
-	text-align:center;
+	padding-top: 30px;
+	text-align: center;
 }
+
 .detail_b {
 	position: absolute;
-	padding-right:100px;
+	padding-right: 100px;
 }
+
 .detail_c {
 	position: absolute;
-	padding-left:100px;
+	padding-left: 100px;
 }
+
 .all-label {
-	margin:10px;
+	margin: 10px;
 	padding: 5px 25px;
 	height: 27px;
 	text-align: center;
@@ -98,6 +106,7 @@
 .form1 .form-row>.input {
 	flex-grow: 1;
 }
+
 .form1 .form-row>.input>input {
 	display: block;
 	width: 100%;
@@ -105,16 +114,20 @@
 	padding: 10px;
 }
 
+.detail-body {
+	padding: 20px !important;
+}
 
+/* 댓글 */
 .reply-button {
 	margin-bottom: 50px;
 }
 
-.reply-button> .reply1{
+.reply-button>.reply1 {
 	width: 300px;
 }
 
-.replyList> .label{
+.replyList>.label {
 	font-size: 1.5rem;
 	margin-bottom: 30px;
 	margin-left: 30px;
@@ -129,42 +142,31 @@
 	margin-bottom: 20px;
 }
 
-.td-body {
-    padding: 20px !important;
+.reply-form-box> .replyList> .reply1 {
+	min-height: 80px;
+}
+
+.reply1>.reply-body {
+	font-size: 1.3rem;
+}
+
+.reply-form-box> .replyList> .button {
+	
 }
 </style>
 
-<script>
-var replyFormSubmitted = false;
-<!-- 제출 두번되지 않도록 맨윗줄에서 false해놓는다. 다입력했다면 마지막 코드에 도달해서 true로 바꿈 -->
-<!-- true라면 아래 함수 실행 해서 중복제출 막음-->
-function submitReplyForm(form) {
-  if ( replyFormSubmitted ) {
-    alert('처리 중입니다.');
-    return;
-  }
-  <!-- 공백ㄴㄴ > 알림창 뜨도록 -->
-  form.body.value = form.body.value.trim();
-  if ( form.body.value.length == 0 ) {
-    alert('댓글을 입력해주세요.');
-    form.body.focus(); <!-- loginId에서 커서 깜박이도록 -->
-    <!-- 알림창 뜨고 더이상 진행 안되도록 return-->
-    return;
-  
-  <!-- 여기까지 왔따면 다 입력됬다는거. form속성인 onsubmit에서 return false 해놓았기 때문에 강제로 제출하기-->
-  form.submit();
-  replyFormSubmitted = true;
-}
-</script>
+
 
 <div class="article-detail con table-box">
 	<div class="title-box">
 		<h1 class="con title">게시물 디테일😀</h1>
 	</div>
-	
-	<h3 class="con hit">조회수 : <%=article.getHit()%></h3>
+
+	<h3 class="con hit">
+		조회수 :
+		<%=article.getHit()%></h3>
 	<table class="border-navy">
-			<colgroup>
+		<colgroup>
 			<col width="20%">
 			<col width="80%">
 		</colgroup>
@@ -193,71 +195,54 @@ function submitReplyForm(form) {
 				<th class="navy">수정날짜</th>
 				<td><%=article.getUpdateDate()%></td>
 			</tr>
-			<tr>	
-				<td colspan="2" class="td-body"><script type="text/x-template" id="origin1" style="display:none;"><%=article.getBodyForXTemplate()%></script>
-				<div id="viewer1"></div></td>
-				<script src="${pageContext.request.contextPath}/resource/js/common.js"></script>
-				<script>
-					var editor1__initialValue = getBodyFromXTemplate('#origin1');
-					var editor1 = new toastui.Editor({
-					  el: document.querySelector("#viewer1"),
-					  viewer:true,
-					  initialValue : getForEditorBody('#origin1'),
-					  initialValue: editor1__initialValue,
-					  plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, replPlugin, codepenPlugin]
-					});
-
-					function getForEditorBody(selector) {
-						return $(selector).html().trim().replace(/<!--REPLACE:SCRIPT-->/gi,	"script");
-					}
-				</script>
+			<tr>
+				<td colspan="2" class="detail-body"><script type="text/x-template"	id="origin1" style="display: none;"><%=article.getBodyForXTemplate()%></script>
+					<div id="viewer1"></div></td>
+				
 			</tr>
-			
+
 			<tr>
 				<td colspan="2">
 					<div class="reply-form-box form1 flex">
-						<form action="doReply" method="POST" class="form1 flex" onsubmit="submitReplyForm(this); return false;">
-						<!-- form으로 바꾸기 / 댓글 총 갯수 / 네모박스 회색 #ccc / for문으로 댓글 나열 -->
+						<form name="form" action="doReply" method="POST" class="form1 flex"	onsubmit="submitReplyForm(this); return false;">
 							<div class="form-row">
 								<div class="label navy">댓글</div>
 								<div class="input">
-									<input type="hidden" name="articleId" value="${param.id}"/>
-									<input name="body" type="text" placeholder="댓글을 입력해주세요." />
+									<input type="hidden" name="articleId" value="${param.id}" /> <input
+										name="body" type="text" placeholder="댓글을 입력해주세요." />
 								</div>
 							</div>
-							
+
 							<div class="form-row reply-button text-align-right">
 								<div class="input">
 									<input type="submit" value="작성" />
 								</div>
 							</div>
 						</form>
-					
+
 						<div class="replyList">
 							<div class="label navy">댓글리스트</div>
 							<%
 								for (ArticleReply articleReply : articleReplies) {
-							%>  
-							
+							%>
+
 							<div class="reply1">
-								<div class="writer-data">
-									<div class="writer1">
-										작성자 :
-										<%=articleReply.getExtra().get("writer")%></div>
-									<div class="regDate1">
-										작성일 :
-										<%=articleReply.getRegDate()%>
+								<div class="reply2">
+									<div class="reply-head">
+										작성자 : <%=articleReply.getExtra().get("writer")%>
+										&emsp;작성날짜 : <%=articleReply.getRegDate()%>
 									</div>
 									<input type="hidden" value="${param.id}" />
 								</div>
-								<div class="body"><%=articleReply.getBody()%></div>
+								<div class="reply-body"><%=articleReply.getBody()%></div>
 							</div>
-							<div class="button">
-									<input type="button" onclick="location.href='replyModify?id=<%=articleReply.getId()%>'" name="body" value="수정" /> 
-									<button type="submit"
-									onclick="location.href='doReplyDelete?replyId=<%=articleReply.getId()%>&id=${param.id}'">삭제</button>
+							<div class="button text-align-right">
+								<% if ( isLogined ) { %>
+			                    	<input type="button" value="수정" name="body" onclick="location.href='replyModify?id=<%=articleReply.getId()%>'" />
+			                    	<input type="button" value="삭제" onclick="location.href='doReplyDelete?replyId=<%=articleReply.getId()%>&id=${param.id}'" />
+			                    <% } %>
 							</div>
-							
+
 							<div class="border"></div>
 							<%
 								}
@@ -274,21 +259,33 @@ function submitReplyForm(form) {
 			<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=<%=article.getId()%>">수정하기</a> -->
 			<!-- <a class="detail-modify" href="modify?id=<%=article.getId()%>">수정하기</a> -->
 			<!-- <a class="absolute-right" href="delete?id=${param.id}">삭제하기</a> -->
-					
-			<a class="detail-modify all-label" href="modify?id=<%=article.getId()%>">수정하기</a>
-			<a class="absolute-right all-label" href="delete?id=<%=article.getId()%>">삭제하기</a>
+
+			<a class="detail-modify all-label "
+				href="modify?id=<%=article.getId()%>">수정하기</a> 
+			<a class="absolute-right all-label"
+				href="delete?id=<%=article.getId()%>">삭제하기</a>
 		</div>
-		
+
 		<div class="con detail_a relative">
-			<a class="detail_b" href="#"> < 이전글</a>
-			
-			<a class="detail_c" href="#">다음글 > </a>
+			<a class="detail_b" href="#"> < 이전글</a> 
+			<a class="detail_c" href="#">다음글	> </a>
 		</div>
 	</div>
-	
-	
-	
 </div>
 
+<script>
+	var editor1__initialValue = getBodyFromXTemplate('#origin1');
+	var editor1 = new toastui.Editor({
+	  el: document.querySelector("#viewer1"),
+	  viewer:true,
+	  initialValue : getForEditorBody('#origin1'),
+	  initialValue: editor1__initialValue,
+	  plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, replPlugin, codepenPlugin]
+	});
 
-<%@ include file="/jsp/part/foot.jspf"%> 
+	function getForEditorBody(selector) {
+		return $(selector).html().trim().replace(/<!--REPLACE:SCRIPT-->/gi,	"script");
+	}
+</script>
+
+<%@ include file="/jsp/part/foot.jspf"%>
