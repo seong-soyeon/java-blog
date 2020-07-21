@@ -273,6 +273,7 @@
 	</div>
 </div>
 
+
 <script>
 	var editor1__initialValue = getBodyFromXTemplate('#origin1');
 	var editor1 = new toastui.Editor({

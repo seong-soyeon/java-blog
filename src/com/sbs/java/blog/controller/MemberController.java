@@ -42,7 +42,7 @@ public class MemberController extends Controller {
 	
 	private String doActionDoLogin() {
 		String loginId = req.getParameter("loginId");
-		String loginPw = req.getParameter("loginPw");
+		String loginPw = req.getParameter("loginPwReal");
 		
 		int loginedMemberId = memberService.getMemberIdByLoginIdAndLoginPw(loginId, loginPw);
 
