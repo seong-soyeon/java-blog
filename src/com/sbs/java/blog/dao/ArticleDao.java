@@ -122,6 +122,7 @@ public class ArticleDao extends Dao {
 		secSql.append(", hit = '0'");
 		secSql.append(", memberId = ?", memberId);
 		
+		return DBUtil.insert(dbConn, secSql);
 		/*
 		String sql = "";
 		
@@ -135,11 +136,11 @@ public class ArticleDao extends Dao {
 		
 		return DBUtil.insert(dbConn, sql);
 		*/
-		return DBUtil.insert(dbConn, secSql);
 	}
 
 	public int increaseHit(int id) {
 		SecSql sql = SecSql.from("UPDATE article");
+		
 		sql.append("SET hit = hit + 1");
 		sql.append("WHERE id = ?", id);
 
@@ -155,7 +156,7 @@ public class ArticleDao extends Dao {
 		return DBUtil.update(dbConn, secSql);
 	}
 
-	public int doActionDoModify(int id, int cateItemId, String title, String body) {
+	public int modify(int id, int cateItemId, String title, String body) {
 		SecSql secSql = new SecSql();
 
 		secSql.append("UPDATE article");
@@ -171,6 +172,7 @@ public class ArticleDao extends Dao {
 	
 	public int getArticleReply(String body, int articleId, int memberId) {
 		SecSql sql = SecSql.from("INSERT INTO articleReply");
+		
 		sql.append("SET regDate = NOW()");
 		sql.append(", updateDate = NOW()");
 		sql.append(", articleId = ?", articleId);
@@ -181,9 +183,8 @@ public class ArticleDao extends Dao {
 	}
 
 	public List<ArticleReply> getForPrintListArticleReplies(int id) {
-		// TODO Auto-generated method stub
-		
 		SecSql sql = SecSql.from("SELECT *");
+		
 		sql.append("FROM articleReply AS A");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
@@ -200,7 +201,6 @@ public class ArticleDao extends Dao {
 	}
 
 	public int deleteReply(int id) {
-		// TODO Auto-generated method stub
 		SecSql secSql = new SecSql();
 
 		secSql.append("DELETE FROM articleReply");

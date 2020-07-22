@@ -16,6 +16,7 @@ import com.sbs.java.blog.app.App;
 //		int dan = Integer.parseInt(request.getParameter("dan")); //url에 dan값을 int로 받겠다.(기본string으로 받음)
 //		request.setAttribute("name", dan + "단"); ///jsp/home/dan.jsp에서 ${name}라고 치면 dan+"단"이 치환되어 들어감(setAttribute는 메모라고 보면됨.request를 넘겨받는 애들은 다 이 메모를 볼수 있음)
 //		rd.forward(request, reponse);
+import com.sbs.java.blog.service.MailService;
 
 
 //리스폰스resp : 응답
@@ -25,12 +26,24 @@ import com.sbs.java.blog.app.App;
 
 
 //http://localhost:8081/blog/s/*가 실행됨
-@WebServlet("/s/*")
+//web.xml에서 실행함
+//@WebServlet("/s/*")
 public class DispatcherServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//request 에서 입력받은 데이터 UTF 인코딩(들어오는데이터 한글처리)
 		req.setCharacterEncoding("UTF-8");
-		new App(req, resp).start();
+		String gmailId = getServletConfig().getInitParameter("gmailId");
+		String gmailPw = getServletConfig().getInitParameter("gmailPw");
+		new App(req, resp, gmailId, gmailPw).start();
+		
+		/* 메일발송되는지 확인한 코드
+		// 보안을 위해 내 아이디랑 비번 이곳에 입력하지 않고 web.xml에서 받아옴
+		String gmailId = getServletConfig().getInitParameter("gmailId");
+		String gmailPw = getServletConfig().getInitParameter("gmailPw");
+		MailService mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
+		boolean sendMailDone = mailService.send("받는사람 메일@gmail.com", "안녕하세요.", "반갑습니다.!!") == 1;
+		resp.getWriter().append(String.format("발송성공 : %b", sendMailDone));
+		*/
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,7 +1,18 @@
 package com.sbs.java.blog.util;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,5 +82,45 @@ public class Util {
 
 	public static String getString(HttpServletRequest req, String paramName) {
 		return req.getParameter(paramName);
+	}
+
+	public static int sendMail(String smtpServerId, String smtpServerPw, String from, String fromName, String to, String title,
+			String body) {
+		// TODO Auto-generated method stub
+		Properties prop = System.getProperties();
+		prop.put("mail.smtp.starttls.enable", "true");     // gmail은 무조건 true 고정
+        prop.put("mail.smtp.host", "smtp.gmail.com");      // smtp 서버 주소
+        prop.put("mail.smtp.auth","true");                 // gmail은 무조건 true 고정
+        prop.put("mail.smtp.port", "587");                 // gmail 포트
+
+        Authenticator auth = new MailAuth(smtpServerId, smtpServerPw);
+        
+        Session session = Session.getDefaultInstance(prop, auth);
+        
+        MimeMessage msg = new MimeMessage(session);
+        
+        try {
+        	msg.setSentDate(new Date());
+        	
+        	msg.setFrom(new InternetAddress(from, fromName));
+        	msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        	msg.setSubject(title, "UTF-8");
+        	msg.setText(body, "UTF-8");
+        	
+        	System.out.println("유틸의 트라이 안");
+        	Transport.send(msg);
+        	
+        } catch (AddressException ae) {
+        	System.out.println("AddressException : " + ae.getMessage());
+        	return -1;
+        } catch (MessagingException me) {
+        	System.out.println("MessagingException : " + me.getMessage());
+        	return -2;
+        } catch (UnsupportedEncodingException e) {
+        	System.out.println("UnsupportedEncodingException : " + e.getMessage());
+        	return -3;
+        }
+        
+        return 1;
 	}
 }

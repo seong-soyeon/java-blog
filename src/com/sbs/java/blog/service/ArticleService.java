@@ -48,8 +48,8 @@ public class ArticleService extends Service {
 		return articleDao.delete(id);
 	}
 
-	public void doActionDoModify(int id, int cateItemId, String title, String body) {
-		articleDao.doActionDoModify(id, cateItemId, title, body);
+	public void modify(int id, int cateItemId, String title, String body) {
+		articleDao.modify(id, cateItemId, title, body);
 	}
 
 	public int getReply(String body, int articleId, int memberId) {

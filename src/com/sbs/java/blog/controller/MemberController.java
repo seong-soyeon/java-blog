@@ -5,12 +5,18 @@ import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.sbs.java.blog.service.MailService;
 
 public class MemberController extends Controller {
+	private String gmailPw;
+	private String gmailId;
+	
 	public MemberController(Connection dbConn, String actionMethodName, HttpServletRequest req,
-			HttpServletResponse resp) {
+			HttpServletResponse resp, String gmailId, String gmailPw) {
 		super(dbConn, actionMethodName, req, resp);
+		this.gmailId = gmailId;
+		this.gmailPw = gmailPw;
 	}
 	// 게시물 컨트롤러의 모든 액션이 실행되기 전에 실행됨
 	public void beforeAction() {
@@ -30,10 +36,21 @@ public class MemberController extends Controller {
 			return doActionDoLogin();
 		case "doLogout":
 			return doActionDoLogout();
+		case "doFindId":
+			return doActionDoFindId();
+		case "doFindPw":
+			return doActionDoFindPw();
 	}
 		return "";
 	}
 
+	private String doActionDoFindId() {
+		return "member/findId.jsp";
+	}
+	private String doActionDoFindPw() {
+		return "member/findId.jsp";
+	}
+	
 	private String doActionDoLogout() {
 		session.removeAttribute("loginedMemberId");
 
@@ -93,7 +110,18 @@ public class MemberController extends Controller {
 		}
 
 		memberService.join(loginId, loginPw, name, nickname, email);
-
+		
+		
+		// 여기다가 가입환영메일 보내는것을 해도되나... 우선 이메일을 받아오자
+		
+			
+		MailService mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
+		
+		System.out.println("발송전");
+		
+		boolean sendMailDone = mailService.send(email, "회원가입을 축하드립니다!!!", loginId + "님 회원가입을 축하드립니다!!!") == 1;
+		System.out.println("발송후");
+		
 		return String.format("html:<script> alert('짝짝짝 %s님 환영합니다.'); location.replace('login'); </script>", name);	
 	}
 

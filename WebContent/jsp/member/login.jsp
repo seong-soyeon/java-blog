@@ -37,8 +37,11 @@
 	}
 }
 
-.login-button {
-	padding: 15px;
+.form-row> .input>.findId {
+	margin-right: 5px;
+}
+.form-row> .input>.findPw {
+	margin-left: 5px;
 }
 
 /* cus */
@@ -111,7 +114,7 @@ function submitLoginForm(form) {
 		<!-- js에서 보안작업 하기위해 hidden으로 몰래 loginPwReal 만들어 놈 -->
 		<input type="hidden" name="loginPwReal" />
 		<div class="form-row">
-			<div class="label">Id</div>
+			<div class="label">ID</div>
 			<div class="input">
 				<!-- name 중요 js, url 등에서 사용하는 명칭 -->
 				<input name="loginId" type="text" placeholder="ID를 입력해주세요." />
@@ -125,14 +128,21 @@ function submitLoginForm(form) {
 		</div>
 		
 		<div class="form-row">
-			<div class="input btn-size">
+			<div class="input">
 				<!-- 버튼 이미지 원하면 input type="image" -->
-				<input type="submit" value="로그인" />
+				<input type="submit" value="로그인" style="margin-top: 10px;"/>
+				
 			</div>
 		</div>
 		<div class="form-row">
-			<div class="input btn-size">
+			<div class="input">
 				<input type="button" value="회원가입" onclick="location.href='join'" />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="input flex">
+				<input class="findId" type="button" value="ID찾기" onclick="location.href='findId'" />
+				<input class="findPw" type="button" value="PW찾기" onclick="location.href='findPw'" />
 			</div>
 		</div>
 	</form>

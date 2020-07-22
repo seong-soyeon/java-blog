@@ -136,7 +136,7 @@ public class ArticleController extends Controller {
 		String title = req.getParameter("title");
 		String body = req.getParameter("body");
 		
-		articleService.doActionDoModify(id, cateItemId, title, body);
+		articleService.modify(id, cateItemId, title, body);
 		
 		System.out.println("lololol");
 		return "html:<script> alert('" + id + "번 게시물이 수정되었습니다.'); location.replace('list'); </script>";
