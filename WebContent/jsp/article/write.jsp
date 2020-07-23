@@ -140,14 +140,9 @@
 			<div class="label">카테고리</div>
 			<div class="input">
 				<select name="cateItemId">
-					<%
-						for (CateItem cateItem : cateItems) {
-					%>
-					<option value="<%=cateItem.getId()%>"><%=cateItem.getName()%></option>
-					<%
-						}
-					%>
-
+					<c:forEach items="${cateItems}" var="cateItem">
+						<option value="${cateItem.id}">${cateItem.name}</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>

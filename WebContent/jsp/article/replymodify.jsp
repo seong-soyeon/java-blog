@@ -3,11 +3,6 @@
 <%@ page import="com.sbs.java.blog.dto.Article"%>
 <%@ page import="com.sbs.java.blog.dto.ArticleReply"%>
 <%@ include file="/jsp/part/head.jspf"%>
-<%
-	Article article = (Article) request.getAttribute("article");
-	String cateItemName = (String) request.getAttribute("cateItemName");
-	List<ArticleReply> articleReplies = (List<ArticleReply>) request.getAttribute("articleReplies");
-%>
 
 <style>
 .border-navy {
@@ -116,7 +111,7 @@ reply1>.reply-body {
 
 	<h3 class="con hit">
 		조회수 :
-		<%=article.getHit()%></h3>
+		${article.hit}</h3>
 	<table class="border-navy">
 		<colgroup>
 			<col width="20%">
@@ -125,31 +120,31 @@ reply1>.reply-body {
 		<tbody>
 			<tr>
 				<th class="navy">제목</th>
-				<td><%=article.getTitle()%></td>
+				<td>${article.title}</td>
 			</tr>
 			<tr>
 				<th class="navy">게시물번호</th>
-				<td><%=article.getId()%></td>
+				<td>${article.id}</td>
 			</tr>
 			<tr>
 				<th class="navy">카테고리</th>
-				<td><%=article.getCateItemId()%>-<%=cateItemName%></td>
+				<td>${article.cateItemId}-${cateItemName}</td>
 			</tr>
 			<tr>
 				<th class="navy">작성자</th>
-				<td><%=article.getExtra().get("writer")%></td>
+				<td>${article.extra().get("writer")}</td>
 			</tr>
 			<tr>
 				<th class="navy">작성날짜</th>
-				<td><%=article.getRegDate()%></td>
+				<td>${article.regDate}</td>
 			</tr>
 			<tr>
 				<th class="navy">수정날짜</th>
-				<td><%=article.getUpdateDate()%></td>
+				<td>${article.updateDate}</td>
 			</tr>
 			<tr>
 				<td colspan="2" class="td-body"><script type="text/x-template"
-						id="origin1" style="display: none;"><%=article.getBodyForXTemplate()%></script>
+						id="origin1" style="display: none;">${article.bodyForXTemplate}</script>
 					<div id="viewer1"></div></td>
 				<script
 					src="${pageContext.request.contextPath}/resource/js/common.js"></script>
@@ -190,19 +185,16 @@ reply1>.reply-body {
 
 						<div class="replyList">
 							<div class="label navy">댓글리스트</div>
-							<%
-								for (ArticleReply articleReply : articleReplies) {
-							%>
-
+							<c:forEach items="${articleReplies}" var="articleReply">
 							<div class="reply1">
 								<div class="reply2">
 									<div class="reply-head">
-										작성자 : <%=articleReply.getExtra().get("writer")%>
-										작성날짜 : <%=articleReply.getRegDate()%>
+										작성자 : ${articleReply.extra().get("writer")}
+										작성날짜 : ${articleReply.regDate}
 									</div>
 									<input type="hidden" value="${param.id}" />
 								</div>
-								<div class="reply-body"><%=articleReply.getBody()%></div>
+								<div class="reply-body">${articleReply.body}</div>
 							</div>
 							<div class="reply-modify-button text-align-right">
 								<div class="input">
@@ -212,9 +204,7 @@ reply1>.reply-body {
 							</div>
 														
 							<div class="border"></div>
-							<%
-								}
-							%>
+							</c:forEach>
 						</div>
 					</div>
 				</td>
@@ -224,14 +214,14 @@ reply1>.reply-body {
 	<div class="btn-box">
 		<div class="con relative">
 			<a class="absolute-left all-label" href="./list">전체목록</a>
-			<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=<%=article.getId()%>">수정하기</a> -->
-			<!-- <a class="detail-modify" href="modify?id=<%=article.getId()%>">수정하기</a> -->
+			<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=${article.id}">수정하기</a> -->
+			<!-- <a class="detail-modify" href="modify?id=${article.id}">수정하기</a> -->
 			<!-- <a class="absolute-right" href="delete?id=${param.id}">삭제하기</a> -->
 
 			<a class="detail-modify all-label"
-				href="modify?id=<%=article.getId()%>">수정하기</a> <a
+				href="modify?id=${article.id}">수정하기</a> <a
 				class="absolute-right all-label"
-				href="delete?id=<%=article.getId()%>">삭제하기</a>
+				href="delete?id=${article.id}">삭제하기</a>
 		</div>
 
 		<div class="con detail_a relative">

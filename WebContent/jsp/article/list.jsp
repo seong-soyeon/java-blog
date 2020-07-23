@@ -3,12 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
-<%
-	List<Article> articles = (List<Article>) request.getAttribute("articles");
-	int totalPage = (int) request.getAttribute("totalPage");
-	int paramPage = (int) request.getAttribute("page");
-	String cateItemName = (String)request.getAttribute("cateItemName");
-%>
+
 <style>
 .article-list-box-1 td {
 	text-align: center;
@@ -88,7 +83,7 @@
 <div class="article-list-box-1 con table-box">
 
 	<h2 class="con cateItem-current">
-		# <%=cateItemName%>
+		# ${cateItemName}
 	</h2>
 	
 	<div class="search flex flex-jc-sb">
@@ -120,18 +115,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%
-				for (Article article : articles) {
-			%>
+			<c:forEach items="${articles}" var="article">
 			<tr>
-				<td><%=article.getId()%></td>
-				<td><%=article.getCateItemId()%></td>
-				<td><%=article.getRegDate()%></td>
-				<td class="text-align-left"><a href="./detail?id=<%=article.getId()%>&cateItemId=<%=article.getCateItemId()%>-<%=cateItemName%>"><%=article.getTitle()%></a></td>
+				<td>${article.id}</td>
+				<td>${article.cateItemId}</td>
+				<td>${article.regDate}></td>
+				<td class="text-align-left"><a href="./detail?id=${article.id}&cateItemId={article.cateItemId}-{cateItemName}">${article.title}</a></td>
 			</tr>
-			<%
-				}
-			%>
+			</c:forEach>
 		</tbody>
 	</table>
 	<div class="doWrite-button text-align-right ">
@@ -141,15 +132,11 @@
 
 <div class="con page-box">
 	<ul class="flex flex-jc-c">
-		<%
-			for (int i = 1; i <= totalPage; i++) {
-		%>
+		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
 		<!-- 삼항연산자 i == paramPage 가 참이면 "current"  거짓이면 ""  -->
-		<li class="<%=i == paramPage ? "current" : ""%>"><a
-			href="?cateItemId=${param.cateItemId}&searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=<%=i%>" class="block"><%=i%></a></li>
-		<%
-			}
-		%>
+		<li class="${i == cPage ? "current" : ""}"><a
+			href="?cateItemId=${param.cateItemId}&searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}" class="block">${i}</a></li>
+		</c:forEach>
 	</ul>
 </div>
 

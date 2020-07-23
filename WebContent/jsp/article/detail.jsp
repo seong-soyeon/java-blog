@@ -4,11 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
-<%
-	Article article = (Article) request.getAttribute("article");
-	String cateItemName = (String)request.getAttribute("cateItemName");
-	List<ArticleReply> articleReplies = (List<ArticleReply>) request.getAttribute("articleReplies");
-%>
+
 <!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
@@ -164,7 +160,7 @@
 
 	<h3 class="con hit">
 		조회수 :
-		<%=article.getHit()%></h3>
+		${article.hit}</h3>
 	<table class="border-navy">
 		<colgroup>
 			<col width="20%">
@@ -173,30 +169,30 @@
 		<tbody>
 			<tr>
 				<th class="navy">제목</th>
-				<td><%=article.getTitle()%></td>
+				<td>${article.title}</td>
 			</tr>
 			<tr>
 				<th class="navy">게시물번호</th>
-				<td><%=article.getId()%></td>
+				<td>${article.id}</td>
 			</tr>
 			<tr>
 				<th class="navy">카테고리</th>
-				<td><%=article.getCateItemId()%>-<%=cateItemName%></td>
+				<td>${article.cateItemId}-${cateItemName}</td>
 			</tr>
 			<tr>
 				<th class="navy">작성자</th>
-				<td><%=article.getExtra().get("writer")%></td>
+				<td>${article.getExtra().get("writer")}</td>
 			</tr>
 			<tr>
 				<th class="navy">작성날짜</th>
-				<td><%=article.getRegDate()%></td>
+				<td>${article.regDate}</td>
 			</tr>
 			<tr>
 				<th class="navy">수정날짜</th>
-				<td><%=article.getUpdateDate()%></td>
+				<td>${article.updateDate}</td>
 			</tr>
 			<tr>
-				<td colspan="2" class="detail-body"><script type="text/x-template"	id="origin1" style="display: none;"><%=article.getBodyForXTemplate()%></script>
+				<td colspan="2" class="detail-body"><script type="text/x-template"	id="origin1" style="display: none;">${article.bodyForXTemplate}</script>
 					<div id="viewer1"></div></td>
 				
 			</tr>
@@ -222,31 +218,26 @@
 
 						<div class="replyList">
 							<div class="label navy">댓글리스트</div>
-							<%
-								for (ArticleReply articleReply : articleReplies) {
-							%>
-
+							<c:forEach items="${articleReplies}" var="articleReply">
 							<div class="reply1">
 								<div class="reply2">
 									<div class="reply-head">
-										작성자 : <%=articleReply.getExtra().get("writer")%>
-										&emsp;작성날짜 : <%=articleReply.getRegDate()%>
+										작성자 : ${articleReply.getExtra().get("writer")}
+										&emsp;작성날짜 : ${articleReply.regDate()}
 									</div>
 									<input type="hidden" value="${param.id}" />
 								</div>
-								<div class="reply-body"><%=articleReply.getBody()%></div>
+								<div class="reply-body">${articleReply.body}</div>
 							</div>
 							<div class="button text-align-right">
-								<% if ( isLogined ) { %>
-			                    	<input type="button" value="수정" name="body" onclick="location.href='replyModify?id=<%=articleReply.getId()%>'" />
-			                    	<input type="button" value="삭제" onclick="location.href='doReplyDelete?replyId=<%=articleReply.getId()%>&id=${param.id}'" />
-			                    <% } %>
+								<c:if test="${isLogined}">
+			                    	<input type="button" value="수정" name="body" onclick="location.href='replyModify?id=${articleReply.id}'" />
+			                    	<input type="button" value="삭제" onclick="location.href='doReplyDelete?replyId=${articleReply.id}&id=${param.id}'" />
+								</c:if>
 							</div>
 
 							<div class="border"></div>
-							<%
-								}
-							%>
+							</c:forEach>
 						</div>
 					</div>
 				</td>
@@ -256,14 +247,14 @@
 	<div class="btn-box">
 		<div class="con relative">
 			<a class="absolute-left all-label" href="./list">전체목록</a>
-			<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=<%=article.getId()%>">수정하기</a> -->
-			<!-- <a class="detail-modify" href="modify?id=<%=article.getId()%>">수정하기</a> -->
+			<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=${article.id}">수정하기</a> -->
+			<!-- <a class="detail-modify" href="modify?id=${article.id}">수정하기</a> -->
 			<!-- <a class="absolute-right" href="delete?id=${param.id}">삭제하기</a> -->
 
 			<a class="detail-modify all-label "
-				href="modify?id=<%=article.getId()%>">수정하기</a> 
+				href="modify?id=${article.id}">수정하기</a> 
 			<a class="absolute-right all-label"
-				href="delete?id=<%=article.getId()%>">삭제하기</a>
+				href="delete?id=${article.id}">삭제하기</a>
 		</div>
 
 		<div class="con detail_a relative">

@@ -2,11 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.sbs.java.blog.dto.Article"%>
 <%@ include file="/jsp/part/head.jspf"%>
-<%
-	Article article = (Article) request.getAttribute("article");
-	String cateItemName = (String) request.getAttribute("cateItemName");
-%>
-
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -108,19 +103,15 @@
 
 <div class="write-form-box con border-navy">
 	<form action="doModify" method="POST" name="update"	class="write-form form1" onsubmit="submitWriteForm(this); return false;">
-		<input type="hidden" name="id" value="<%=article.getId()%>" />
+		<input type="hidden" name="id" value="${article.id}" />
 		<input type="hidden" name="body" />
 		<div class="form-row">
 			<div class="label">카테고리</div>
 			<div class="input">
 				<select name="cateItemId">
-					<%
-						for (CateItem cateItem : cateItems) {
-					%>
-					<option value="<%=cateItem.getId()%>"><%=cateItem.getName()%></option>
-					<%
-						}
-					%>
+					<c:forEach items="${cateItems}" var="cateItem">
+						<option value="${cateItem.id}">${cateItem.name}</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -129,13 +120,13 @@
 			<div class="label">제목</div>
 			<div class="input">
 				<!-- name="" : URL에서 getparameter로 받아오는 내용이므로 꼭 정하기-->
-				<input name="title" type="text" value="<%=article.getTitle()%>"/>
+				<input name="title" type="text" value="${article.title}"/>
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="label">내용</div>
 			<div class="input">
-				<script type="text/x-template" id="origin1" ><%=article.getBodyForXTemplate()%></script>
+				<script type="text/x-template" id="origin1" >${article.bodyForXTemplate}</script>
 				<div id="editor1"></div>
 			</div>
 		</div>
