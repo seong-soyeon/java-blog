@@ -50,7 +50,16 @@ public class MemberDao extends Dao {
 		return DBUtil.selectRowIntValue(dbConn, sql) == 0;
 	}
 
+	public boolean isJoinableName(String name) {
+		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
+		sql.append("FROM `member`");
+		sql.append("WHERE name = ?", name);
+		
+		return DBUtil.selectRowIntValue(dbConn, sql) == 0;
+	}
+
 	public int getMemberIdByLoginIdAndLoginPw(String loginId, String loginPw) {
+		// TODO Auto-generated method stub
 		SecSql sql = SecSql.from("SELECT id");
 		sql.append("FROM `member`");
 		sql.append("WHERE loginId = ?", loginId);
@@ -65,6 +74,16 @@ public class MemberDao extends Dao {
 		sql.append("WHERE id = ?", id);
 
 		return new Member(DBUtil.selectRow(dbConn, sql));
+	}
+
+	public String getLoginIdByNameAndEmail(String name, String email) {
+		// TODO Auto-generated method stub
+		SecSql sql = SecSql.from("SELECT loginId");
+		sql.append("FROM `member`");
+		sql.append("WHERE name = ?", name);
+		sql.append("AND email = ?", email);
+		
+		return DBUtil.selectRowStringValue(dbConn, sql);
 	}
 	
 

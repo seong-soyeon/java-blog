@@ -36,6 +36,8 @@ public class MemberController extends Controller {
 			return doActionDoLogin();
 		case "doLogout":
 			return doActionDoLogout();
+		case "findIdPw":
+			return doActionFindIdPw();
 		case "doFindId":
 			return doActionDoFindId();
 		case "doFindPw":
@@ -44,11 +46,58 @@ public class MemberController extends Controller {
 		return "";
 	}
 
-	private String doActionDoFindId() {
-		return "member/findId.jsp";
-	}
 	private String doActionDoFindPw() {
-		return "member/findId.jsp";
+		// TODO Auto-generated method stub
+		String loginId = req.getParameter("loginId");
+		String email = req.getParameter("email");
+		
+		//아이디 중복체크
+		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
+		if ( isJoinableLoginId == true ) {
+			return String.format("html:<script> alert('%s(와)과 일치하는 회원정보가 없습니다.'); history.back(); </script>", loginId);
+		}
+		
+		//이메일로 회원 유무체크		
+		boolean isJoinableEmail = memberService.isJoinableEmail(email);
+		if ( isJoinableEmail == true ) {
+			return String.format("html:<script> alert('%s(와)과 일치하는 회원정보가 없습니다.'); history.back(); </script>", email);
+		}
+		
+		return null;
+	}
+	private String doActionDoFindId() {
+		String name = req.getParameter("name");
+		String email = req.getParameter("email");
+		/*
+		//이름으로 회원 유무체크		
+		boolean isJoinableName = memberService.isJoinableName(name);
+		if ( isJoinableName == true ) {
+			return String.format("html:<script> alert('%s(와)과 일치하는 회원정보가 없습니다.'); history.back(); </script>", name);
+		}
+		
+		//이메일로 회원 유무체크		
+		boolean isJoinableEmail = memberService.isJoinableEmail(email);
+		if ( isJoinableEmail == true ) {
+			return String.format("html:<script> alert('%s(와)과 일치하는 회원정보가 없습니다.'); history.back(); </script>", email);
+		}
+*/
+		// TODO 이름이랑 이메일로 아이디 가져와야해!!!!!!!!!!!!!!!!!!!여기 수정하기!!!!!
+		//아이디 찾기 메일 보내기
+		MailService mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
+
+		String loginId = memberService.getLoginIdByNameAndEmail(name, email);
+
+		if( loginId == null) {
+			return String.format("html:<script> alert('입력하신 정보와 일치하는 회원정보가 없습니다. 다시 입력해 주세요'); history.back(); </script>");
+		}
+		
+		boolean sendMailDone = mailService.send(email, "아이디 발송메일 입니다.", name + "님의 아이디는 " + loginId + " 입니다.") == 1;
+		System.out.println("발송후" + loginId);
+			
+		return String.format("html:<script> alert('회원님의 메일(%s)로 아이디가 발송되었습니다.'); location.replace('login'); </script>", email);	
+	}
+	private String doActionFindIdPw() {
+		return "member/findIdPw.jsp";
 	}
 	
 	private String doActionDoLogout() {
@@ -112,9 +161,7 @@ public class MemberController extends Controller {
 		memberService.join(loginId, loginPw, name, nickname, email);
 		
 		
-		// 여기다가 가입환영메일 보내는것을 해도되나... 우선 이메일을 받아오자
-		
-			
+		//회원가입 축하메일 보내기
 		MailService mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
 		
 		System.out.println("발송전");

@@ -25,6 +25,10 @@ public class MemberService extends Service {
 		return memberDao.isJoinableNickname(nickname);
 	}
 
+	public boolean isJoinableName(String name) {
+		return memberDao.isJoinableName(name);
+	}
+	
 	public boolean isJoinableEmail(String email) {
 		return memberDao.isJoinableEmail(email);
 	}
@@ -35,5 +39,9 @@ public class MemberService extends Service {
 
 	public Member getMemberById(int id) {
 		return memberDao.getMemberById(id);
+	}
+
+	public String getLoginIdByNameAndEmail(String name, String email) {
+		return memberDao.getLoginIdByNameAndEmail(name, email);
 	}
 }

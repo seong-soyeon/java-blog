@@ -192,8 +192,7 @@ function submitJoinForm(form) {
 		<div class="form-row">
 			<div class="label">PW 확인</div>
 			<div class="input">
-				<input name="loginPwConfirm" type="password"
-					placeholder="PW확인을 입력해주세요." />
+				<input name="loginPwConfirm" type="password" placeholder="PW확인을 입력해주세요." />
 			</div>
 		</div>
 
@@ -202,7 +201,7 @@ function submitJoinForm(form) {
 		<div class="join-button text-align-center">
 			<div class="input">
 				<input type="submit" value="가입" />
-				<input type="button" onclick="location.href='../home/main'" value="취소"/>
+				<input type="button" onclick="location.href='login'" value="취소"/>
 			</div>
 		</div>
 	</form>

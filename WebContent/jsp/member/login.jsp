@@ -33,15 +33,8 @@
 
 @media ( max-width : 700px ) {
 	.form1 .form-row {
-		display: block;
+		display: block;	
 	}
-}
-
-.form-row> .input>.findId {
-	margin-right: 5px;
-}
-.form-row> .input>.findPw {
-	margin-left: 5px;
 }
 
 /* cus */
@@ -141,8 +134,7 @@ function submitLoginForm(form) {
 		</div>
 		<div class="form-row">
 			<div class="input flex">
-				<input class="findId" type="button" value="ID찾기" onclick="location.href='findId'" />
-				<input class="findPw" type="button" value="PW찾기" onclick="location.href='findPw'" />
+				<input type="button" value="ID/PW찾기" onclick="location.href='findIdPw'" />
 			</div>
 		</div>
 	</form>
