@@ -97,12 +97,12 @@ public class DBUtil {
 */
 	public static int selectRowIntValue(Connection dbConn, SecSql sql) {
 		Map<String, Object> row = selectRow(dbConn, sql);
-//keySet로 Map에 있는거 가져옴
+		//keySet로 Map에 있는거 가져옴
 		for (String key : row.keySet()) {
 			return (int) row.get(key);
 		}
-//int 사용시 원하는 대로 안됬을 때 -1 return 하도록
-//String 은 "", boolean 은 false
+		//int 사용시 원하는 대로 안됬을 때 -1 return 하도록
+		//String 은 "", boolean 은 false
 		return -1;
 	}
 	
