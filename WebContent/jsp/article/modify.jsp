@@ -133,10 +133,10 @@
 
 		<div class="modify-button text-align-right">
 			<input type="submit" value="수정" />
-			<a href="list">취소</a>
+			<input type="button" onclick="location.href='detail?id=${param.id}'" value="취소"/>
 		</div>
 	</form>
-</div>
+</div>id=${param.id}
 
 <script>
 	var writeFormSubmitted = false;

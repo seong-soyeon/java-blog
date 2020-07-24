@@ -119,8 +119,8 @@
 			<tr>
 				<td>${article.id}</td>
 				<td>${article.cateItemId}</td>
-				<td>${article.regDate}></td>
-				<td class="text-align-left"><a href="./detail?id=${article.id}&cateItemId={article.cateItemId}-{cateItemName}">${article.title}</a></td>
+				<td>${article.regDate}</td>
+				<td class="text-align-left"><a href="./detail?id=${article.id}&cateItemId=${article.cateItemId}">${article.title}</a></td>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -134,7 +134,7 @@
 	<ul class="flex flex-jc-c">
 		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
 		<!-- 삼항연산자 i == paramPage 가 참이면 "current"  거짓이면 ""  -->
-		<li class="${i == cPage ? "current" : ""}"><a
+		<li class="${i == cPage ? 'current' : ''}"><a
 			href="?cateItemId=${param.cateItemId}&searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}" class="block">${i}</a></li>
 		</c:forEach>
 	</ul>

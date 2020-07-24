@@ -105,6 +105,7 @@ function submitLoginForm(form) {
 		onsubmit="submitLoginForm(this); return false;">
 		<!-- 빈칸ㄴㄴ -->
 		<!-- js에서 보안작업 하기위해 hidden으로 몰래 loginPwReal 만들어 놈 -->
+		<input type="hidden" name="redirectUrl" value="${param.afterLoginRedirectUrl}" />
 		<input type="hidden" name="loginPwReal" />
 		<div class="form-row">
 			<div class="label">ID</div>

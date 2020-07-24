@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf" %>
 <div class="con title-box">
-	<h1 class="title">메인😀</h1>
+	<h1 class="title">메인✿˘◡˘✿</h1>
 	
 </div>
 

@@ -3,6 +3,8 @@
 <%@ page import="com.sbs.java.blog.dto.Article"%>
 <%@ page import="com.sbs.java.blog.dto.ArticleReply"%>
 <%@ include file="/jsp/part/head.jspf"%>
+<script
+	src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 
 <style>
 .border-navy {
@@ -132,7 +134,7 @@ reply1>.reply-body {
 			</tr>
 			<tr>
 				<th class="navy">작성자</th>
-				<td>${article.extra().get("writer")}</td>
+				<td>${article.extra.writer}</td>
 			</tr>
 			<tr>
 				<th class="navy">작성날짜</th>
@@ -145,23 +147,8 @@ reply1>.reply-body {
 			<tr>
 				<td colspan="2" class="td-body"><script type="text/x-template"
 						id="origin1" style="display: none;">${article.bodyForXTemplate}</script>
-					<div id="viewer1"></div></td>
-				<script
-					src="${pageContext.request.contextPath}/resource/js/common.js"></script>
-				<script>
-					var editor1__initialValue = getBodyFromXTemplate('#origin1');
-					var editor1 = new toastui.Editor({
-					  el: document.querySelector("#viewer1"),
-					  viewer:true,
-					  initialValue : getForEditorBody('#origin1'),
-					  initialValue: editor1__initialValue,
-					  plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, replPlugin, codepenPlugin]
-					});
-
-					function getForEditorBody(selector) {
-						return $(selector).html().trim().replace(/<!--REPLACE:SCRIPT-->/gi,	"script");
-					}
-				</script>
+					<div id="viewer1"></div>
+				</td>
 			</tr>
 
 			<tr>
@@ -189,7 +176,7 @@ reply1>.reply-body {
 							<div class="reply1">
 								<div class="reply2">
 									<div class="reply-head">
-										작성자 : ${articleReply.extra().get("writer")}
+										작성자 : ${articleReply.extra.writer}
 										작성날짜 : ${articleReply.regDate}
 									</div>
 									<input type="hidden" value="${param.id}" />
@@ -225,10 +212,25 @@ reply1>.reply-body {
 		</div>
 
 		<div class="con detail_a relative">
-			<a class="detail_b" href="#"> < 이전글</a> <a class="detail_c" href="#">다음글
-				> </a>
+			<a class="detail_b" href="#"> < 이전글</a>
+			<a class="detail_c" href="#">다음글 > </a>
 		</div>
 	</div>
 </div>
+
+<script>
+	var editor1__initialValue = getBodyFromXTemplate('#origin1');
+	var editor1 = new toastui.Editor({
+	  el: document.querySelector("#viewer1"),
+	  viewer:true,
+	  initialValue : getForEditorBody('#origin1'),
+	  initialValue: editor1__initialValue,
+	  plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, replPlugin, codepenPlugin]
+	});
+
+	function getForEditorBody(selector) {
+		return $(selector).html().trim().replace(/<!--REPLACE:SCRIPT-->/gi,	"script");
+	}
+</script>
 
 <%@ include file="/jsp/part/foot.jspf"%>

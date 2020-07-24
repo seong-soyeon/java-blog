@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.java.blog.service.MailService;
+import com.sbs.java.blog.util.Util;
 
 public class MemberController extends Controller {
 	private String gmailPw;
@@ -123,7 +124,10 @@ public class MemberController extends Controller {
 		//HttpSession session = req.getSession();
 		session.setAttribute("loginedMemberId", loginedMemberId);
 		
-		return String.format("html:<script> alert('" + loginId + "님 로그인 되었습니다.'); location.replace('.././home/main'); </script>");
+		//redirectUrl이 있다면 그 주소로, 없다면 main으로 저장하는 함수
+		String redirectUrl = Util.getString(req, "redirectUrl", "../home/main");
+		
+		return String.format("html:<script> alert('" + loginId + "님 로그인 되었습니다.'); location.replace('" + redirectUrl + "'); </script>");
 	}
 
 	private String doActionLogin() {

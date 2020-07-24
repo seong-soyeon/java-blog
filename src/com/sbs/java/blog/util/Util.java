@@ -2,6 +2,7 @@ package com.sbs.java.blog.util;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Properties;
 
@@ -13,7 +14,6 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,6 +41,7 @@ public class Util {
 
 		return isNum(paramValue);
 	}
+	
 //숫자로 받을수 있도록
 	public static boolean isNum(Object obj) {
 		if (obj == null) {
@@ -80,13 +81,8 @@ public class Util {
 		}
 	}
 
-	public static String getString(HttpServletRequest req, String paramName) {
-		return req.getParameter(paramName);
-	}
-
 	public static int sendMail(String smtpServerId, String smtpServerPw, String from, String fromName, String to, String title,
 			String body) {
-		// TODO Auto-generated method stub
 		Properties prop = System.getProperties();
 		prop.put("mail.smtp.starttls.enable", "true");     // gmail은 무조건 true 고정
         prop.put("mail.smtp.host", "smtp.gmail.com");      // smtp 서버 주소
@@ -122,5 +118,29 @@ public class Util {
         }
         
         return 1;
+	}
+
+	public static String getString(HttpServletRequest req, String paramName) {
+		return req.getParameter(paramName);
+	}
+
+	public static String getUrlEncoded(String str) {
+		try {
+			return URLEncoder.encode(str, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return str;
+		}
+	}
+
+	public static String getString(HttpServletRequest req, String paramName, String elseValue) {
+		if ( req.getParameter(paramName) == null ) {
+			return elseValue;
+		}
+		
+		if ( req.getParameter(paramName).trim().length() == 0 ) {
+			return elseValue;
+		}
+		
+		return getString(req, paramName);
 	}
 }

@@ -23,8 +23,6 @@ import com.sbs.java.blog.service.MailService;
 //		ex-reponse.getWriter().append("")-writer를 리턴받을 수 있다.append("여기")내용 하나하나 고객한테 전달(출력)
 
 
-
-
 //http://localhost:8081/blog/s/*가 실행됨
 //web.xml에서 실행함
 //@WebServlet("/s/*")
@@ -50,3 +48,5 @@ public class DispatcherServlet extends HttpServlet {
 		doGet(req, resp);
 	}
 }
+
+22분부터보기~~~~

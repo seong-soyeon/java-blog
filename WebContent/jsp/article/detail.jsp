@@ -149,6 +149,10 @@
 .reply-form-box> .replyList> .button {
 	
 }
+.table-box .border-navy {
+	border: 5px solid navy;
+}
+
 </style>
 
 
@@ -181,7 +185,7 @@
 			</tr>
 			<tr>
 				<th class="navy">작성자</th>
-				<td>${article.getExtra().get("writer")}</td>
+				<td>${article.extra.writer}</td>
 			</tr>
 			<tr>
 				<th class="navy">작성날짜</th>
@@ -193,12 +197,12 @@
 			</tr>
 			<tr>
 				<td colspan="2" class="detail-body"><script type="text/x-template"	id="origin1" style="display: none;">${article.bodyForXTemplate}</script>
-					<div id="viewer1"></div></td>
-				
+					<div id="viewer1"></div>
+				</td>
 			</tr>
 
 			<tr>
-				<td colspan="2">
+				<td colspan="2" class="border-navy">
 					<div class="reply-form-box form1 flex">
 						<form name="form" action="doReply" method="POST" class="form1 flex"	onsubmit="submitReplyForm(this); return false;">
 							<div class="form-row">
@@ -222,8 +226,8 @@
 							<div class="reply1">
 								<div class="reply2">
 									<div class="reply-head">
-										작성자 : ${articleReply.getExtra().get("writer")}
-										&emsp;작성날짜 : ${articleReply.regDate()}
+										작성자 : ${articleReply.extra.writer}
+										&emsp;작성날짜 : ${articleReply.regDate}
 									</div>
 									<input type="hidden" value="${param.id}" />
 								</div>
@@ -235,7 +239,6 @@
 			                    	<input type="button" value="삭제" onclick="location.href='doReplyDelete?replyId=${articleReply.id}&id=${param.id}'" />
 								</c:if>
 							</div>
-
 							<div class="border"></div>
 							</c:forEach>
 						</div>

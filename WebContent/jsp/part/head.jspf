@@ -3,12 +3,7 @@
 <%@ page import="com.sbs.java.blog.dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	List<CateItem> cateItems = (List<CateItem>) request.getAttribute("cateItems");
-	int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-	Member loginedMember = (Member) request.getAttribute("loginedMember");
-	boolean isLogined = (boolean) request.getAttribute("isLogined");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -47,21 +42,17 @@
 	var isLogined = "${isLogined}" == "true";
 	var loginedMember = null;
 </script>
-<%
-	if (isLogined) {
-%>
-<script>
-	loginedMember = {};
-	loginedMember["id"] = parseInt("${loginedMember.id}");
-	loginedMember["regDate"] = "${loginedMember.regDate}";
-	loginedMember["loginId"] = "${loginedMember.loginId}";
-	loginedMember["name"] = "${loginedMember.name}";
-	loginedMember["nickname"] = "${loginedMember.nickname}";
-	loginedMember["email"] = "${loginedMember.email}";
-</script>
-<%
-	}
-%>
+<c:if test="${isLogined}">
+	<script>
+		loginedMember = {};
+		loginedMember["id"] = parseInt("${loginedMember.id}");
+		loginedMember["regDate"] = "${loginedMember.regDate}";
+		loginedMember["loginId"] = "${loginedMember.loginId}";
+		loginedMember["name"] = "${loginedMember.name}";
+		loginedMember["nickname"] = "${loginedMember.nickname}";
+		loginedMember["email"] = "${loginedMember.email}";
+	</script>
+</c:if>
 
 
 </head>
@@ -99,11 +90,12 @@
                             <li><a class="block" href="https://github.com/seong-soyeon">GITHUB</a></li>
                         </ul>
                     </li>
-                    <% if ( isLogined ) { %>
-                    <li><a href="${pageContext.request.contextPath}/s/member/doLogout" class="height-100p flex flex-ai-c">Logout</a></li>
-                    <% } else { %>
-                    <li><a href="${pageContext.request.contextPath}/s/member/login" class="height-100p flex flex-ai-c">Login</a></li>
-                    <% } %>
+                    <c:if test="${isLogined}">
+                    	<li><a href="${pageContext.request.contextPath}/s/member/doLogout" class="height-100p flex flex-ai-c">Logout</a></li>
+                    </c:if>
+                    <c:if test="${isLogined == false}">
+                    	<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}" class="height-100p flex flex-ai-c">Login</a></li>
+                    </c:if>
                 </ul>
             </nav>
         </div>
@@ -147,11 +139,12 @@
                         <li><a class="block" href="https://github.com/seong-soyeon">GITHUB</a></li>
                     </ul>
                 </li>
-                <% if ( isLogined ) { %>
+                <c:if test="${isLogined}">
                 <li><a href="${pageContext.request.contextPath}/s/member/doLogout" class="block">Logout</a></li>
-                <% } else { %>
+                </c:if>
+                <c:if test="${isLogined == false}">
                 <li><a href="${pageContext.request.contextPath}/s/member/login" class="block">Login</a></li>
-                <% } %>
+                </c:if>
             </ul>
         </nav>
     </div>
