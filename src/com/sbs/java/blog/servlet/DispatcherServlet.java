@@ -48,5 +48,3 @@ public class DispatcherServlet extends HttpServlet {
 		doGet(req, resp);
 	}
 }
-
-22분부터보기~~~~

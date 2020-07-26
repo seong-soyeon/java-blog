@@ -28,7 +28,7 @@ public class Article extends Dto {
 	@Override
 	public String toString() {
 		return "Article [updateDate=" + updateDate + ", cateItemId=" + cateItemId + ", title=" + title + ", body="
-				+ body + ", hit=" + hit + ", memberId=\" + memberId + \", dto=" + super.toString() + "]";
+				+ body + ", hit=" + hit + ", memberId=" + memberId + ", dto=" + super.toString() + "]";
 	}
 	//script오류막기위해 replace
 	public String getBodyForXTemplate() {

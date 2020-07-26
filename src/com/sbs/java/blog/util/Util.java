@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -142,5 +143,9 @@ public class Util {
 		}
 		
 		return getString(req, paramName);
+	}
+
+	public static boolean isSuccess(Map<String, Object> rs) {
+		return ((String) rs.get("resultCode")).startsWith("S-1");
 	}
 }

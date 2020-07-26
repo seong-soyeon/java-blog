@@ -71,14 +71,12 @@ public abstract class Controller {
 
 		// 현재 접속된 페이지와 관련된 유용한 정보 담기
 		req.setAttribute("currentUrl", currentUrl);
-			// urlEncode라는 암호화가 적용된 CurrentUrl
-		req.setAttribute("urlEncodedCurrentUrl", urlEncodedCurrentUrl);
+		req.setAttribute("urlEncodedCurrentUrl", urlEncodedCurrentUrl);	// urlEncode라는 암호화가 적용된 CurrentUrl
 		req.setAttribute("urlEncodedAfterLoginRedirectUrl", urlEncodedCurrentUrl);
 
 		// 로그인 페이지에서 로그인 페이지로 이동하는 버튼을 !!또!! 누른 경우
 		// Url 계속 길어지지않고 기존 afterLoginRedirectUrl 정보를 유지시키기 위한 로직
-		if (currentUrl.contains("/s/member/login")) { //currentUrl에 ()가 포함이 된다면
-			System.out.println("currentUrl : " + currentUrl);
+		if (currentUrl.contains("/s/member/login")) { //currentUrl에 ()가 포함이 된다면~
 			String urlEncodedOldAfterLoginRedirectUrl = Util.getString(req, "afterLoginRedirectUrl", "");
 			urlEncodedOldAfterLoginRedirectUrl = Util.getUrlEncoded(urlEncodedOldAfterLoginRedirectUrl);
 			req.setAttribute("urlEncodedAfterLoginRedirectUrl", urlEncodedOldAfterLoginRedirectUrl);
@@ -135,9 +133,12 @@ public abstract class Controller {
 			}
 			break;
 		}
+		
+		String urlEncodedAfterLoginRedirectUrl = (String)req.getAttribute("urlEncodedAfterLoginRedirectUrl");
+		
 		//로그인이 필요하고 로그인을 안했을 때 
 		if (needToLogin && isLogined == false) {
-			return "html:<script> alert('로그인 후 이용해주세요.'); location.href = '../member/login'; </script>";
+			return "html:<script> alert('로그인 후 이용해주세요.'); location.href = '../member/login?afterLoginRedirectUrl=\" + urlEncodedAfterLoginRedirectUrl + \"'; </script>";
 		}
 		// 로그인에 관련된 가드 끝
 

@@ -1,5 +1,4 @@
 <%@ page import="java.util.List"%>
-<%@ page import="com.sbs.java.blog.dto.Article"%>
 <%@ page import="com.sbs.java.blog.dto.ArticleReply"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -250,14 +249,12 @@
 	<div class="btn-box">
 		<div class="con relative">
 			<a class="absolute-left all-label" href="./list">전체목록</a>
-			<!-- <a class="detail-modify" href="${pageContext.request.contextPath}/s/article/modify?id=${article.id}">수정하기</a> -->
-			<!-- <a class="detail-modify" href="modify?id=${article.id}">수정하기</a> -->
-			<!-- <a class="absolute-right" href="delete?id=${param.id}">삭제하기</a> -->
-
-			<a class="detail-modify all-label "
-				href="modify?id=${article.id}">수정하기</a> 
-			<a class="absolute-right all-label"
-				href="delete?id=${article.id}">삭제하기</a>
+			<c:if test="${article.extra.modifyAvailable}">
+				<a onclick="if( confirm('수정하시겠습니까?') == false ) return false;" class="detail-modify all-label" href="modify?id=${article.id}">수정하기</a> 
+			</c:if>
+			<c:if test="${article.extra.deleteAvailable}">
+				<a onclick="if( confirm('삭제하시겠습니까?') == false ) return false;" class="absolute-right all-label" href="delete?id=${article.id}">삭제하기</a>
+			</c:if>
 		</div>
 
 		<div class="con detail_a relative">

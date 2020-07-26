@@ -57,6 +57,13 @@
 .doWrite-button {
 	padding-top: 10px;
 }
+.article-list-box-1 tr> .godetail {
+	opacity: 0.8;
+}
+.article-list-box-1 tr> .godetail:hover {
+	opacity: 1;
+	text-decoration: underline;
+}
 </style>
 
 
@@ -120,7 +127,7 @@
 				<td>${article.id}</td>
 				<td>${article.cateItemId}</td>
 				<td>${article.regDate}</td>
-				<td class="text-align-left"><a href="./detail?id=${article.id}&cateItemId=${article.cateItemId}">${article.title}</a></td>
+				<td class="godetail"><a href="./detail?id=${article.id}&cateItemId=${article.cateItemId}">${article.title}</a></td>
 			</tr>
 			</c:forEach>
 		</tbody>
