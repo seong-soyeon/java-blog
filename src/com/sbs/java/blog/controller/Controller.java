@@ -128,6 +128,10 @@ public abstract class Controller {
 			case "modify":
 			case "doModify":
 			case "doDelete":
+			case "doReply":
+			case "replyModify":
+			case "doReplyModify":
+			case "doReplyDelete":
 				needToLogin = true;
 				break;
 			}
