@@ -34,8 +34,17 @@
 
 <link rel="shortcut icon" href="http://kyky1211.dothome.co.kr/img/icon2.ico">
 
+<style>
+.welcome {
+	z-index: 10;
+	text-align: end;
+    color: gold;
+    margin-top: 10px;
+}
+</style>
 
 <title>seong blog</title>
+
 <!-- 편의를 위해 자바스크립트에도 회원정보넣기 -->
 <script>
 	var loginedMemberId = parseInt("${loginedMemberId}");
@@ -58,49 +67,6 @@
 </head>
 
 <body>
-    <div class="top-bar visible-on-md-up">
-        <div class="con height-100p flex flex-jc-sb">
-            <a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c">
-                <i class="fab fa-fort-awesome-alt"></i>
-            </a>
-			
-            <nav class="menu-box-1">
-                <ul class="flex height-100p">
-                    <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c">Home</a></li>
-                    <li><a href="${pageContext.request.contextPath}/s/article/write" class="height-100p flex flex-ai-c">Write</a></li>
-                    <li>
-                    	<a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a>
-                    	<ul>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"># IT/자바</a></li>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"># IT/HTML_CSS_JS</a></li>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1"># IT/상식</a></li>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1"># IT/그외상식</a></li>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=5&page=1"># 공부계획</a></li>
-							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=6&page=1"># 일상</a></li>
-						</ul>	
-                    </li>
-                    <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="height-100p flex flex-ai-c">About Me</a></li>
-                    <li>
-                        <a href="#" class="height-100p flex flex-ai-c">SNS</a>
-                        <ul>
-                        	<!-- target="_blank" = 새창에 띄움 -->
-                            <li><a class="block" href="https://to2.kr/bfx" target="_blank">T STORY</a></li>
-                            <li><a class="block" href="https://to2.kr/bhn" target="_blank">YOUTUBE</a></li>
-                            <li><a class="block" href="https://codesandbox.io/u/seong-soyeon" target="_blank">CODEPEN</a></li>
-                            <li><a class="block" href="https://github.com/seong-soyeon">GITHUB</a></li>
-                        </ul>
-                    </li>
-                    <c:if test="${isLogined}">
-                    	<li><a href="${pageContext.request.contextPath}/s/member/doLogout" class="height-100p flex flex-ai-c">Logout</a></li>
-                    </c:if>
-                    <c:if test="${isLogined == false}">
-                    	<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}" class="height-100p flex flex-ai-c">Login</a></li>
-                    </c:if>
-                </ul>
-            </nav>
-        </div>
-    </div>
-
     <div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
         <a href="#" class="btn-toggle-mobile-side-bar">
             <div></div>
@@ -148,8 +114,56 @@
             </ul>
         </nav>
     </div>
-  </div>
+
   <div class="stars-wrapper">
+  	
+	<c:if test="${isLogined}">
+		<div class="con welcome">${loginedMember.nickname}님 환영합니다.</div>
+	</c:if>
+	
+	<div class="top-bar visible-on-md-up">
+        <div class="con height-100p flex flex-jc-sb">
+        	
+            <a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c">
+                <i class="fab fa-fort-awesome-alt"></i>
+            </a>
+
+            <div class="menu-box-1">
+                <ul class="flex height-80p">
+                    <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/s/article/write" class="height-100p flex flex-ai-c">Write</a></li>
+                    <li>
+                    	<a href="${pageContext.request.contextPath}/s/article/list" class="height-100p flex flex-ai-c">Articles</a>
+                    	<ul>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=1&page=1"># IT/자바</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=2&page=1"># IT/HTML_CSS_JS</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=3&page=1"># IT/상식</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=4&page=1"># IT/그외상식</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=5&page=1"># 공부계획</a></li>
+							<li><a class="block" href="${pageContext.request.contextPath}/s/article/list?cateItemId=6&page=1"># 일상</a></li>
+						</ul>	
+                    </li>
+                    <li><a href="${pageContext.request.contextPath}/s/home/aboutMe" class="height-100p flex flex-ai-c">About Me</a></li>
+                    <li>
+                        <a href="#" class="height-100p flex flex-ai-c">SNS</a>
+                        <ul>
+                        	<!-- target="_blank" = 새창에 띄움 -->
+                            <li><a class="block" href="https://to2.kr/bfx" target="_blank">T STORY</a></li>
+                            <li><a class="block" href="https://to2.kr/bhn" target="_blank">YOUTUBE</a></li>
+                            <li><a class="block" href="https://codesandbox.io/u/seong-soyeon" target="_blank">CODEPEN</a></li>
+                            <li><a class="block" href="https://github.com/seong-soyeon">GITHUB</a></li>
+                        </ul>
+                    </li>
+                    <c:if test="${isLogined}">
+                    	<li><a href="${pageContext.request.contextPath}/s/member/doLogout" class="height-100p flex flex-ai-c">Logout</a></li>
+                    </c:if>
+                    <c:if test="${isLogined == false}">
+                    	<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}" class="height-100p flex flex-ai-c">Login</a></li>
+                    </c:if>
+                </ul>
+            </div>
+        </div>
+    </div>		
     <svg class="stars" width="100%" height="100%" preserveAspectRatio="none">
     <circle class="star" cx="41.08%" cy="66.99%" r="1"></circle>
     <circle class="star" cx="19%" cy="49.89%" r="0.8"></circle>

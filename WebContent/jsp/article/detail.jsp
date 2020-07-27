@@ -1,5 +1,4 @@
-<%@ page import="java.util.List"%>
-<%@ page import="com.sbs.java.blog.dto.ArticleReply"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
@@ -218,7 +217,8 @@
 								</div>
 							</div>
 						</form>
-
+						<div class="border"></div><div class="border"></div>
+	
 						<div class="replyList">
 							<div class="label navy">댓글리스트</div>
 							<c:forEach items="${articleReplies}" var="articleReply">
