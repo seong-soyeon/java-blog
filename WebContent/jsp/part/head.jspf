@@ -34,15 +34,6 @@
 
 <link rel="shortcut icon" href="http://kyky1211.dothome.co.kr/img/icon2.ico">
 
-<style>
-.welcome {
-	z-index: 10;
-	text-align: end;
-    color: gold;
-    margin-top: 10px;
-}
-</style>
-
 <title>seong blog</title>
 
 <!-- 편의를 위해 자바스크립트에도 회원정보넣기 -->
@@ -116,12 +107,9 @@
     </div>
 
   <div class="stars-wrapper">
-  	
-	<c:if test="${isLogined}">
-		<div class="con welcome">${loginedMember.nickname}님 환영합니다.</div>
-	</c:if>
-	
 	<div class="top-bar visible-on-md-up">
+		
+		
         <div class="con height-100p flex flex-jc-sb">
         	
             <a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c">
@@ -129,7 +117,7 @@
             </a>
 
             <div class="menu-box-1">
-                <ul class="flex height-80p">
+                <ul class="flex height-120p">
                     <li><a href="${pageContext.request.contextPath}/s/home/main" class="height-100p flex flex-ai-c">Home</a></li>
                     <li><a href="${pageContext.request.contextPath}/s/article/write" class="height-100p flex flex-ai-c">Write</a></li>
                     <li>
@@ -163,6 +151,9 @@
                 </ul>
             </div>
         </div>
+        <c:if test="${isLogined}">
+			<div class="con welcome">${loginedMember.nickname}님 환영합니다.</div>
+		</c:if>
     </div>		
     <svg class="stars" width="100%" height="100%" preserveAspectRatio="none">
     <circle class="star" cx="41.08%" cy="66.99%" r="1"></circle>

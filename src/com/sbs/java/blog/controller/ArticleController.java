@@ -269,6 +269,9 @@ public class ArticleController extends Controller {
 	}
 
 	private String doActionList() {
+		//list 시간측정
+		long startTime = System.nanoTime();
+		
 		int page = 1;
 
 		if (!Util.empty(req, "page") && Util.isNum(req, "page")) {
@@ -316,6 +319,14 @@ public class ArticleController extends Controller {
 				searchKeywordType, searchKeyword);
 		//service에서 받아온 articles를 req에 담음>담은 정보를 App에서 jsp로 넘김 
 		req.setAttribute("articles", articles);
+
+		//list 시간측정
+		long endTime = System.nanoTime();
+		long estimatedTime = endTime - startTime;
+		// nano seconds to seconds 
+		double seconds = estimatedTime / 1000000000.0;
+		System.out.println("seconds : " + seconds );
+		
 		return "article/list.jsp";
 	}
 	@Override

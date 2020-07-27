@@ -29,6 +29,7 @@ import com.sbs.java.blog.service.MailService;
 public class DispatcherServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//request 에서 입력받은 데이터 UTF 인코딩(들어오는데이터 한글처리)
+		
 		req.setCharacterEncoding("UTF-8");
 		String gmailId = getServletConfig().getInitParameter("gmailId");
 		String gmailPw = getServletConfig().getInitParameter("gmailPw");
@@ -42,6 +43,20 @@ public class DispatcherServlet extends HttpServlet {
 		boolean sendMailDone = mailService.send("받는사람 메일@gmail.com", "안녕하세요.", "반갑습니다.!!") == 1;
 		resp.getWriter().append(String.format("발송성공 : %b", sendMailDone));
 		*/
+		MailService mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
+		
+		System.out.println("발송전");
+		
+		String emailTitle = "castle blog 회원가입을 축하드립니다!";
+		String emailBody = gmailId + "님 회원가입을 환영합니다!!!\n";
+		emailBody += "이메일 인증 후 활동을 시작해 주세요.\n";
+		emailBody += "<html><body>< a href=\"https://castle.my.iu.gy/blog/s/member/doAuthMail?code=인증코드\">인증하기</a></body></html>";
+		emailBody += "감사합니다.";
+		
+		boolean sendMailDone = mailService.send("yesican951011@gmail.com", emailTitle, emailBody) == 1;
+		
+		System.out.println("발송후");
+		
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

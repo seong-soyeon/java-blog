@@ -103,6 +103,7 @@ public class Util {
         	msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
         	msg.setSubject(title, "UTF-8");
         	msg.setText(body, "UTF-8");
+        	msg.setContent(body, "text/html; charset=UTF-8"); 
         	
         	System.out.println("유틸의 트라이 안");
         	Transport.send(msg);
