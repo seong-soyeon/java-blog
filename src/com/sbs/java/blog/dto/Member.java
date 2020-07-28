@@ -25,7 +25,7 @@ public class Member extends Dto {
 	public String toString() {
 		return "Member [updateDate=" + updateDate + ", loginId=" + loginId + ", loginPw=" + loginPw + ", name=" + name
 				+ ", nickname=" + nickname + ", email=" + email + ", getId()=" + getId() + ", getRegDate()="
-				+ getRegDate() + ", getExtra()=" + getExtra() + "]";
+				+ getRegDate() + ", getExtra()=" + getExtra() + ", dto=" + super.toString() + "]";
 	}
 
 	public String getUpdateDate() {

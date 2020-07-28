@@ -21,7 +21,8 @@ public class ArticleService extends Service {
 
 	public List<Article> getForPrintListArticles(int actorId, int page, int itemsInAPage, int cateItemId, String searchKeywordType, String searchKeyword) {
 		List<Article> articles = articleDao.getForPrintListArticles(page, itemsInAPage, cateItemId, searchKeywordType, searchKeyword);
-
+		
+		//actorId가 article을 삭제 할 수 있는지 여부 필터링
 		for ( Article article : articles ) {
 			updateArticleExtraDataForPrint(article, actorId);
 		}
@@ -29,6 +30,7 @@ public class ArticleService extends Service {
 		return articles;
 	}
 	
+	//actorId가 article을 삭제 할 수 있는지 여부
 	private void updateArticleExtraDataForPrint(Article article, int actorId) {
 		boolean deleteAvailable = Util.isSuccess(getCheckRsDeleteAvailable(article, actorId));
 		article.getExtra().put("deleteAvailable", deleteAvailable);
@@ -86,10 +88,12 @@ public class ArticleService extends Service {
 		articleDao.deleteReply(replyId);
 	}
 
+	//delete와 modify의 접근 권한이 같으므로 일 떠넘기기
 	private Map<String, Object> getCheckRsModifyAvailable(Article article, int actorId) {
 		return getCheckRsDeleteAvailable(article, actorId);
 	}
 	
+	//id를 아티클로 바꿔 보내기
 	public Map<String, Object> getCheckRsDeleteAvailable(int id, int actorId) {
 		Article article = articleDao.getForPrintArticle(id);
 
@@ -108,7 +112,7 @@ public class ArticleService extends Service {
 
 		if ( article.getMemberId() != actorId ) {
 			rs.put("resultCode", "F-2");
-			rs.put("msg", "권한이 없습니다.");
+			rs.put("msg", "권한이 없습니다.(작성자만 가능)");
 
 			return rs;
 		}

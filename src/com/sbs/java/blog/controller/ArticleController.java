@@ -212,10 +212,10 @@ public class ArticleController extends Controller {
 		}
 		int id = Util.getInt(req, "id");
 		
-		//삭제 전 삭제가능여부 체크
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		System.out.println(loginedMemberId);
 
+		//삭제 전 삭제가능여부 체크
 		Map<String, Object> getCheckRsDeleteAvailableRs = articleService.getCheckRsDeleteAvailable(id, loginedMemberId);
 
 		//false이면 getCheckRsDeleteAvailable에서 맞는 msg나오고 히스토리백
@@ -269,6 +269,8 @@ public class ArticleController extends Controller {
 	}
 
 	private String doActionList() {
+		long startTime = System.nanoTime();
+		
 		int page = 1;
 
 		if (!Util.empty(req, "page") && Util.isNum(req, "page")) {
@@ -316,6 +318,14 @@ public class ArticleController extends Controller {
 				searchKeywordType, searchKeyword);
 		//service에서 받아온 articles를 req에 담음>담은 정보를 App에서 jsp로 넘김 
 		req.setAttribute("articles", articles);
+		
+		
+		long endTime = System.nanoTime();
+		long estimatedTime = endTime - startTime;
+		// nano seconds to seconds
+		double seconds = estimatedTime / 1000000000.0;
+		System.out.println("seconds : " + seconds);
+		
 		return "article/list.jsp";
 	}
 	@Override
