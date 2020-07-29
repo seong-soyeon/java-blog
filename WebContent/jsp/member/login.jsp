@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="pageTitle" value="⭐Member login"></c:set>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
@@ -95,9 +97,6 @@ function submitLoginForm(form) {
   loginFormSubmitted = true;
 }
 </script>
-<div class="title-box">
-	<h1 class="con title">⭐Member login</h1>
-</div>
 
 <div class="login-form-box margin-0-auto border-navy">
 	<!-- 로그인 폼은 POST로 하라고 하심 (멱등성이 보장이 안되는 일은 POST-ex.회원가입,게시물등록) -->

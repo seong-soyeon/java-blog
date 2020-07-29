@@ -1,8 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.sbs.java.blog.dto.Article"%>
-<%@ page import="com.sbs.java.blog.dto.ArticleReply"%>
 <%@ include file="/jsp/part/head.jspf"%>
+<%@ include file="/jsp/part/toastUiEditor.jspf"%>
 <script
 	src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 
@@ -112,8 +112,8 @@ reply1>.reply-body {
 	</div>
 
 	<h3 class="con hit">
-		조회수 :
-		${article.hit}</h3>
+		<div>조회수 : ${article.hit}</div>
+	</h3>
 	<table class="border-navy">
 		<colgroup>
 			<col width="20%">
@@ -145,9 +145,9 @@ reply1>.reply-body {
 				<td>${article.updateDate}</td>
 			</tr>
 			<tr>
-				<td colspan="2" class="td-body"><script type="text/x-template"
-						id="origin1" style="display: none;">${article.bodyForXTemplate}</script>
-					<div id="viewer1"></div>
+				<td colspan="2" class="td-body">
+					<script type="text/x-template"s>${article.bodyForXTemplate}</script>
+					<div class="toast-editor toast-editor-viewer"></div>
 				</td>
 			</tr>
 
@@ -217,20 +217,5 @@ reply1>.reply-body {
 		</div>
 	</div>
 </div>
-
-<script>
-	var editor1__initialValue = getBodyFromXTemplate('#origin1');
-	var editor1 = new toastui.Editor({
-	  el: document.querySelector("#viewer1"),
-	  viewer:true,
-	  initialValue : getForEditorBody('#origin1'),
-	  initialValue: editor1__initialValue,
-	  plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, replPlugin, codepenPlugin]
-	});
-
-	function getForEditorBody(selector) {
-		return $(selector).html().trim().replace(/<!--REPLACE:SCRIPT-->/gi,	"script");
-	}
-</script>
 
 <%@ include file="/jsp/part/foot.jspf"%>

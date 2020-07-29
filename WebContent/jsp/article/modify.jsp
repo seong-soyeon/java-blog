@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="pageTitle" value="⭐Article Modify"></c:set>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
@@ -62,10 +63,6 @@
 }
 </style>
 
-<div class="title-box">
-	<h1 class="con title">⭐Article Modify</h1>
-</div>
-
 <div class="write-form-box con border-navy">
 	<form action="doModify" method="POST" name="update"	class="write-form form1" onsubmit="submitModifyForm(this); return false;">
 		<input type="hidden" name="id" value="${article.id}" />
@@ -74,8 +71,8 @@
 			<div class="label">카테고리</div>
 			<div class="input">
 				<select name="cateItemId">
-					<!-- 수정하려는 게시물의 Id와 같은 카네아이템 select -->
 					<c:forEach items="${cateItems}" var="cateItem">
+						<!-- 삼항연산 - 수정하려는 게시물Id=카테아이템 true▶select false▶'' -->
 						<option ${article.cateItemId == cateItem.id ? 'selected' : ''} value="${cateItem.id}">${cateItem.name}</option>
 					</c:forEach>
 				</select>

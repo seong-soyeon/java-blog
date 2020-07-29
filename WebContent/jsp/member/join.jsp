@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="pageTitle" value="⭐Member Join"></c:set>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
@@ -149,12 +150,6 @@ function submitJoinForm(form) {
 } 
 
 </script>
-
-
-<div class="title-box">
-	<h1 class="con title">⭐Member Join</h1>
-</div>
-
 
 <div class="join-form-box margin-0-auto border-navy">
 	<form action="doJoin" method="POST" class="join-form form1"

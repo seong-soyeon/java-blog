@@ -82,7 +82,7 @@ public class ArticleController extends Controller {
 		//ArticleReply articleReply = articleService.getForPrintArticleReplyModify(id);
 		//req.setAttribute("articleReply", articleReply);
 				
-		return "article/modify.jsp";
+		return "article/replymodify.jsp";
 	}
 
 	private String doActionDoReplyModify() {

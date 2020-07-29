@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="pageTitle" value="⭐Article List"></c:set>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
@@ -65,11 +67,6 @@
 }
 </style>
 
-
-
-<div class="title-box">
-	<h1 class="con title"><a href="${pageContext.request.contextPath}/s/article/list">⭐Article List</a></h1>
-</div>
 
 <div class="con">
 	<div class="cateItem text-align-center">

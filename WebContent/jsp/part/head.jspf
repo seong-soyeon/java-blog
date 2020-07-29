@@ -34,8 +34,8 @@
 
 <link rel="shortcut icon" href="http://kyky1211.dothome.co.kr/img/icon2.ico">
 
-<title>seong blog</title>
-
+<title>seong blog - ${pageTitle}</title>
+ 
 <!-- 편의를 위해 자바스크립트에도 회원정보넣기 -->
 <script>
 	var loginedMemberId = parseInt("${loginedMemberId}");
@@ -778,4 +778,7 @@
         <ellipse class="comet" fill="url(#comet-gradient)" cx="40%" cy="100%" rx="150" ry="2"></ellipse>
       </g>
     </svg>
+  </div>
+  <div class="con page-title">
+	<h1>${pageTitle}</h1>
   </div>
