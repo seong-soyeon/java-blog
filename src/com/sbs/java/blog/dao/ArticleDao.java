@@ -110,19 +110,19 @@ public class ArticleDao extends Dao {
 
 	public int write(int cateItemId, String title, String body, int memberId) {
 		// 띄어쓰기 틀리거나 %s를 ? 쳐도 오류안나도록 바꿈
-		SecSql secSql = new SecSql();
+		SecSql sql = new SecSql();
 
-		secSql.append("INSERT INTO article");
-		secSql.append("SET regDate = NOW()");
-		secSql.append(", updateDate = NOW()");
-		secSql.append(", displayStatus = '1'");
-		secSql.append(", cateItemId = ?", cateItemId);
-		secSql.append(", title = ?", title);
-		secSql.append(", body = ?", body);
-		secSql.append(", hit = '0'");
-		secSql.append(", memberId = ?", memberId);
+		sql.append("INSERT INTO article");
+		sql.append("SET regDate = NOW()");
+		sql.append(", updateDate = NOW()");
+		sql.append(", displayStatus = '1'");
+		sql.append(", cateItemId = ?", cateItemId);
+		sql.append(", title = ?", title);
+		sql.append(", body = ?", body);
+		sql.append(", hit = '0'");
+		sql.append(", memberId = ?", memberId);
 		
-		return DBUtil.insert(dbConn, secSql);
+		return DBUtil.insert(dbConn, sql);
 		/*
 		String sql = "";
 		
@@ -154,18 +154,18 @@ public class ArticleDao extends Dao {
 		return DBUtil.delete(dbConn, sql);
 	}
 
-	public int modify(int id, int cateItemId, String title, String body) {
-		SecSql secSql = new SecSql();
+	public int modifyArticle(int id, int cateItemId, String title, String body) {
+		SecSql sql = new SecSql();
 
-		secSql.append("UPDATE article");
-		secSql.append("SET updateDate = NOW()");
-		secSql.append(", displayStatus = '1'");
-		secSql.append(", cateItemId = ?", cateItemId);
-		secSql.append(", title = ?", title);
-		secSql.append(", body = ?", body);
-		secSql.append("WHERE id = ?", id);
+		sql.append("UPDATE article");
+		sql.append("SET updateDate = NOW()");
+		sql.append(", displayStatus = '1'");
+		sql.append(", cateItemId = ?", cateItemId);
+		sql.append(", title = ?", title);
+		sql.append(", body = ?", body);
+		sql.append("WHERE id = ?", id);
 		
-		return DBUtil.update(dbConn, secSql);
+		return DBUtil.update(dbConn, sql);
 	}
 	
 	public int getArticleReply(String body, int articleId, int memberId) {

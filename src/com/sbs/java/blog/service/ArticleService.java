@@ -72,8 +72,8 @@ public class ArticleService extends Service {
 		articleDao.deleteArticle(id);
 	}
 
-	public void modify(int id, int cateItemId, String title, String body) {
-		articleDao.modify(id, cateItemId, title, body);
+	public void modifyArticle(int id, int cateItemId, String title, String body) {
+		articleDao.modifyArticle(id, cateItemId, title, body);
 	}
 
 	public int getReply(String body, int articleId, int memberId) {
@@ -90,13 +90,6 @@ public class ArticleService extends Service {
 
 	//delete와 modify의 접근 권한이 같으므로 일 떠넘기기
 	private Map<String, Object> getCheckRsModifyAvailable(Article article, int actorId) {
-		return getCheckRsDeleteAvailable(article, actorId);
-	}
-	
-	//id를 아티클로 바꿔 보내기
-	public Map<String, Object> getCheckRsDeleteAvailable(int id, int actorId) {
-		Article article = articleDao.getForPrintArticle(id);
-
 		return getCheckRsDeleteAvailable(article, actorId);
 	}
 
@@ -121,5 +114,16 @@ public class ArticleService extends Service {
 		rs.put("msg", "작업이 가능합니다.");
 
 		return rs;
+	}
+	
+	//id를 아티클로 바꿔 위 함수로 보내기
+	public Map<String, Object> getCheckRsDeleteAvailable(int id, int actorId) {
+		Article article = articleDao.getForPrintArticle(id);
+
+		return getCheckRsDeleteAvailable(article, actorId);
+	}
+
+	public Map<String, Object> getCheckRsModifyAvailable(int id, int actorId) {
+		return getCheckRsDeleteAvailable(id, actorId);
 	}
 }

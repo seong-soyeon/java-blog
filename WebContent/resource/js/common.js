@@ -1,6 +1,37 @@
 console.clear();
 
-// 메서드 정의 20p는 실행
+// lib 시작
+String.prototype.replaceAll = function(org, dest) {
+	return this.split(org).join(dest);
+}
+
+function getUrlParams(url) {
+	url = url.trim();
+	url = url.replaceAll('&amp;', '&');
+	if (url.indexOf('#') !== -1) {
+		var pos = url.indexOf('#');
+		url = url.substr(0, pos);
+	}
+
+	var params = {};
+
+	url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
+		params[key] = value;
+	});
+	return params;
+}
+
+function jq_attr($el, attrName, elseValue) {
+	var value = $el.attr(attrName);
+
+	if (value === undefined || value === "") {
+		return elseValue;
+	}
+
+	return value;
+}
+// lib 끝
+
 function MobileSideBar__init() {
 	// $(~~)을 클릭하면 function 함수가 실행
 	$('.mobile-top-bar .btn-toggle-mobile-side-bar').click(function() {
@@ -198,7 +229,7 @@ function renderCodepen(wrapperId, codepenUrl) {
 			+ codepenUrl
 			+ '" frameborder="no" allowtransparency="true" allowfullscreen="true"></iframe>';
 }
-// repl 플러그인 끝
+// codepen 플러그인 끝
 
 // lib 시작
 String.prototype.replaceAll = function(org, dest) {
@@ -221,13 +252,3 @@ function getUrlParams(url) {
 	return params;
 }
 // lib 끝
-
-//영상 본다음 중복 지우기
-function getForEditorBody(selector) {
-	return $(selector).html().trim().replace(/<!--REPLACE:SCRIPT-->/gi, "script");
-}
-function getBodyFromXTemplate(selector) {
-	return $(selector).html().trim().replace(/<!--REPLACE:script-->/gi, 'script');
-}
-
-var editor1__initialValue = $('#origin1').html();

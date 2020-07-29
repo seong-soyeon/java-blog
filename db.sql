@@ -105,6 +105,10 @@ CREATE TABLE `member` (
     `email` CHAR(200) NOT NULL,
     `level` INT(1) UNSIGNED DEFAULT 0 NOT NULL
 );
+# 회원가입시 인증메일 발송을 위한 칼럼 추가
+ALTER TABLE `member` ADD COLUMN mailAuthCode CHAR(100) NOT NULL AFTER `level`;
+# 회원가입 인증 여부 칼럼 추가
+ALTER TABLE `member` ADD COLUMN mailAuthStatus TINYINT(1) UNSIGNED NOT NULL AFTER mailAuthCode;
 
 # 마스터 회원 생성
 INSERT INTO `member` SET
@@ -120,4 +124,3 @@ updateDate = NOW(),
 SELECT * FROM `member`;
 SELECT * FROM article;
 SELECT * FROM articleReply;
-DESC `articleReply`;

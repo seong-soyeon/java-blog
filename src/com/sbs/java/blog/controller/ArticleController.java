@@ -117,11 +117,6 @@ public class ArticleController extends Controller {
 	}
 
 	private String doActionDoModify() {
-		/* 
-		int cateItemId = Util.getInt(req, "cateItemId");
-		int id = Util.getInt(req, "id");
-		*/
-		
 		int id = 0;
 		if (!Util.empty(req, "id") && Util.isNum(req, "id")) {
 			id = Util.getInt(req, "id");
@@ -131,16 +126,21 @@ public class ArticleController extends Controller {
 		if (!Util.empty(req, "cateItemId") && Util.isNum(req, "cateItemId")) {
 			cateItemId = Util.getInt(req, "cateItemId");
 		}
-
-		//int displayStatus = Util.getInt(req, "displayStatus");
 		
 		String title = req.getParameter("title");
 		String body = req.getParameter("body");
 		
-		articleService.modify(id, cateItemId, title, body);
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+
+		Map<String, Object> getCheckRsModifyAvailableRs = articleService.getCheckRsModifyAvailable(id, loginedMemberId);
+
+		if (Util.isSuccess(getCheckRsModifyAvailableRs) == false) {
+			return "html:<script> alert('" + getCheckRsModifyAvailableRs.get("msg") + "'); history.back(); </script>";
+		}
 		
-		System.out.println("lololol");
-		return "html:<script> alert('" + id + "번 게시물이 수정되었습니다.'); location.replace('list'); </script>";
+		articleService.modifyArticle(id, cateItemId, title, body);
+		
+		return "html:<script> alert('" + id + "번 게시물이 수정되었습니다.'); location.replace('detail?id=" + id + "'); </script>";
 	}
 
 	private String doActionModify() {
@@ -153,7 +153,6 @@ public class ArticleController extends Controller {
 		}
 
 		int id = Util.getInt(req, "id");
-		
 		
 		//cateItemName가져오기
 		int cateItemId = 0;
@@ -269,6 +268,7 @@ public class ArticleController extends Controller {
 	}
 
 	private String doActionList() {
+		//list 시간측정
 		long startTime = System.nanoTime();
 		
 		int page = 1;
@@ -318,13 +318,14 @@ public class ArticleController extends Controller {
 				searchKeywordType, searchKeyword);
 		//service에서 받아온 articles를 req에 담음>담은 정보를 App에서 jsp로 넘김 
 		req.setAttribute("articles", articles);
-		
-		
+
+		//list 시간측정
 		long endTime = System.nanoTime();
 		long estimatedTime = endTime - startTime;
-		// nano seconds to seconds
+		// nano seconds to seconds 
 		double seconds = estimatedTime / 1000000000.0;
-		System.out.println("seconds : " + seconds);
+		System.out.println("seconds : " + seconds );
+
 		
 		return "article/list.jsp";
 	}

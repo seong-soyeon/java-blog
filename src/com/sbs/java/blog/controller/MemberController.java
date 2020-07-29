@@ -164,13 +164,18 @@ public class MemberController extends Controller {
 
 		memberService.join(loginId, loginPw, name, nickname, email);
 		
-		
-		//회원가입 축하메일 보내기
 		MailService mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
 		
 		System.out.println("발송전");
 		
-		boolean sendMailDone = mailService.send(email, "회원가입을 축하드립니다!!!", loginId + "님 회원가입을 축하드립니다!!!") == 1;
+		String emailTitle = "castle blog 회원가입을 축하드립니다!";
+		String emailBody = gmailId + "님 회원가입을 환영합니다!!!\n";
+		emailBody += "이메일 인증 후 활동을 시작해 주세요.\n";
+		emailBody += "<html><body>< a href=\"https://castle.my.iu.gy/blog/s/member/doAuthMail?code=인증코드\">인증하기</a></body></html>";
+		emailBody += "감사합니다.";
+		
+		boolean sendMailDone = mailService.send("yesican951011@gmail.com", emailTitle, emailBody) == 1;
+		
 		System.out.println("발송후");
 		
 		return String.format("html:<script> alert('짝짝짝 %s님 환영합니다.'); location.replace('login'); </script>", name);	
