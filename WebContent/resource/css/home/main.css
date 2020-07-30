@@ -70,12 +70,33 @@
 }
 
 /* 댓글 */
+.goLogin:hover {
+	text-decoration: underline;
+}
+
 .reply-button {
 	margin-bottom: 50px;
 }
 
 .reply-button>.reply1 {
 	width: 300px;
+}
+
+.replyWrite-btn {
+	margin-left: 15px;
+}
+
+.replyWrite-btn> .replyWrite-btn2{
+	width: 50px;
+	height: 40px;
+	background-color: #f9b700;
+	color: navy;
+	border-radius: 30px;	
+	cursor: pointer;
+}
+.replyWrite-btn> .replyWrite-btn2:hover {
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .replyList>.label {

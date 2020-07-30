@@ -76,12 +76,24 @@ public class ArticleService extends Service {
 		articleDao.modifyArticle(id, cateItemId, title, body);
 	}
 
-	public int getReply(String body, int articleId, int memberId) {
-		return articleDao.getArticleReply(body, articleId, memberId);
+	public int writeArticleReply(int articleId, int memberId, String body) {
+		return articleDao.writeArticleReply(articleId, memberId, body);
 	}
 
-	public List<ArticleReply> getForPrintListArticleReplies(int id) {
-		return articleDao.getForPrintListArticleReplies(id);
+	public List<ArticleReply> getForPrintListArticleReplies(int articleId, int actorId) {
+		List<ArticleReply> articleReplise = articleDao.getForPrintListArticleReplies(articleId, actorId);
+		
+		//actorId가 article을 삭제 할 수 있는지 여부 필터링
+		for ( ArticleReply articleReply : articleReplise ) {
+			updateArticleReplyExtraDataForPrint(articleReply, actorId);
+		}
+
+		return articleReplise;
+	}
+
+	private void updateArticleReplyExtraDataForPrint(ArticleReply articleReply, int actorId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void deleteReply(int replyId) {

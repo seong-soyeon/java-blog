@@ -99,7 +99,7 @@
 			<input type="button" onclick="location.href='detail?id=${param.id}'" value="취소"/>
 		</div>
 	</form>
-</div>id=${param.id}
+</div>
 
 <script>
 	var modifyFormSubmitted = false;

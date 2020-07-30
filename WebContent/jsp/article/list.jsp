@@ -35,6 +35,7 @@
 .cateItem>ul>li> {
 	flex-direction: row;
 }
+
 .cateItem>ul>li>a {
 	padding: 20 10px;
 	color: #787878;

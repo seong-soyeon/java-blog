@@ -42,6 +42,41 @@
 	var isLogined = "${isLogined}" == "true";
 	var loginedMember = null;
 </script>
+
+<script>
+	var param = {};
+</script>
+<!-- param의 모든 변수 하나씩 가져옴(ctrl+U로 확인가능) -->
+<c:forEach var="pageParameter" items="${param}">
+	<script>
+		param["${pageParameter.key}"] = "${pageParameter.value}";
+	</script>
+</c:forEach>
+
+<script>
+if ( !param.jsAction ) {
+	param.jsAction = '';
+}
+
+var jsActions = param.jsAction.split(',');
+
+for ( var key in jsActions ) {
+	var jsActionFuncName = jsActions[key];
+
+	<!-- 프로그램이 다 실행 된후 0.1초 후에 실행 -->
+	$(function() {
+		setTimeout(function() {
+			if ( window[jsActionFuncName] ) {
+				window[jsActionFuncName]();
+			}
+			else {
+				console.error("jsAction으로 요청받은, " + jsActionFuncName + " 함수는 존재하지 않아서 실행하지 못했습니다.");
+			}
+		}, 100);
+	});
+}
+</script>
+
 <c:if test="${isLogined}">
 	<script>
 		loginedMember = {};

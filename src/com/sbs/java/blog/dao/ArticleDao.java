@@ -168,7 +168,7 @@ public class ArticleDao extends Dao {
 		return DBUtil.update(dbConn, sql);
 	}
 	
-	public int getArticleReply(String body, int articleId, int memberId) {
+	public int writeArticleReply(int articleId, int memberId, String body) {
 		SecSql sql = SecSql.from("INSERT INTO articleReply");
 		
 		sql.append("SET regDate = NOW()");
@@ -180,13 +180,13 @@ public class ArticleDao extends Dao {
 		return DBUtil.insert(dbConn, sql);
 	}
 
-	public List<ArticleReply> getForPrintListArticleReplies(int id) {
+	public List<ArticleReply> getForPrintListArticleReplies(int articleId, int actorId) {
 		SecSql sql = SecSql.from("SELECT *");
 		
 		sql.append("FROM articleReply AS A");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
-		sql.append("WHERE articleId = ?", id);
+		sql.append("WHERE articleId = ?", articleId);
 		sql.append("ORDER BY A.id DESC");
 
 		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, sql);

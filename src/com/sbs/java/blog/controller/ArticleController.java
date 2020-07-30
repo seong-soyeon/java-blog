@@ -41,7 +41,7 @@ public class ArticleController extends Controller {
 		case "doModify":
 			return doActionDoModify();
 		case "doReply":
-			return doActionDoReply();
+			return doActionDoWriteReply();
 		case "replyModify": 
 			return doActionReplyModify();
 		case "doReplyModify": 
@@ -100,20 +100,21 @@ public class ArticleController extends Controller {
 		return "html:<script> alert('" + id + "번 게시물이 수정되었습니다.'); location.replace('list'); </script>";
 	}
 	
-	private String doActionDoReply() {
-		// TODO Auto-generated method stub
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
-		String body = req.getParameter("body");
-		
+	private String doActionDoWriteReply() {
 		//article Id가져오기
 		int articleId = 0;
 		if (!Util.empty(req, "articleId") && Util.isNum(req, "articleId")) { 
 			articleId = Util.getInt(req, "articleId");
 		}
 		
-		int ReplyId = articleService.getReply(body, articleId, loginedMemberId); 
+		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+		String body = req.getParameter("body");
+		String redirectUrl = Util.getString(req, "redirectUrl");
 		
-		return  "html:<script> alert('댓글이 작성되었습니다.'); history.back(); </script>";
+		
+		int id = articleService.writeArticleReply(articleId, loginedMemberId, body); 
+		
+		return  "html:<script> alert('" + id + "번 댓글이 작성되었습니다.'); location.replace('" + redirectUrl + "'); </script>";
 	}
 
 	private String doActionDoModify() {
@@ -252,16 +253,16 @@ public class ArticleController extends Controller {
 		}
 		req.setAttribute("cateItemName", cateItemName);
 		//cateItemName가져오기 끝
-				
+		req.setAttribute("cateItemId", cateItemId);
+		
 		articleService.increaseHit(id);
-		
+
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
-		
+
 		Article article = articleService.getForPrintArticle(id, loginedMemberId);
 		req.setAttribute("article", article);
 
-		req.setAttribute("cateItemId", cateItemId);
-		List<ArticleReply> articleReplies = articleService.getForPrintListArticleReplies(id);
+		List<ArticleReply> articleReplies = articleService.getForPrintListArticleReplies(id, loginedMemberId);
 		req.setAttribute("articleReplies", articleReplies);
 		
 		return "article/detail.jsp";
