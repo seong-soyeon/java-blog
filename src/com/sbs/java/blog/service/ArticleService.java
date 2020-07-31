@@ -92,8 +92,38 @@ public class ArticleService extends Service {
 	}
 
 	private void updateArticleReplyExtraDataForPrint(ArticleReply articleReply, int actorId) {
-		// TODO Auto-generated method stub
-		
+		boolean deleteAvailable = Util.isSuccess(getReplyCheckRsDeleteAvailable(articleReply, actorId));
+		articleReply.getExtra().put("deleteAvailable", deleteAvailable);
+
+		boolean modifyAvailable = Util.isSuccess(getReplyCheckRsModifyAvailable(articleReply, actorId));
+		articleReply.getExtra().put("modifyAvailable", modifyAvailable);
+	}
+
+	private Map<String, Object> getReplyCheckRsModifyAvailable(ArticleReply articleReply, int actorId) {
+		return getReplyCheckRsDeleteAvailable(articleReply, actorId);
+	}
+
+	private Map<String, Object> getReplyCheckRsDeleteAvailable(ArticleReply articleReply, int actorId) {
+		Map<String, Object> rs = new HashMap<>();
+
+		if (articleReply == null) {
+			rs.put("resultCode", "F-1");
+			rs.put("msg", "존재하지 않는 댓글 입니다.");
+
+			return rs;
+		}
+
+		if (articleReply.getMemberId() != actorId) {
+			rs.put("resultCode", "F-2");
+			rs.put("msg", "권한이 없습니다.");
+
+			return rs;
+		}
+
+		rs.put("resultCode", "S-1");
+		rs.put("msg", "작업이 가능합니다.");
+
+		return rs;
 	}
 
 	public void deleteReply(int replyId) {

@@ -48,12 +48,6 @@
 	margin-top: 20px;
 }
 
-.form1 .form-row>.label {
-	width: 130px;
-	text-align: center;
-	font-size: 1.5rem;
-}
-
 .form1 .form-row>.input {
 	flex-grow: 1;
 }
@@ -70,6 +64,12 @@
 }
 
 /* 댓글 */
+.form1 .form-row>.label {
+	width: 130px;
+	text-align: center;
+	font-size: 1.5rem;
+}
+
 .goLogin:hover {
 	text-decoration: underline;
 }

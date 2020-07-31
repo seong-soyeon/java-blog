@@ -104,8 +104,7 @@ public class Util {
         	msg.setSubject(title, "UTF-8");
         	msg.setText(body, "UTF-8");
         	msg.setContent(body, "text/html; charset=UTF-8"); 
-        	
-        	System.out.println("유틸의 트라이 안");
+
         	Transport.send(msg);
         	
         } catch (AddressException ae) {
@@ -147,6 +146,21 @@ public class Util {
 	}
 
 	public static boolean isSuccess(Map<String, Object> rs) {
-		return ((String) rs.get("resultCode")).startsWith("S-1");
+		return ((String) rs.get("resultCode")).startsWith("S-");
+	}
+
+	//자료형 바꿔 보냄
+	public static String adParamFrom(String redirectUrl, String paramName, int paramValue) {
+		return adParamFrom(redirectUrl, paramName, paramValue + "");
+	}
+	// redirectUrl뒤에 ? 다음에 & 이 되도록(dummy는 의미 없음)
+	public static String adParamFrom(String redirectUrl, String paramName, String paramValue) {
+		if ( redirectUrl.contains("?") == false ) {
+			redirectUrl += "?dummy=dummy";
+		}
+
+		redirectUrl += "&" + paramName + "=" + paramValue;
+
+		return redirectUrl;
 	}
 }

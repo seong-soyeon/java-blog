@@ -17,13 +17,13 @@ public class ArticleController extends Controller {
 			HttpServletResponse resp) {
 		super(dbConn, actionMethodName, req, resp);
 	}
-	
+
 	public void beforeAction() {
 		super.beforeAction();
 		// 이 메서드는 게시물 컨트롤러의 모든 액션이 실행되기 전에 실행된다.
 		// 필요없다면 지워도 된다.
 	}
-		
+
 	public String doAction() {
 		switch (actionMethodName) {
 		case "list":
@@ -40,18 +40,18 @@ public class ArticleController extends Controller {
 			return doActionModify();
 		case "doModify":
 			return doActionDoModify();
-		case "doReply":
+		case "doReplyWrite":
 			return doActionDoWriteReply();
-		case "replyModify": 
+		case "replyModify":
 			return doActionReplyModify();
-		case "doReplyModify": 
+		case "doReplyModify":
 			return doActionDoReplyModify();
 		case "doReplyDelete":
 			return doActionDoReplyDelete();
 		}
 		return "";
 	}
-	
+
 	private String doActionDoReplyDelete() {
 		// TODO Auto-generated method stub
 		int replyId = 0;
@@ -59,9 +59,9 @@ public class ArticleController extends Controller {
 			replyId = Util.getInt(req, "replyId");
 		}
 		System.out.println(replyId);
-		
+
 		articleService.deleteReply(replyId);
-				
+
 		int id = 0;
 		if (!Util.empty(req, "id") && Util.isNum(req, "id")) {
 			id = Util.getInt(req, "id");
@@ -71,17 +71,17 @@ public class ArticleController extends Controller {
 	}
 
 	private String doActionReplyModify() {
-		// TODO 
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
-		
+		// TODO
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+
 		int id = 0;
 		if (!Util.empty(req, "id") && Util.isNum(req, "id")) {
 			id = Util.getInt(req, "id");
 		}
-				
-		//ArticleReply articleReply = articleService.getForPrintArticleReplyModify(id);
-		//req.setAttribute("articleReply", articleReply);
-				
+
+		// ArticleReply articleReply = articleService.getForPrintArticleReplyModify(id);
+		// req.setAttribute("articleReply", articleReply);
+
 		return "article/replymodify.jsp";
 	}
 
@@ -93,28 +93,30 @@ public class ArticleController extends Controller {
 		}
 
 		String body = req.getParameter("body");
-		
-		//articleService.doActionDoModify(id, body);
-		
+
+		// articleService.doActionDoModify(id, body);
+
 		System.out.println("lololol");
 		return "html:<script> alert('" + id + "번 게시물이 수정되었습니다.'); location.replace('list'); </script>";
 	}
-	
+
 	private String doActionDoWriteReply() {
-		//article Id가져오기
+		// article Id가져오기
 		int articleId = 0;
-		if (!Util.empty(req, "articleId") && Util.isNum(req, "articleId")) { 
+		if (!Util.empty(req, "articleId") && Util.isNum(req, "articleId")) {
 			articleId = Util.getInt(req, "articleId");
 		}
-		
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
+
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		String body = req.getParameter("body");
 		String redirectUrl = Util.getString(req, "redirectUrl");
-		
-		
-		int id = articleService.writeArticleReply(articleId, loginedMemberId, body); 
-		
-		return  "html:<script> alert('" + id + "번 댓글이 작성되었습니다.'); location.replace('" + redirectUrl + "'); </script>";
+
+		int id = articleService.writeArticleReply(articleId, loginedMemberId, body);
+
+		//새로 만들어진 아티클댓글id을 redirectUrl 뒤에 붙임 (redirectUrl&generatedArticleReplyId=id)
+		redirectUrl = Util.adParamFrom(redirectUrl, "generatedArticleReplyId", id);
+
+		return "html:<script> alert('" + id + "번 댓글이 작성되었습니다.'); location.replace('" + redirectUrl + "'); </script>";
 	}
 
 	private String doActionDoModify() {
@@ -122,15 +124,15 @@ public class ArticleController extends Controller {
 		if (!Util.empty(req, "id") && Util.isNum(req, "id")) {
 			id = Util.getInt(req, "id");
 		}
-		
+
 		int cateItemId = 0;
 		if (!Util.empty(req, "cateItemId") && Util.isNum(req, "cateItemId")) {
 			cateItemId = Util.getInt(req, "cateItemId");
 		}
-		
+
 		String title = req.getParameter("title");
 		String body = req.getParameter("body");
-		
+
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 
 		Map<String, Object> getCheckRsModifyAvailableRs = articleService.getCheckRsModifyAvailable(id, loginedMemberId);
@@ -138,9 +140,9 @@ public class ArticleController extends Controller {
 		if (Util.isSuccess(getCheckRsModifyAvailableRs) == false) {
 			return "html:<script> alert('" + getCheckRsModifyAvailableRs.get("msg") + "'); history.back(); </script>";
 		}
-		
+
 		articleService.modifyArticle(id, cateItemId, title, body);
-		
+
 		return "html:<script> alert('" + id + "번 게시물이 수정되었습니다.'); location.replace('detail?id=" + id + "'); </script>";
 	}
 
@@ -154,33 +156,31 @@ public class ArticleController extends Controller {
 		}
 
 		int id = Util.getInt(req, "id");
-		
-		//cateItemName가져오기
+
+		// cateItemName가져오기
 		int cateItemId = 0;
 
 		if (!Util.empty(req, "cateItemId") && Util.isNum(req, "cateItemId")) {
 			cateItemId = Util.getInt(req, "cateItemId");
 		}
-		
+
 		String cateItemName = "전체";
-		
+
 		if (cateItemId != 0) {
 			CateItem cateItem = articleService.getCateItem(cateItemId);
 			cateItemName = cateItem.getName();
 		}
 		req.setAttribute("cateItemName", cateItemName);
-		//cateItemName가져오기 끝
-		
+		// cateItemName가져오기 끝
+
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
-				
-		//articleService.increaseHit(id);
+
+		// articleService.increaseHit(id);
 		Article article = articleService.getForPrintArticle(id, loginedMemberId);
 		req.setAttribute("article", article);
-		
-		
+
 		return "article/modify.jsp";
 	}
-
 
 	private String doActionWrite() {
 		return "article/write.jsp";
@@ -192,13 +192,14 @@ public class ArticleController extends Controller {
 		String body = req.getParameter("body");
 		int cateItemId = Util.getInt(req, "cateItemId");
 
-		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
-		
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+
 		int id = articleService.write(cateItemId, title, body, loginedMemberId);
 
-		//꼭 자바스크립트 명령어인 location.replace로 이동하기 (기존페이지를 새로운 페이지로 변경시킨다)(location.href과 다름)
-		//주소히스토리를 남기지 않는다 >> 이전페이지로 접근이 필요없는경우 보안상 좋다
-		//히스토리가 남을경우 뒤로가기 눌렀을때 다시 같은자리로와서 글 또 생성될 수 있다.
+		// 꼭 자바스크립트 명령어인 location.replace로 이동하기 (기존페이지를 새로운 페이지로 변경시킨다)(location.href과
+		// 다름)
+		// 주소히스토리를 남기지 않는다 >> 이전페이지로 접근이 필요없는경우 보안상 좋다
+		// 히스토리가 남을경우 뒤로가기 눌렀을때 다시 같은자리로와서 글 또 생성될 수 있다.
 		return "html:<script> alert('" + id + "번 게시물이 생성되었습니다.'); location.replace('list'); </script>";
 	}
 
@@ -211,23 +212,23 @@ public class ArticleController extends Controller {
 			return "html:id를 정수로 입력해주세요.";
 		}
 		int id = Util.getInt(req, "id");
-		
+
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		System.out.println(loginedMemberId);
 
-		//삭제 전 삭제가능여부 체크
+		// 삭제 전 삭제가능여부 체크
 		Map<String, Object> getCheckRsDeleteAvailableRs = articleService.getCheckRsDeleteAvailable(id, loginedMemberId);
 
-		//false이면 getCheckRsDeleteAvailable에서 맞는 msg나오고 히스토리백
+		// false이면 getCheckRsDeleteAvailable에서 맞는 msg나오고 히스토리백
 		if (Util.isSuccess(getCheckRsDeleteAvailableRs) == false) {
 			return "html:<script> alert('" + getCheckRsDeleteAvailableRs.get("msg") + "'); history.back(); </script>";
 		}
-		
+
 		articleService.deleteArticle(id);
-		
+
 		return "html:<script> alert('" + id + "번 게시물이 삭제되었습니다.'); location.replace('list'); </script>";
 	}
-	
+
 	private String doActionDetail() {
 		if (Util.empty(req, "id")) {
 			return "html:id를 입력해주세요.";
@@ -238,23 +239,23 @@ public class ArticleController extends Controller {
 		}
 
 		int id = Util.getInt(req, "id");
-		
-		//cateItemName가져오기
+
+		// cateItemName가져오기
 		int cateItemId = 0;
 		if (!Util.empty(req, "cateItemId") && Util.isNum(req, "cateItemId")) {
 			cateItemId = Util.getInt(req, "cateItemId");
 		}
-		
+
 		String cateItemName = "전체";
-		
+
 		if (cateItemId != 0) {
 			CateItem cateItem = articleService.getCateItem(cateItemId);
 			cateItemName = cateItem.getName();
 		}
 		req.setAttribute("cateItemName", cateItemName);
-		//cateItemName가져오기 끝
+		// cateItemName가져오기 끝
 		req.setAttribute("cateItemId", cateItemId);
-		
+
 		articleService.increaseHit(id);
 
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
@@ -264,14 +265,14 @@ public class ArticleController extends Controller {
 
 		List<ArticleReply> articleReplies = articleService.getForPrintListArticleReplies(id, loginedMemberId);
 		req.setAttribute("articleReplies", articleReplies);
-		
+
 		return "article/detail.jsp";
 	}
 
 	private String doActionList() {
-		//list 시간측정
+		// list 시간측정
 		long startTime = System.nanoTime();
-		
+
 		int page = 1;
 
 		if (!Util.empty(req, "page") && Util.isNum(req, "page")) {
@@ -283,15 +284,14 @@ public class ArticleController extends Controller {
 		if (!Util.empty(req, "cateItemId") && Util.isNum(req, "cateItemId")) {
 			cateItemId = Util.getInt(req, "cateItemId");
 		}
-		
+
 		String cateItemName = "전체";
-		
+
 		if (cateItemId != 0) {
 			CateItem cateItem = articleService.getCateItem(cateItemId);
 			cateItemName = cateItem.getName();
 		}
 		req.setAttribute("cateItemName", cateItemName);
-		
 
 		String searchKeywordType = "";
 
@@ -312,35 +312,34 @@ public class ArticleController extends Controller {
 		req.setAttribute("totalCount", totalCount);
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("page", page);
-		
+
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 
 		List<Article> articles = articleService.getForPrintListArticles(loginedMemberId, page, itemsInAPage, cateItemId,
 				searchKeywordType, searchKeyword);
-		//service에서 받아온 articles를 req에 담음>담은 정보를 App에서 jsp로 넘김 
+		// service에서 받아온 articles를 req에 담음>담은 정보를 App에서 jsp로 넘김
 		req.setAttribute("articles", articles);
 
-		//list 시간측정
+		// list 시간측정
 		long endTime = System.nanoTime();
 		long estimatedTime = endTime - startTime;
-		// nano seconds to seconds 
+		// nano seconds to seconds
 		double seconds = estimatedTime / 1000000000.0;
-		System.out.println("seconds : " + seconds );
+		System.out.println("seconds : " + seconds);
 
-		
 		return "article/list.jsp";
 	}
+
 	@Override
 	public String getControllerName() {
 		return "article";
 	}
 }
 /*
- 		int itemsInAPage = 5;		//한 페이지에 나오는 게시물 수
-		int limitFrom = (page - 1) * itemsInAPage;
-		
-		
-		int totalCount = 0;
-		// Math.ceil() 소수점 이하를 올림한다.
-		int totalPage = (int) Math.ceil((double)totalCount/itemsInAPage);
+ * int itemsInAPage = 5; //한 페이지에 나오는 게시물 수 int limitFrom = (page - 1) *
+ * itemsInAPage;
+ * 
+ * 
+ * int totalCount = 0; // Math.ceil() 소수점 이하를 올림한다. int totalPage = (int)
+ * Math.ceil((double)totalCount/itemsInAPage);
  */

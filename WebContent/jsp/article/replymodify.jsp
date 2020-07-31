@@ -3,8 +3,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
 <%@ include file="/jsp/part/toastUiEditor.jspf"%>
-<script
-	src="${pageContext.request.contextPath}/resource/js/common.js"></script>
 
 <style>
 .border-navy {

@@ -1,11 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="pageTitle" value="⭐Article Write"></c:set>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf"%>
-
-<div class="title-box">
-	<h1 class="con title">⭐Article Write</h1>
-</div>
-
 
 <div class="write-form-box con border-navy">
 	<form action="doWrite" method="POST" class="write-form form1" onsubmit="submitWriteForm(this); return false">

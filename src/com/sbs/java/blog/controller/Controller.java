@@ -73,7 +73,7 @@ public abstract class Controller {
 		req.setAttribute("currentUrl", currentUrl);
 		req.setAttribute("urlEncodedCurrentUrl", urlEncodedCurrentUrl);	// urlEncode라는 암호화가 적용된 CurrentUrl
 		req.setAttribute("urlEncodedAfterLoginRedirectUrl", urlEncodedCurrentUrl);
-		req.setAttribute("noBaseCurrentUri", req.getRequestURI().replace(req.getContextPath(), ""));
+		req.setAttribute("noBaseCurrentUri", req.getRequestURI().replace(req.getContextPath(), ""));// /s/article/detail정도만 담은 uri
 		
 		// 로그인 페이지에서 로그인 페이지로 이동하는 버튼을 !!또!! 누른 경우
 		// Url 계속 길어지지않고 기존 afterLoginRedirectUrl 정보를 유지시키기 위한 로직

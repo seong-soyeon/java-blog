@@ -45,8 +45,6 @@ public class DispatcherServlet extends HttpServlet {
 		*/
 		MailService mailService = new MailService(gmailId, gmailPw, gmailId, "관리자");
 		
-		System.out.println("발송전");
-		
 		String emailTitle = "castle blog 회원가입을 축하드립니다!";
 		String emailBody = gmailId + "님 회원가입을 환영합니다!!!\n";
 		emailBody += "이메일 인증 후 활동을 시작해 주세요.\n";
@@ -55,7 +53,6 @@ public class DispatcherServlet extends HttpServlet {
 		
 		boolean sendMailDone = mailService.send("yesican951011@gmail.com", emailTitle, emailBody) == 1;
 		
-		System.out.println("발송후");
 		
 	}
 	
