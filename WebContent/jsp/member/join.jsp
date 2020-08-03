@@ -18,12 +18,12 @@
 	margin-top: 10px;
 }
 
-.form1 .form-row>.label {
-	width: 100px;
-}
-
 .form1 .form-row>.input {
 	flex-grow: 1;
+}
+
+.join-form .form-row> .label {
+	font-size: 1.4rem;
 }
 
 .form1 .form-row>.input>input, .form1 .form-row>.input>textarea {
@@ -55,6 +55,59 @@
 	padding: 0 20px;
 }
 </style>
+
+
+<div class="join-form-box margin-0-auto border-navy">
+	<form action="doJoin" method="POST" class="join-form form1"
+		onsubmit="submitJoinForm(this); return false">
+		<input type="hidden" name="loginPwReal" />
+		<div class="form-row">
+			<div class="label">Id</div>
+			<div class="input">
+				<input name="loginId" type="text" placeholder="ID를 입력해주세요." />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="label">name</div>
+			<div class="input">
+				<input name="name" type="text" placeholder="이름을 입력해주세요." />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="label">nickname</div>
+			<div class="input">
+				<input name="nickname" type="text" placeholder="닉네임을 입력해주세요." />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="label">email</div>
+			<div class="input">
+				<input name="email" type="email" placeholder="이메일를 입력해주세요." />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="label">PW</div>
+			<div class="input">
+				<input name="loginPw" type="password" placeholder="PW를 입력해주세요." />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="label">PW 확인</div>
+			<div class="input">
+				<input name="loginPwConfirm" type="password" placeholder="PW확인을 입력해주세요." />
+			</div>
+		</div>
+
+
+
+		<div class="join-button text-align-center">
+			<div class="input">
+				<input type="submit" value="가입" />
+				<input type="button" onclick="location.href='login'" value="취소"/>
+			</div>
+		</div>
+	</form>
+</div>
 
 
 <script>
@@ -148,59 +201,6 @@ function submitJoinForm(form) {
   form.submit();
   joinFormSubmitted = true;
 } 
-
 </script>
-
-<div class="join-form-box margin-0-auto border-navy">
-	<form action="doJoin" method="POST" class="join-form form1"
-		onsubmit="submitJoinForm(this); return false">
-		<input type="hidden" name="loginPwReal" />
-		<div class="form-row">
-			<div class="label">Id</div>
-			<div class="input">
-				<input name="loginId" type="text" placeholder="ID를 입력해주세요." />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">name</div>
-			<div class="input">
-				<input name="name" type="text" placeholder="이름을 입력해주세요." />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">nickname</div>
-			<div class="input">
-				<input name="nickname" type="text" placeholder="닉네임을 입력해주세요." />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">email</div>
-			<div class="input">
-				<input name="email" type="email" placeholder="이메일를 입력해주세요." />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">PW</div>
-			<div class="input">
-				<input name="loginPw" type="password" placeholder="PW를 입력해주세요." />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">PW 확인</div>
-			<div class="input">
-				<input name="loginPwConfirm" type="password" placeholder="PW확인을 입력해주세요." />
-			</div>
-		</div>
-
-
-
-		<div class="join-button text-align-center">
-			<div class="input">
-				<input type="submit" value="가입" />
-				<input type="button" onclick="location.href='login'" value="취소"/>
-			</div>
-		</div>
-	</form>
-</div>
 
 <%@ include file="/jsp/part/foot.jspf"%>

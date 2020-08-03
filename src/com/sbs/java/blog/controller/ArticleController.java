@@ -40,34 +40,43 @@ public class ArticleController extends Controller {
 			return doActionModify();
 		case "doModify":
 			return doActionDoModify();
-		case "doReplyWrite":
+		case "doWriteReply":
 			return doActionDoWriteReply();
 		case "replyModify":
 			return doActionReplyModify();
 		case "doReplyModify":
 			return doActionDoReplyModify();
-		case "doReplyDelete":
-			return doActionDoReplyDelete();
+		case "doDeleteReply":
+			return doActionDoDeleteReply();
 		}
 		return "";
 	}
 
-	private String doActionDoReplyDelete() {
+	private String doActionDoDeleteReply() {
 		// TODO Auto-generated method stub
-		int replyId = 0;
-		if (!Util.empty(req, "replyId") && Util.isNum(req, "replyId")) {
-			replyId = Util.getInt(req, "replyId");
+		if (Util.empty(req, "id")) {
+			return "html:id를 입력해주세요.";
 		}
-		System.out.println(replyId);
-
-		articleService.deleteReply(replyId);
-
-		int id = 0;
-		if (!Util.empty(req, "id") && Util.isNum(req, "id")) {
-			id = Util.getInt(req, "id");
+		if (Util.isNum(req, "id") == false) {
+			return "html:id를 정수로 입력해주세요.";
 		}
-		System.out.println(id);
-		return "html:<script> alert('댓글이 삭제되었습니다.'); location.replace('detail?id=" + id + "'); </script>";
+		int id = Util.getInt(req, "id");
+
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+
+		// 삭제 전 삭제가능여부 체크
+		Map<String, Object> getReplyCheckRsDeleteAvailableRs = articleService.getReplyCheckRsDeleteAvailable(id, loginedMemberId);
+
+		// false이면 getCheckRsDeleteAvailable에서 맞는 msg나오고 히스토리백
+		if (Util.isSuccess(getReplyCheckRsDeleteAvailableRs) == false) {
+			return "html:<script> alert('" + getReplyCheckRsDeleteAvailableRs.get("msg") + "'); history.back(); </script>";
+		}
+
+		articleService.deleteArticleReply(id);
+		
+		String redirectUrl = Util.getString(req, "redirectUrl", "list");
+		
+		return "html:<script> alert('" + id + "번 댓글이 삭제되었습니다.'); location.replace('" + redirectUrl + "'); </script>";
 	}
 
 	private String doActionReplyModify() {

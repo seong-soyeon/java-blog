@@ -18,8 +18,9 @@
 	margin-top: 10px;
 }
 
-.form1 .form-row>.label {
+.login-form .form-row>.label {
 	width: 100px;
+	font-size: 1.4rem;
 }
 
 .form1 .form-row>.input {
@@ -47,6 +48,50 @@
 	padding: 20px;
 }
 </style>
+
+<div class="login-form-box margin-0-auto border-navy">
+	<!-- 로그인 폼은 POST로 하라고 하심 (멱등성이 보장이 안되는 일은 POST-ex.회원가입,게시물등록) -->
+	<form action="doLogin" method="POST" class="login-form form1"
+		onsubmit="submitLoginForm(this); return false;">
+		<!-- 빈칸ㄴㄴ -->
+		<!-- js에서 보안작업 하기위해 hidden으로 몰래 loginPwReal 만들어 놈 -->
+		<input type="hidden" name="redirectUrl" value="${param.afterLoginRedirectUrl}" />
+		<input type="hidden" name="loginPwReal" />
+		<div class="form-row">
+			<div class="label">ID</div>
+			<div class="input">
+				<!-- name 중요 js, url 등에서 사용하는 명칭 -->
+				<input name="loginId" type="text" placeholder="ID를 입력해주세요." />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="label">PW</div>
+			<div class="input">
+				<input name="loginPw" type="password" placeholder="PW를 입력해주세요." />
+			</div>
+		</div>
+		
+		<div class="form-row">
+			<div class="input">
+				<!-- 버튼 이미지 원하면 input type="image" -->
+				<input type="submit" value="로그인" style="margin-top: 10px;"/>
+				
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="input">
+				<input type="button" value="회원가입" onclick="location.href='join'" />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="input flex">
+				<input type="button" value="ID/PW찾기" onclick="location.href='findIdPw'" />
+			</div>
+		</div>
+	</form>
+</div>
+
+
 <script>
 var loginFormSubmitted = false;
 <!-- 제출 두번되지 않도록 맨윗줄에서 false해놓는다. 다입력했다면 마지막 코드에 도달해서 true로 바꿈 -->
@@ -97,47 +142,5 @@ function submitLoginForm(form) {
   loginFormSubmitted = true;
 }
 </script>
-
-<div class="login-form-box margin-0-auto border-navy">
-	<!-- 로그인 폼은 POST로 하라고 하심 (멱등성이 보장이 안되는 일은 POST-ex.회원가입,게시물등록) -->
-	<form action="doLogin" method="POST" class="join-form form1"
-		onsubmit="submitLoginForm(this); return false;">
-		<!-- 빈칸ㄴㄴ -->
-		<!-- js에서 보안작업 하기위해 hidden으로 몰래 loginPwReal 만들어 놈 -->
-		<input type="hidden" name="redirectUrl" value="${param.afterLoginRedirectUrl}" />
-		<input type="hidden" name="loginPwReal" />
-		<div class="form-row">
-			<div class="label">ID</div>
-			<div class="input">
-				<!-- name 중요 js, url 등에서 사용하는 명칭 -->
-				<input name="loginId" type="text" placeholder="ID를 입력해주세요." />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">PW</div>
-			<div class="input">
-				<input name="loginPw" type="password" placeholder="PW를 입력해주세요." />
-			</div>
-		</div>
-		
-		<div class="form-row">
-			<div class="input">
-				<!-- 버튼 이미지 원하면 input type="image" -->
-				<input type="submit" value="로그인" style="margin-top: 10px;"/>
-				
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="input">
-				<input type="button" value="회원가입" onclick="location.href='join'" />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="input flex">
-				<input type="button" value="ID/PW찾기" onclick="location.href='findIdPw'" />
-			</div>
-		</div>
-	</form>
-</div>
 
 <%@ include file="/jsp/part/foot.jspf"%>

@@ -126,8 +126,8 @@ public class ArticleService extends Service {
 		return rs;
 	}
 
-	public void deleteReply(int replyId) {
-		articleDao.deleteReply(replyId);
+	public int deleteArticleReply(int replyId) {
+		return articleDao.deleteArticleReply(replyId);
 	}
 
 	//delete와 modify의 접근 권한이 같으므로 일 떠넘기기
@@ -167,5 +167,15 @@ public class ArticleService extends Service {
 
 	public Map<String, Object> getCheckRsModifyAvailable(int id, int actorId) {
 		return getCheckRsDeleteAvailable(id, actorId);
+	}
+
+	public Map<String, Object> getReplyCheckRsDeleteAvailable(int id, int actorId) {
+		ArticleReply articleReply = this.getArticleReply(id);
+
+		return getReplyCheckRsDeleteAvailable(articleReply, actorId);
+	}
+
+	private ArticleReply getArticleReply(int id) {
+		return articleDao.getArticleReply(id);
 	}
 }

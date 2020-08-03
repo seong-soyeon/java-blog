@@ -46,7 +46,7 @@
 			<tr>
 				<td colspan="2" class="border-navy">
 					<div class="reply-form-box form1 flex">
-						<form name="form" action="doReplyWrite" method="POST" class="write-reply-form form1 flex"
+						<form name="form" action="doWriteReply" method="POST" class="write-reply-form form1 flex"
 							onsubmit="WriteReplyForm__submit(this); return false;">
 							<div class="form-row">
 								<div class="label navy">댓글</div>
@@ -175,7 +175,7 @@
 									</c:if>
 									<c:if test="${articleReply.extra.deleteAvailable}">
 										<input type="button" value="삭제"
-											onclick="if( confirm('수정하시겠습니까?') == false ) return false; location.href='doReplyDelete?replyId=${articleReply.id}&id=${param.id}'" />
+											onclick="if( confirm('삭제하시겠습니까?') == false ) return false;" location.href="doDeleteReply?id=${articleReply.id}&redirectUrl=${afterDeleteReplyRedirectUrl}" />
 									</c:if>
 								</div>
 								<div class="border"></div>
