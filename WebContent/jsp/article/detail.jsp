@@ -93,12 +93,14 @@
 									
 									<!-- redirectUrl에는 WriteReplyForm__focus같은거 있으면 안됨(돌아와서 실행했으니까 또 댓글포커스할 필요없음) -->
 									<!-- noBaseCurrentUri는 /s/article/detail정도만 담은 uri (base는 blog임) -->
+									<!-- c:choose,when >> if/else같은거 : p.key가 jsAction이면 아무것도 안할거임(noBaseCurrentUri뒤에 안붙임) -->
+									<!-- c:otherwise >> 나머지 p.key값은 들어감 -->
 									<c:url value="${noBaseCurrentUri}" var="redirectUrl">
 										<c:forEach items="${paramValues}" var="p">
-											<c:choose><!-- c:choose,when >> if/else같은거 : p.key가 jsAction이면 아무것도 안할거임(noBaseCurrentUri뒤에 안붙임) -->
+											<c:choose>
 												<c:when test="${p.key == 'jsAction'}">
 												</c:when>
-												<c:otherwise><!-- c:otherwise >> 나머지 p.key값은 들어감 -->
+												<c:otherwise>
 													<c:forEach items="${p.value}" var="val">
 														<c:param name="${p.key}" value="${val}" />
 													</c:forEach>

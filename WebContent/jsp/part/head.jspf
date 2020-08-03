@@ -87,7 +87,6 @@ for ( var key in jsActions ) {
 	</script>
 </c:if>
 
-
 </head>
 
 <body>
@@ -130,10 +129,10 @@ for ( var key in jsActions ) {
                     </ul>
                 </li>
                 <c:if test="${isLogined}">
-                <li><a href="${pageContext.request.contextPath}/s/member/doLogout" class="block">Logout</a></li>
+                	<li><a href="${pageContext.request.contextPath}/s/member/doLogout?redirectUrl=${urlEncodedAfterLogoutRedirectUrl}" class="block">Logout</a></li>
                 </c:if>
                 <c:if test="${isLogined == false}">
-                <li><a href="${pageContext.request.contextPath}/s/member/login" class="block">Login</a></li>
+                	<li><a href="${pageContext.request.contextPath}/s/member/login" class="block">Login</a></li>
                 </c:if>
             </ul>
         </nav>
@@ -176,7 +175,7 @@ for ( var key in jsActions ) {
                         </ul>
                     </li>
                     <c:if test="${isLogined}">
-                    	<li><a href="${pageContext.request.contextPath}/s/member/doLogout" class="height-100p flex flex-ai-c">Logout</a></li>
+                    	<li><a href="${pageContext.request.contextPath}/s/member/doLogout?redirectUrl=${urlEncodedAfterLogoutRedirectUrl}" class="height-100p flex flex-ai-c">Logout</a></li>
                     </c:if>
                     <c:if test="${isLogined == false}">
                     	<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}" class="height-100p flex flex-ai-c">Login</a></li>
