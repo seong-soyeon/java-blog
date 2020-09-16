@@ -22,12 +22,21 @@ public class App {
 	private HttpServletResponse resp;
 	private String gmailPw;
 	private String gmailId;
+	private boolean isDevelServer = true;
+	
+!!!!!!!!!!!!!!!!web.xml만들기!!!!!!!!!!!!!!!!
 
 	public App(HttpServletRequest req, HttpServletResponse resp, String gmailId, String gmailPw) {
 		this.req = req;
 		this.resp = resp;
 		this.gmailId = gmailId;
 		this.gmailPw = gmailPw;
+		
+		String profilesActive = System.getProperty("spring.profiles.active");
+
+		if (profilesActive != null && profilesActive.equals("production")) {
+			isDevelServer = false;
+		}
 	}
 	
 	private void loadDbDriver() throws IOException {
@@ -47,7 +56,11 @@ public class App {
 	}
 	
 	private String getDbUrl() {
-		return "jdbc:mysql://site25.iu.gy:3306/site25?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
+		if ( isDevelServer ) {
+			return "jdbc:mysql://localhost:3306/site25?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";			
+		}
+		
+		return "jdbc:mysql://localhost:3306/site25?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
 	}
 				
 	public void start() throws ServletException, IOException {
@@ -139,11 +152,19 @@ public class App {
 	}
 
 	private String getDbId() {
-		return "site25";
+		if ( isDevelServer ) {
+			return "sbsst";
+		}
+		
+		return "myflexLocal";
 	}
 
 	private String getDbPassword() {
-		return "sbs123414";
+		if ( isDevelServer ) {
+			return "sbs123414";
+		}
+		
+		return "myflexLocal";
 	}
 
 }
