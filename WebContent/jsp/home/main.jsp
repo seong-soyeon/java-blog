@@ -4,4 +4,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/jsp/part/head.jspf" %>
 
+메이븐배포확인2
+
 <%@ include file="/jsp/part/foot.jspf" %>
