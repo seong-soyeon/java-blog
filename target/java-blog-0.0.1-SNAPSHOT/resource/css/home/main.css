@@ -1,0 +1,132 @@
+/* 디테일디테일디테일디테일디테일디테일디테일 시작 */
+.border-navy {
+	border: 5px solid navy;
+}
+
+.navy {
+	color: navy;
+}
+
+.detail-modify {
+	position: absolute;
+	right: 120px;
+}
+
+.detail_a {
+	padding-top: 30px;
+	text-align: center;
+}
+
+.detail_b {
+	position: absolute;
+	padding-right: 100px;
+}
+
+.detail_c {
+	position: absolute;
+	padding-left: 100px;
+}
+
+.all-label {
+	margin: 10px;
+	padding: 5px 25px;
+	height: 27px;
+	text-align: center;
+	background-color: #dbdbdb;
+	color: navy;
+	border-radius: 0.5em;
+}
+
+.form1 {
+	display: block;
+	width: 100%;
+}
+
+.form1 .form-row {
+	align-items: center;
+	display: flex;
+	margin-top: 20px;
+}
+
+.form1 .form-row>.input {
+	flex-grow: 1;
+}
+
+.form1 .form-row>.input>input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.detail-body {
+	padding: 20px !important;
+}
+
+/* 댓글 */
+.form1 .form-row>.label {
+	width: 130px;
+	text-align: center;
+	font-size: 1.5rem;
+}
+
+.goLogin:hover {
+	text-decoration: underline;
+}
+
+.reply-button {
+	margin-bottom: 50px;
+}
+
+.reply-button>.reply1 {
+	width: 300px;
+}
+
+.replyWrite-btn {
+	margin-left: 15px;
+}
+
+.replyWrite-btn> .replyWrite-btn2{
+	width: 50px;
+	height: 40px;
+	background-color: #f9b700;
+	color: navy;
+	border-radius: 30px;	
+	cursor: pointer;
+}
+.replyWrite-btn> .replyWrite-btn2:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.replyList>.label {
+	font-size: 1.5rem;
+	margin-bottom: 30px;
+	margin-left: 30px;
+}
+
+.border {
+	border: 1px solid #dfdfdf;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.reply-form-box> .replyList> .reply1 {
+	min-height: 80px;
+}
+
+.reply1>.reply-body {
+	font-size: 1.3rem;
+}
+
+.reply-form-box> .replyList> .button {
+	
+}
+.table-box .border-navy {
+	border: 5px solid navy;
+}
+
+/* 디테일디테일디테일디테일디테일디테일디테일 끝 */

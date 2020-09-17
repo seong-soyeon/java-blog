@@ -23,46 +23,45 @@ public class App {
 	private String gmailPw;
 	private String gmailId;
 	private boolean isDevelServer = true;
-	
-!!!!!!!!!!!!!!!!web.xml만들기!!!!!!!!!!!!!!!!
 
 	public App(HttpServletRequest req, HttpServletResponse resp, String gmailId, String gmailPw) {
 		this.req = req;
 		this.resp = resp;
 		this.gmailId = gmailId;
 		this.gmailPw = gmailPw;
-		
+
 		String profilesActive = System.getProperty("spring.profiles.active");
 
 		if (profilesActive != null && profilesActive.equals("production")) {
 			isDevelServer = false;
 		}
 	}
-	
+
 	private void loadDbDriver() throws IOException {
-		// DB 커넥터 로딩 시작 //택시운전사 //WebContent/WEB-INF/lib/mysql-connector-java-8.0.20.jar안에 있음.
+		// DB 커넥터 로딩 시작 //택시운전사
+		// //WebContent/WEB-INF/lib/mysql-connector-java-8.0.20.jar안에 있음.
 		String driverName = "com.mysql.cj.jdbc.Driver";
 
 		try {
-			//드라이버(바로 윗줄)를 등록하는 행위 //드라이버매니저
+			// 드라이버(바로 윗줄)를 등록하는 행위 //드라이버매니저
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
 			System.err.printf("[ClassNotFoundException 예외, %s]\n", e.getMessage());
-			//웹화면에 표출 syso는 콘솔창에 표출
+			// 웹화면에 표출 syso는 콘솔창에 표출
 			resp.getWriter().append("DB 드라이버 클래스 로딩 실패");
 			return;
 		}
 		// DB 커넥터 로딩 성공
 	}
-	
+
 	private String getDbUrl() {
-		if ( isDevelServer ) {
-			return "jdbc:mysql://localhost:3306/site25?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";			
+		if (isDevelServer) {
+			return "jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
 		}
-		
-		return "jdbc:mysql://localhost:3306/site25?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
+
+		return "jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true";
 	}
-				
+
 	public void start() throws ServletException, IOException {
 		// DB 드라이버 로딩
 		loadDbDriver();
@@ -73,7 +72,7 @@ public class App {
 		String password = getDbPassword();
 
 		Connection dbConn = null;
-		
+
 		try {
 			// DB 접속 성공
 			dbConn = DriverManager.getConnection(url, user, password);
@@ -95,29 +94,29 @@ public class App {
 				}
 			}
 		}
-		//연결한건 다 꺼줘야 함. try에서 연결했다면 finally에서 꺼줘야 함 
-		//finally에서 DB연결 close하기전에 try에서 할일 다 하기		
+		// 연결한건 다 꺼줘야 함. try에서 연결했다면 finally에서 꺼줘야 함
+		// finally에서 DB연결 close하기전에 try에서 할일 다 하기
 	}
-	
+
 	private void route(Connection dbConn, HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		resp.setContentType("text/html; charset=UTF-8");
 
-		//http://localhost:8080/blog/s/article/listlist 중
-		//contextPath : /blog
-		//requestURI : /blog/s/article/listlist
+		// http://localhost:8080/blog/s/article/listlist 중
+		// contextPath : /blog
+		// requestURI : /blog/s/article/listlist
 		String contextPath = req.getContextPath();
 		String requestURI = req.getRequestURI();
-		//actionStr : article/listlist
+		// actionStr : article/listlist
 		String actionStr = requestURI.replace(contextPath + "/s/", "");
-		//쪼개면 여러개니까 배열에 담아서 0번째배열은 controllerName에, 1번째배열은 actionMethodName에 담음
+		// 쪼개면 여러개니까 배열에 담아서 0번째배열은 controllerName에, 1번째배열은 actionMethodName에 담음
 		String[] actionStrBits = actionStr.split("/");
-		
+
 		String controllerName = actionStrBits[0];
 		String actionMethodName = actionStrBits[1];
-		
-		Controller controller = null;		
-		
+
+		Controller controller = null;
+
 		switch (controllerName) {
 		case "article":
 			controller = new ArticleController(dbConn, actionMethodName, req, resp);
@@ -139,7 +138,7 @@ public class App {
 				resp.getWriter().append("액션의 결과가 없습니다.");
 			} else if (actionResult.endsWith(".jsp")) {
 				String viewPath = "/jsp/" + actionResult;
-				//jsp한테 req랑 resp를 넘김
+				// jsp한테 req랑 resp를 넘김
 				req.getRequestDispatcher(viewPath).forward(req, resp);
 			} else if (actionResult.startsWith("html:")) {
 				resp.getWriter().append(actionResult.substring(5));
@@ -152,18 +151,18 @@ public class App {
 	}
 
 	private String getDbId() {
-		if ( isDevelServer ) {
+		if (isDevelServer) {
 			return "sbsst";
 		}
-		
+
 		return "myflexLocal";
 	}
 
 	private String getDbPassword() {
-		if ( isDevelServer ) {
+		if (isDevelServer) {
 			return "sbs123414";
 		}
-		
+
 		return "myflexLocal";
 	}
 
