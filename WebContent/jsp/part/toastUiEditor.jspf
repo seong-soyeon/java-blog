@@ -200,8 +200,7 @@
 				function(index, el) {
 
 					var $el = $(this);
-					var initialValue = ToastEditor__getBodyFromXTemplate($el
-							.prev());
+					var initialValue = ToastEditor__getBodyFromXTemplate($el.prev());
 
 					var editor = new toastui.Editor.factory({
 						el : el,

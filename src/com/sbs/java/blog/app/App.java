@@ -101,6 +101,7 @@ public class App {
 	private void route(Connection dbConn, HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		resp.setContentType("text/html; charset=UTF-8");
+		req.setCharacterEncoding("UTF-8");
 
 		// http://localhost:8080/blog/s/article/listlist 중
 		// contextPath : /blog
